@@ -7,10 +7,11 @@
    align-items: center;
    &__wrapper {
       flex: 0 1 100%;
+      justify-content: space-between;
       margin: 0 auto;
       display: flex;
-      justify-content: space-between;
       flex-direction: row;
+      align-items: center;
    }
    &__logo {
       display: flex;
@@ -20,7 +21,23 @@
          &:last-child {
             display: none;
          }
+         @media (max-width: 1024px) {
+            &:last-child {
+               display: block;
+            }
+            &:first-child {
+               display: none;
+            }
+         }
          @media (max-width: 768px) {
+            &:last-child {
+               display: none;
+            }
+            &:first-child {
+               display: block;
+            }
+         }
+         @media (max-width: 480px) {
             &:last-child {
                display: block;
             }
@@ -32,18 +49,78 @@
    }
 }
 .nav {
-   justify-self: flex-end;
+   justify-content: center;
    display: flex;
+   width: 100%;
+   @media (max-width: 768px) {
+      display: none;
+   }
    & a {
-      color: #fff;
+      color: rgb(209, 209, 209);
    }
    &__link {
+      width: 22%;
       font-size: 18px;
       letter-spacing: 2px;
       line-height: 70px;
-      width: 100px;
+      text-align: center;
    }
    & .active {
       font-weight: 700;
+      color: #fff;
+   }
+}
+.right_column {
+   display: flex;
+   flex-direction: row;
+   align-items: center;
+}
+.burger {
+   display: none;
+   margin-left: 20px;
+   position: relative;
+   z-index: 3;
+   width: 30px;
+   height: 20px;
+   cursor: pointer;
+   &:before,
+   :after {
+      content: "";
+      background-color: #fff;
+      position: absolute;
+      width: 30px;
+      height: 2px;
+      transition: all 0.3s ease 0s;
+   }
+   & :after {
+      top: 9px;
+   }
+   & span {
+      background-color: #fff;
+      position: absolute;
+      width: 30px;
+      height: 2px;
+      top: 9px;
+      transition: all 0.3s ease 0s;
+   }
+   & .span2 {
+      background-color: #222;
+      z-index: -1;
+   }
+   &.active {
+      & .span {
+         transform: scale(0);
+      }
+      &:before {
+         transform: rotate(45deg);
+         top: 9px;
+      }
+      & :after {
+         transform: rotate(-45deg);
+         top: 0px;
+      }
+   }
+   @media (max-width: 768px) {
+      display: block;
    }
 }
