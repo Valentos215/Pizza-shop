@@ -2,12 +2,12 @@ import s from "./Sort.module.scss";
 import sortLogo from "../../../assets/Sort.svg";
 import { useState } from "react";
 
-type FilterProps = {
+type SortProps = {
   sortCriteria: string[];
   setSort: React.Dispatch<React.SetStateAction<number>>;
 };
 
-const Sort = ({ sortCriteria, setSort }: FilterProps) => {
+const Sort = ({ sortCriteria, setSort }: SortProps) => {
   const [expanded, setExpanded] = useState(false);
 
   const itemClick = (optionNum: number) => {

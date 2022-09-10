@@ -5,7 +5,7 @@ import Sort from "../sharedComponents/Sort/Sort";
 
 const Pizza = () => {
   const [filter, setFilter] = useState<string[]>([]);
-  const specification = ["cheeze", "meet", "corn", "pineaple"];
+  const ingredients = ["cheeze", "meet", "corn", "pineaple"];
   const [sort, setSort] = useState<number>(0);
   const sortCriteria = ["Popularity", "Price low-high", "Price high-low"];
 
@@ -13,7 +13,7 @@ const Pizza = () => {
     <div className="container">
       <div className={s.wrapper}>
         <div className={s.filters}>
-          <Filter specification={specification} setFilter={setFilter} />
+          <Filter specification={ingredients} setFilter={setFilter} />
           <Sort sortCriteria={sortCriteria} setSort={setSort} />
         </div>
       </div>
