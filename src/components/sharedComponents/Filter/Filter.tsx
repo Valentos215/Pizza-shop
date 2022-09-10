@@ -1,5 +1,5 @@
 import s from "./Filter.module.scss";
-import filterLogo from "../../assets/Filter.svg";
+import filterLogo from "../../../assets/Filter.svg";
 import { useState } from "react";
 
 type FilterProps = {

@@ -64,6 +64,9 @@
       letter-spacing: 2px;
       line-height: 70px;
       text-align: center;
+      &:hover {
+         font-weight: 700;
+      }
    }
    & .active {
       font-weight: 700;
