@@ -11,6 +11,9 @@ const Sort = ({ sortCriteria, setSort }: SortProps) => {
   const [expanded, setExpanded] = useState(false);
 
   const itemClick = (optionNum: number) => {
+    if (!expanded) {
+      return;
+    }
     setSort(optionNum);
     setExpanded(false);
   };

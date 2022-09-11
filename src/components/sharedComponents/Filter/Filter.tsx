@@ -16,6 +16,9 @@ const Filter = ({ specification, setFilter }: FilterProps) => {
   };
 
   const checkboxClick = (option: string) => {
+    if (!expanded) {
+      return;
+    }
     if (isChecked(option)) {
       setChecked(checked.filter((opt) => opt !== option));
     } else {

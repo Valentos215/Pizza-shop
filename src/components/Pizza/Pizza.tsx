@@ -2,6 +2,7 @@ import s from "./Pizza.module.scss";
 import { useState } from "react";
 import Filter from "../sharedComponents/Filter/Filter";
 import Sort from "../sharedComponents/Sort/Sort";
+import PizzaItem from "./PizzaItem/PizzaItem";
 
 const Pizza = () => {
   const [filter, setFilter] = useState<string[]>([]);
@@ -15,6 +16,12 @@ const Pizza = () => {
         <div className={s.filters}>
           <Filter specification={ingredients} setFilter={setFilter} />
           <Sort sortCriteria={sortCriteria} setSort={setSort} />
+        </div>
+        <div className={s.pizzaItems}>
+          <PizzaItem />
+          <PizzaItem />
+          <PizzaItem />
+          <PizzaItem />
         </div>
       </div>
     </div>

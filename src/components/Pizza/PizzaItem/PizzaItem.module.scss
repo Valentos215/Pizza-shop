@@ -1,0 +1,218 @@
+.wrapper {
+   display: flex;
+   flex-direction: column;
+   padding: 11px;
+   border-radius: 24px;
+   box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+   color: #333;
+}
+.image {
+   position: relative;
+   overflow: hidden;
+   margin-bottom: 20px;
+   width: 100%;
+   &__main {
+      height: 176px;
+      width: 100%;
+      border-radius: 15px;
+      object-fit: cover;
+   }
+   &__cartLogo {
+      height: 18px;
+      filter: invert(100%);
+      position: absolute;
+      left: 20px;
+      bottom: 20px;
+   }
+   & span {
+      position: absolute;
+      bottom: 15px;
+      right: 15px;
+      color: #fff;
+      font-size: 12px;
+      letter-spacing: 1px;
+      line-height: 22px;
+      height: 22px;
+      width: 49px;
+      text-align: center;
+      border-radius: 11px;
+      background: rgba(0, 0, 0, 0.3);
+   }
+}
+.title {
+   font-weight: 600;
+   letter-spacing: 1px;
+   margin-bottom: 20px;
+   margin-left: 10px;
+}
+.ingredients {
+   padding-left: 10px;
+   color: #4f4f4f;
+   font-size: 12px;
+   letter-spacing: 0.5px;
+   margin-bottom: 20px;
+   & span {
+   }
+}
+.size {
+   font-weight: 600;
+   color: #424242;
+   height: 30px;
+   width: 100%;
+   display: flex;
+   align-items: center;
+   border-radius: 15px;
+   border: 1px solid rgba(0, 0, 0, 0.1);
+   & span {
+      width: 25%;
+      font-size: 12px;
+      line-height: 30px;
+      letter-spacing: 0.7px;
+      text-align: center;
+      border-radius: 15px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      &:first-child {
+         width: 40%;
+      }
+      &:last-child {
+         width: 35%;
+      }
+   }
+   &__checked {
+      background-color: #4f4f4f;
+      color: #fff;
+      font-weight: 400;
+      &:hover {
+         background-color: #333;
+      }
+   }
+}
+.crust {
+   display: flex;
+   flex-direction: row;
+   flex-wrap: wrap;
+   cursor: pointer;
+   font-weight: 600;
+   color: #424242;
+   & span {
+      margin-top: 10px;
+      width: 50%;
+      font-size: 12px;
+      line-height: 30px;
+      letter-spacing: 0.7px;
+      text-align: center;
+      border-radius: 15px;
+      transition: all 0.3s ease;
+   }
+   &__checked {
+      background-color: #4f4f4f;
+      color: #fff;
+      font-weight: 400;
+      &:hover {
+         background-color: #333;
+      }
+   }
+   &__disabled {
+      cursor: no-drop;
+      color: rgba(79, 79, 79, 0.5);
+   }
+}
+.checkout {
+   margin-top: 20px;
+   display: flex;
+   flex-direction: row;
+   justify-content: space-between;
+   align-items: center;
+   &__amount {
+      font-size: 18px;
+      font-weight: 600;
+      margin-left: 10px;
+      & span {
+         font-size: 11px;
+      }
+   }
+   &__tocartButton {
+      height: 50px;
+      width: 140px;
+      font-size: 17px;
+      letter-spacing: 2px;
+      font-weight: 600;
+      line-height: 50px;
+      text-align: center;
+      border-radius: 15px;
+      color: #fff;
+      background: #e31837;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      &:hover {
+         background-color: #b8112a;
+      }
+      &:active {
+         transform: scale(0.95);
+      }
+   }
+   &__count {
+      width: 140px;
+      height: 50px;
+      border-radius: 15px;
+      border: 1px solid rgba(0, 0, 0, 0.1);
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      &_button {
+         position: relative;
+         width: 50px;
+         height: 50px;
+         border-radius: 15px;
+         border: 1px solid rgba(0, 0, 0, 0.1);
+         cursor: pointer;
+         &:hover {
+            background-color: rgba(0, 0, 0, 0.1);
+         }
+         &:active {
+            transform: scale(0.95);
+         }
+         &:before {
+         }
+         &.minus {
+            &:before {
+               content: "";
+               position: absolute;
+               top: 23px;
+               left: 16px;
+               height: 3px;
+               width: 15px;
+               background: #4f4f4f;
+            }
+         }
+         &.plus {
+            &:before {
+               content: "";
+               position: absolute;
+               top: 23px;
+               left: 17px;
+               height: 3px;
+               width: 15px;
+               background: #4f4f4f;
+            }
+            &:after {
+               content: "";
+               position: absolute;
+               top: 16.5px;
+               left: 23px;
+               height: 15px;
+               width: 3px;
+               background: #4f4f4f;
+            }
+         }
+      }
+      & span {
+         flex: 1 0 auto;
+         font-size: 18px;
+         font-weight: 700;
+         color: #4f4f4f;
+         text-align: center;
+      }
+   }
+}
