@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import s from "./Filter.module.scss";
 import filterLogo from "../../../assets/Filter.svg";
 import { useState } from "react";
@@ -24,8 +25,11 @@ const Filter = ({ specification, setFilter }: FilterProps) => {
     } else {
       setChecked([...checked, option]);
     }
-    setFilter(checked);
   };
+
+  useEffect(() => {
+    setFilter(checked);
+  }, [checked, setFilter]);
 
   return (
     <div className={s.filter} tabIndex={2} onBlur={() => setExpanded(false)}>

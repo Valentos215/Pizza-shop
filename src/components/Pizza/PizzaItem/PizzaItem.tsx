@@ -3,16 +3,19 @@ import { useContext, useState } from "react";
 import cartLogo from "../../../assets/Cart.svg";
 import { CartContext } from "../../../contexts/cartContext";
 
-const PizzaItem = () => {
-  const pizza = {
-    id: 1,
-    img: "https://media.dominos.ua/__sized__/menu/product_osg_image_category/2021/07/27/Manhatten_slice_collageweb-min-thumbnail-960x960-70.jpg",
-    title: "Manhattan",
-    description: "double serving of mushrooms",
-    ingredients: ["Mushrooms, Mozarella, Peperoni, Al'fredo sauce"],
-    baseCost: 215,
-    popularity: 9,
+type pizza = {
+  pizza: {
+    id: 1;
+    img: string;
+    title: string;
+    description: string;
+    ingredients: string[];
+    baseCost: number;
+    popularity: number;
   };
+};
+
+const PizzaItem = ({ pizza }: pizza) => {
   const sizes = ["Standard size", "Large", "New Yorker"];
   const crusts = ["Standard crust", "Thin", "Philadelphia", "Hot-Dog Crust"];
   const weight = [560, 750, 810];
@@ -139,7 +142,9 @@ const PizzaItem = () => {
       <div className={s.title}>{"Pizza " + pizza.title}</div>
       <div className={s.ingredients}>
         {pizza.description && <span>({pizza.description}), </span>}
-        {pizza.ingredients.join(", ")}
+        {pizza.ingredients.map((ingredient) => (
+          <span key={ingredient}>{ingredient}, </span>
+        ))}
       </div>
       <div className={s.size}>
         {sizes.map((size) => (

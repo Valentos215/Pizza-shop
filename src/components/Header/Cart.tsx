@@ -1,11 +1,19 @@
 import s from "./Cart.module.scss";
 import { Link } from "react-router-dom";
 import cartLogo from "../../assets/Cart.svg";
-import { useState } from "react";
+import { useState, useContext } from "react";
+import { CartContext } from "../../contexts/cartContext";
 
 const Cart = () => {
-  const amount = 315;
   const [expanded, setExpanded] = useState(false);
+  const [cart] = useContext(CartContext);
+  const totalAmount = () => {
+    let total = 0;
+    cart.forEach((item) => {
+      total = total + item.amount * item.number;
+    });
+    return total;
+  };
 
   return (
     <>
@@ -17,21 +25,23 @@ const Cart = () => {
             setExpanded(false);
           }}
           onClick={() => {
-            setExpanded(!expanded);
+            if (totalAmount()) setExpanded(!expanded);
           }}
         >
           <div className={s.counter}>
             <span>00</span>
             <img src={cartLogo} alt=""></img>
           </div>
-          {amount > 0 && (
-            <label className={s.amount}>{`${amount}.00 uah`}</label>
+          {totalAmount() > 0 && (
+            <label className={s.amount}>{`${totalAmount()}.00 uah`}</label>
           )}
         </div>
         {
           <Link
-            className={amount ? s.checkout : `${s.checkout} ${s.disabled}`}
-            to={amount ? "checkout" : "#"}
+            className={
+              totalAmount() ? s.checkout : `${s.checkout} ${s.disabled}`
+            }
+            to={totalAmount() ? "checkout" : "#"}
           >
             Checkout
           </Link>
@@ -39,13 +49,13 @@ const Cart = () => {
         <div className={expanded ? `${s.expand} ${s.active}` : s.expand}></div>
       </div>
       <div className={`${s.cart} ${s.small}`}>
-        <Link to={amount ? "checkout" : "#"} className={s.viewer}>
+        <Link to={totalAmount() ? "checkout" : "#"} className={s.viewer}>
           <div className={s.counter}>
             <span>00</span>
             <img src={cartLogo} alt=""></img>
           </div>
-          {amount > 0 && (
-            <label className={s.amount}>{`${amount}.00 uah`}</label>
+          {totalAmount() > 0 && (
+            <label className={s.amount}>{`${totalAmount()}.00 uah`}</label>
           )}
         </Link>
       </div>
