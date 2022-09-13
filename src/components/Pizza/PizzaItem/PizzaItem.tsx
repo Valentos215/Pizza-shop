@@ -1,22 +1,38 @@
 import s from "./PizzaItem.module.scss";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import cartLogo from "../../../assets/Cart.svg";
+import { CartContext } from "../../../contexts/cartContext";
 
 const PizzaItem = () => {
   const pizza = {
-    id: "001",
+    id: 1,
     img: "https://media.dominos.ua/__sized__/menu/product_osg_image_category/2021/07/27/Manhatten_slice_collageweb-min-thumbnail-960x960-70.jpg",
     title: "Manhattan",
     description: "double serving of mushrooms",
     ingredients: ["Mushrooms, Mozarella, Peperoni, Al'fredo sauce"],
     baseCost: 215,
+    popularity: 9,
   };
   const sizes = ["Standard size", "Large", "New Yorker"];
   const crusts = ["Standard crust", "Thin", "Philadelphia", "Hot-Dog Crust"];
   const weight = [560, 750, 810];
   const [currentSize, setCurrentSize] = useState(sizes[0]);
   const [currentCrust, setCurrentCrust] = useState(crusts[0]);
-  const [count, setCount] = useState(0);
+  const [cart, setCart] = useContext(CartContext);
+
+  const count = (): number => {
+    let counter = 0;
+    cart.forEach((item) => {
+      if (
+        item.id === pizza.id &&
+        item.size === currentSize &&
+        item.crust === currentCrust
+      ) {
+        counter = item.number;
+      }
+    });
+    return counter;
+  };
 
   const amount = () => {
     const sizeRate = () => {
@@ -29,22 +45,77 @@ const PizzaItem = () => {
       if (currentCrust === crusts[3]) return 1.24;
       return 1;
     };
-    return Math.ceil(pizza.baseCost * (count || 1) * sizeRate() * crustRate());
+    return Math.ceil(pizza.baseCost * sizeRate() * crustRate());
   };
 
   const sizeClick = (size: string) => {
     setCurrentSize(size);
     setCurrentCrust(crusts[0]);
   };
+
   const crustClick = (crust: string) => {
     if (currentSize !== sizes[2]) {
       setCurrentCrust(crust);
     } else {
-      if (crust !== crusts[2] && crust !== crusts[3]) {
+      if (crust === crusts[0] || crust === crusts[1]) {
         setCurrentCrust(crust);
       }
     }
   };
+
+  const toCartClick = () => {
+    setCart([
+      ...cart,
+      {
+        id: pizza.id,
+        size: currentSize,
+        crust: currentCrust,
+        number: 1,
+        amount: amount(),
+      },
+    ]);
+  };
+
+  const onMinusClick = () => {
+    setCart(
+      cart
+        .filter(
+          (item) =>
+            !(
+              item.id === pizza.id &&
+              item.size === currentSize &&
+              item.crust === currentCrust &&
+              item.number === 1
+            )
+        )
+        .map((item) => {
+          if (
+            item.id === pizza.id &&
+            item.size === currentSize &&
+            item.crust === currentCrust
+          ) {
+            return { ...item, number: item.number - 1 };
+          }
+          return item;
+        })
+    );
+  };
+
+  const onPlusClick = () => {
+    setCart(
+      cart.map((item) => {
+        if (
+          item.id === pizza.id &&
+          item.size === currentSize &&
+          item.crust === currentCrust
+        ) {
+          if (item.number < 99) return { ...item, number: item.number + 1 };
+        }
+        return item;
+      })
+    );
+  };
+
   const crustClasses = (crust: string) => {
     if (crust === currentCrust) {
       return `${s.crust__checked}`;
@@ -60,12 +131,10 @@ const PizzaItem = () => {
     <div className={s.wrapper}>
       <div className={s.image}>
         <img className={s.image__main} src={pizza.img} alt=""></img>
-        <img className={s.image__cartLogo} src={cartLogo} alt=""></img>
-        <span>
-          {currentSize === sizes[0] && weight[0]}
-          {currentSize === sizes[1] && weight[1]}
-          {currentSize === sizes[2] && weight[2]}g
-        </span>
+        {cart.some((item) => item.id === pizza.id) && (
+          <img className={s.image__cartLogo} src={cartLogo} alt=""></img>
+        )}
+        <span>{weight[sizes.indexOf(currentSize)]}g</span>
       </div>
       <div className={s.title}>{"Pizza " + pizza.title}</div>
       <div className={s.ingredients}>
@@ -98,25 +167,23 @@ const PizzaItem = () => {
       </div>
       <div className={s.checkout}>
         <div className={s.checkout__amount}>
-          {amount()}
+          {amount() * (count() || 1)}
           <span> uah</span>
         </div>
-        {!count && (
-          <div className={s.checkout__tocartButton} onClick={() => setCount(1)}>
+        {!count() && (
+          <div className={s.checkout__tocartButton} onClick={toCartClick}>
             To cart
           </div>
         )}
-        {count > 0 && (
+        {count() > 0 && (
           <div className={s.checkout__count}>
             <div
-              onClick={() => setCount(count - 1)}
+              onClick={onMinusClick}
               className={`${s.checkout__count_button} ${s.minus}`}
             ></div>
-            <span>{("0" + count).slice(-2)}</span>
+            <span>{("0" + count()).slice(-2)}</span>
             <div
-              onClick={() => {
-                if (count < 99) setCount(count + 1);
-              }}
+              onClick={onPlusClick}
               className={`${s.checkout__count_button} ${s.plus}`}
             ></div>
           </div>

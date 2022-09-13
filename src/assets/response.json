@@ -1,0 +1,31 @@
+{
+  "pizzas": [
+    {
+      "id": 1,
+      "img": "https://media.dominos.ua/__sized__/menu/product_osg_image_category/2021/07/27/Manhatten_slice_collageweb-min-thumbnail-960x960-70.jpg",
+      "title": "Manhattan",
+      "description": "double serving of mushrooms",
+      "ingredients": ["Mushrooms", "Mozarella", "Peperoni", "Al'fredo sauce"],
+      "baseCost": 215,
+      "popularity": 9
+    },
+    {
+      "id": 2,
+      "img": "https://media.dominos.ua/__sized__/menu/product_osg_image_mobile/2018/02/28/%D0%9F%D0%B5%D0%BF%D0%BF%D0%B5%D1%80%D0%BE%D0%BD%D0%B8_%D0%B8_%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D1%8B_300dpi-thumbnail-960x960-70.jpg",
+      "title": "Pepperoni with tomatoes",
+      "description": "",
+      "ingredients": ["Mozarella", "Peperoni", "Tomatoes", "BBQ sauce"],
+      "baseCost": 215,
+      "popularity": 9
+    },
+    {
+      "id": 3,
+      "img": "https://media.dominos.ua/__sized__/menu/product_osg_image_category/2020/12/28/Vetchina_i_griby_-thumbnail-960x960-70.jpg",
+      "title": "Ham & mushrooms",
+      "description": "",
+      "ingredients": ["Ham", "Mushrooms", "Mozarella", "Domino'ssauce"],
+      "baseCost": 215,
+      "popularity": 9
+    }
+  ]
+}
