@@ -1,5 +1,5 @@
 import s from "./Pizza.module.scss";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Filter from "../sharedComponents/Filter/Filter";
 import Sort from "../sharedComponents/Sort/Sort";
 import PizzaItem from "./PizzaItem/PizzaItem";

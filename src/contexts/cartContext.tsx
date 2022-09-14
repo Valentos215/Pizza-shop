@@ -3,8 +3,11 @@ import { createContext, useState } from "react";
 
 type cartItem = {
   id: number;
+  title: string;
+  img: string;
   size: string;
   crust: string;
+  ingredients: string[];
   number: number;
   amount: number;
 };

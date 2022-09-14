@@ -2,6 +2,7 @@ import s from "./PizzaItem.module.scss";
 import { useContext, useState } from "react";
 import cartLogo from "../../../assets/Cart.svg";
 import { CartContext } from "../../../contexts/cartContext";
+import { compareItems } from "../../../utils";
 
 type pizza = {
   pizza: {
@@ -71,8 +72,11 @@ const PizzaItem = ({ pizza }: pizza) => {
       ...cart,
       {
         id: pizza.id,
+        title: pizza.title,
+        img: pizza.img,
         size: currentSize,
         crust: currentCrust,
+        ingredients: pizza.ingredients,
         number: 1,
         amount: amount(),
       },
@@ -85,18 +89,12 @@ const PizzaItem = ({ pizza }: pizza) => {
         .filter(
           (item) =>
             !(
-              item.id === pizza.id &&
-              item.size === currentSize &&
-              item.crust === currentCrust &&
+              compareItems(item, pizza, currentSize, currentCrust) &&
               item.number === 1
             )
         )
         .map((item) => {
-          if (
-            item.id === pizza.id &&
-            item.size === currentSize &&
-            item.crust === currentCrust
-          ) {
+          if (compareItems(item, pizza, currentSize, currentCrust)) {
             return { ...item, number: item.number - 1 };
           }
           return item;
@@ -107,11 +105,7 @@ const PizzaItem = ({ pizza }: pizza) => {
   const onPlusClick = () => {
     setCart(
       cart.map((item) => {
-        if (
-          item.id === pizza.id &&
-          item.size === currentSize &&
-          item.crust === currentCrust
-        ) {
+        if (compareItems(item, pizza, currentSize, currentCrust)) {
           if (item.number < 99) return { ...item, number: item.number + 1 };
         }
         return item;
@@ -142,9 +136,8 @@ const PizzaItem = ({ pizza }: pizza) => {
       <div className={s.title}>{"Pizza " + pizza.title}</div>
       <div className={s.ingredients}>
         {pizza.description && <span>({pizza.description}), </span>}
-        {pizza.ingredients.map((ingredient) => (
-          <span key={ingredient}>{ingredient}, </span>
-        ))}
+        {pizza.ingredients.join(", ")}
+        <p>You can remove the ingredients at checkout</p>
       </div>
       <div className={s.size}>
         {sizes.map((size) => (
