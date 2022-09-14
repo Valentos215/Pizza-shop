@@ -33,8 +33,10 @@
    background-color: #fff;
    transition: all 0.3s ease;
    opacity: 0;
+   max-height: 0px;
    &.active {
       opacity: 1;
+      max-height: 200px;
       cursor: pointer;
    }
 }

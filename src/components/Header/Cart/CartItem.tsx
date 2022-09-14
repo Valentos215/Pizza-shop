@@ -57,7 +57,7 @@ const CartItem = ({ item }: cartItem) => {
         {item.ingredients.join(", ") || null}
       </div>
       <div className={s.item__specification}>
-        {item.size} {item.crust || null}
+        {item.size || null} {item.crust || null}
       </div>
       <div className={s.item__total}>
         <div className={s.item__total_amount}>
