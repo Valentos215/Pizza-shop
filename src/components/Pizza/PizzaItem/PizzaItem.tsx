@@ -2,21 +2,31 @@ import s from "./PizzaItem.module.scss";
 import { useContext, useState } from "react";
 import cartLogo from "../../../assets/Cart.svg";
 import { CartContext } from "../../../contexts/cartContext";
-import { compareItems } from "../../../utils";
+import { minusItem, plusItem } from "../../../utils";
 
-type pizza = {
+type CartItem = {
+  id: number;
+  size: string;
+  crust: string;
+  title: string;
+  img: string;
+  ingredients: string[];
+  number: number;
+  amount: number;
+};
+type Pizza = {
   pizza: {
-    id: 1;
-    img: string;
+    id: number;
     title: string;
-    description: string;
+    img: string;
+    description: string[];
     ingredients: string[];
     baseCost: number;
     popularity: number;
   };
 };
 
-const PizzaItem = ({ pizza }: pizza) => {
+const PizzaItem = ({ pizza }: Pizza) => {
   const sizes = ["Standard size", "Large", "New Yorker"];
   const crusts = ["Standard crust", "Thin", "Philadelphia", "Hot-Dog Crust"];
   const weight = [560, 750, 810];
@@ -52,6 +62,14 @@ const PizzaItem = ({ pizza }: pizza) => {
     return Math.ceil(pizza.baseCost * sizeRate() * crustRate());
   };
 
+  const currentItem: CartItem = {
+    ...pizza,
+    size: currentSize,
+    crust: currentCrust,
+    number: count(),
+    amount: amount(),
+  };
+
   const sizeClick = (size: string) => {
     setCurrentSize(size);
     setCurrentCrust(crusts[0]);
@@ -78,39 +96,9 @@ const PizzaItem = ({ pizza }: pizza) => {
         crust: currentCrust,
         ingredients: pizza.ingredients,
         number: 1,
-        amount: amount(),
+        amount: currentItem.amount,
       },
     ]);
-  };
-
-  const onMinusClick = () => {
-    setCart(
-      cart
-        .filter(
-          (item) =>
-            !(
-              compareItems(item, pizza, currentSize, currentCrust) &&
-              item.number === 1
-            )
-        )
-        .map((item) => {
-          if (compareItems(item, pizza, currentSize, currentCrust)) {
-            return { ...item, number: item.number - 1 };
-          }
-          return item;
-        })
-    );
-  };
-
-  const onPlusClick = () => {
-    setCart(
-      cart.map((item) => {
-        if (compareItems(item, pizza, currentSize, currentCrust)) {
-          if (item.number < 99) return { ...item, number: item.number + 1 };
-        }
-        return item;
-      })
-    );
   };
 
   const crustClasses = (crust: string) => {
@@ -137,7 +125,7 @@ const PizzaItem = ({ pizza }: pizza) => {
       <div className={s.ingredients}>
         {pizza.description && <span>({pizza.description}), </span>}
         {pizza.ingredients.join(", ")}
-        <p>You can remove the ingredients at checkout</p>
+        <p>You can remove some ingredients at checkout</p>
       </div>
       <div className={s.size}>
         {sizes.map((size) => (
@@ -165,23 +153,23 @@ const PizzaItem = ({ pizza }: pizza) => {
       </div>
       <div className={s.checkout}>
         <div className={s.checkout__amount}>
-          {amount() * (count() || 1)}
+          {currentItem.amount * (currentItem.number || 1)}
           <span> uah</span>
         </div>
-        {!count() && (
+        {!currentItem.number && (
           <div className={s.checkout__tocartButton} onClick={toCartClick}>
             To cart
           </div>
         )}
-        {count() > 0 && (
+        {currentItem.number > 0 && (
           <div className={s.checkout__count}>
             <div
-              onClick={onMinusClick}
+              onClick={() => minusItem(cart, setCart, currentItem)}
               className={`${s.checkout__count_button} ${s.minus}`}
             ></div>
-            <span>{("0" + count()).slice(-2)}</span>
+            <span>{("0" + currentItem.number).slice(-2)}</span>
             <div
-              onClick={onPlusClick}
+              onClick={() => plusItem(cart, setCart, currentItem)}
               className={`${s.checkout__count_button} ${s.plus}`}
             ></div>
           </div>

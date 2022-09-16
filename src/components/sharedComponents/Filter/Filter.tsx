@@ -44,7 +44,7 @@ const Filter = ({ specification, setFilter }: FilterProps) => {
       </div>
       <div className={expanded ? `${s.options} ${s.active}` : s.options}>
         {specification &&
-          specification.map((option) => (
+          specification.sort().map((option) => (
             <div
               key={option}
               className={

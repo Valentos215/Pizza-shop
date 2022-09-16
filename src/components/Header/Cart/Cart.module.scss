@@ -92,12 +92,11 @@
    border-radius: 25px;
    box-shadow: 0px 0px 5px #222;
    transition: all 0.5s;
-   overflow: hidden;
+   overflow: auto;
    max-height: 0px;
    opacity: 0;
    &.active {
       max-height: 430px;
       opacity: 1;
-      overflow: auto;
    }
 }

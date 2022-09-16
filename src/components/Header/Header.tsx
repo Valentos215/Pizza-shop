@@ -21,8 +21,8 @@ const Header = () => {
         <div className="container">
           <div className={s.header__wrapper}>
             <Link to="/" className={s.header__logo}>
-              <img alt="" src={logo}></img>
               <img alt="" src={logoSmall}></img>
+              <img alt="" src={logo}></img>
             </Link>
             <div className={s.nav}>
               {navMenu.map((item) => (

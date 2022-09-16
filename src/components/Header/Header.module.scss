@@ -28,29 +28,20 @@
       & img {
          height: 34px;
          &:last-child {
-            display: none;
+            margin-left: -32px;
          }
          @media (max-width: 1024px) {
             &:last-child {
-               display: block;
-            }
-            &:first-child {
                display: none;
             }
          }
          @media (max-width: 768px) {
             &:last-child {
-               display: none;
-            }
-            &:first-child {
                display: block;
             }
          }
          @media (max-width: 480px) {
             &:last-child {
-               display: block;
-            }
-            &:first-child {
                display: none;
             }
          }

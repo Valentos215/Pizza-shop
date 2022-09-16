@@ -1,7 +1,7 @@
 import s from "./Cart.module.scss";
 import { Link } from "react-router-dom";
 import cartLogo from "../../../assets/Cart.svg";
-import React, { useState, useContext } from "react";
+import { useState, useContext } from "react";
 import { CartContext } from "../../../contexts/cartContext";
 import CartItem from "./CartItem";
 
@@ -26,11 +26,13 @@ const Cart = () => {
 
   return (
     <>
-      <div className={`${s.cart}`}>
+      <div
+        tabIndex={1}
+        onBlur={() => setExpanded(false)}
+        className={`${s.cart}`}
+      >
         <div
           className={s.viewer}
-          tabIndex={1}
-          onMouseEnter={(e) => e.currentTarget.focus()}
           onClick={() => {
             if (totalAmount()) setExpanded(!expanded);
           }}
@@ -54,12 +56,7 @@ const Cart = () => {
           </Link>
         }
         {cart[0] && (
-          <div
-            tabIndex={2}
-            onMouseEnter={(e) => e.currentTarget.focus()}
-            onBlur={() => setExpanded(false)}
-            className={expanded ? `${s.expand} ${s.active}` : s.expand}
-          >
+          <div className={expanded ? `${s.expand} ${s.active}` : s.expand}>
             {cart.map((item) => (
               <CartItem key={item.id + item.size + item.crust} item={item} />
             ))}

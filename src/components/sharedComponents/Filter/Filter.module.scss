@@ -24,7 +24,7 @@
 }
 .options {
    overflow: hidden;
-   width: 100%;
+   min-width: 100%;
    border-radius: 15px;
    box-shadow: 0 0 5px rgb(79, 79, 79);
    position: absolute;
@@ -40,14 +40,12 @@
       cursor: pointer;
       overflow: auto;
    }
-   @media (max-width: 500px) {
-      width: 150%;
-   }
 }
 .item {
    border-radius: 15px;
 }
 .option {
+   white-space: nowrap;
    font-size: 16px;
    line-height: 50px;
    border-radius: 15px;

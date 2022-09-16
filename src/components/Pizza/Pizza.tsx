@@ -1,15 +1,16 @@
 import s from "./Pizza.module.scss";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Filter from "../sharedComponents/Filter/Filter";
 import Sort from "../sharedComponents/Sort/Sort";
 import PizzaItem from "./PizzaItem/PizzaItem";
 import jsonData from "../../assets/pizzas.json";
+import useLocalStorage from "../../hooks/useLocalStorage";
 
 type pizza = {
-  id: 1;
-  img: string;
+  id: number;
   title: string;
-  description: string;
+  img: string;
+  description: string[];
   ingredients: string[];
   baseCost: number;
   popularity: number;
@@ -17,7 +18,8 @@ type pizza = {
 
 const Pizza = () => {
   const [filter, setFilter] = useState<string[]>([]);
-  const [sort, setSort] = useState<number>(0);
+  const [memSort, setMemSort] = useLocalStorage("sort");
+  const [sort, setSort] = useState<number>(Number(memSort) || 0);
   const sortCriteria = ["Popularity", "Price low-high", "Price high-low"];
   const loadData = () => JSON.parse(JSON.stringify(jsonData));
   const [pizzas, setPizzas] = useState<pizza[]>(loadData());
@@ -60,6 +62,10 @@ const Pizza = () => {
       });
     return toShow;
   };
+
+  useEffect(() => {
+    setMemSort(String(sort));
+  }, [sort, setMemSort]);
 
   return (
     <div className="container">

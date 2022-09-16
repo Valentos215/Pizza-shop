@@ -2,7 +2,8 @@
    position: relative;
    display: flex;
    flex-direction: column;
-   color: #4f4f4f;
+   font-size: 12px;
+   font-weight: 600;
    margin-bottom: 10px;
    padding-bottom: 10px;
    border-bottom: 1px solid rgba(2, 2, 2, 0.3);
@@ -24,6 +25,7 @@
          border: 1px solid rgba(2, 2, 2, 0.2);
          position: relative;
          transition: all 0.2s;
+         cursor: pointer;
          &:before,
          &:after {
             content: "";
@@ -51,14 +53,13 @@
       }
    }
    &__ingredients {
-      font-size: 12px;
       letter-spacing: 0.5px;
       margin-bottom: 10px;
+      color: #7d7d7d;
    }
    &__specification {
-      font-size: 12px;
+      font-size: 13px;
       letter-spacing: 0.5px;
-      font-weight: 600;
       margin-bottom: 15px;
       color: #222;
    }
@@ -91,6 +92,7 @@
             border: 1px solid rgba(2, 2, 2, 0.15);
             position: relative;
             transition: all 0.2s;
+            cursor: pointer;
             &:hover {
                background: #cb1631;
             }
