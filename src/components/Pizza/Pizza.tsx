@@ -36,9 +36,9 @@ const Pizza = () => {
 
   const filtered = () => {
     const filt = pizzas.filter((pizza: pizza) => {
-      return pizza.ingredients.some((ing) => filter.includes(ing));
+      return filter.every((ing) => pizza.ingredients.includes(ing));
     });
-    if (filt[0]) {
+    if (filter[0]) {
       return filt;
     } else {
       return pizzas;
