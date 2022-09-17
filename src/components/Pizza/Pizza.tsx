@@ -2,7 +2,7 @@ import s from "./Pizza.module.scss";
 import { useState, useEffect } from "react";
 import Filter from "../sharedComponents/Filter/Filter";
 import Sort from "../sharedComponents/Sort/Sort";
-import PizzaItem from "./PizzaItem/PizzaItem";
+import PizzaItem from "../sharedComponents/ProductItem/PizzaItem";
 import jsonData from "../../assets/pizzas.json";
 import useLocalStorage from "../../hooks/useLocalStorage";
 
@@ -26,13 +26,12 @@ const Pizza = () => {
 
   const ingredients = () => {
     let arr: string[] = [];
-    let data: any = {};
     pizzas.forEach((pizza: pizza) => {
-      arr.concat(pizza.ingredients).forEach((ing) => {
-        data[ing] = true;
+      pizza.ingredients.forEach((ing) => {
+        if (!arr.includes(ing)) arr.push(ing);
       });
     });
-    return Object.keys(data);
+    return arr;
   };
 
   const filtered = () => {

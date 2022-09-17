@@ -1,4 +1,4 @@
-import s from "./PizzaItem.module.scss";
+import s from "./ProductItem.module.scss";
 import { useContext, useState } from "react";
 import cartLogo from "../../../assets/Cart.svg";
 import { CartContext } from "../../../contexts/cartContext";
