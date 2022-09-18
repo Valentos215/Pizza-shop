@@ -26,8 +26,6 @@ const Pizza = () => {
   const loadData = () => JSON.parse(JSON.stringify(jsonData));
   const [pizzas, setPizzas] = useState<pizza[]>(loadData());
 
-  console.log(invert);
-
   const ingredients = () => {
     let arr: string[] = [];
     pizzas.forEach((pizza: pizza) => {

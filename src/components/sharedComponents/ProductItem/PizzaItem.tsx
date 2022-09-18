@@ -7,12 +7,12 @@ import { minusItem, plusItem } from "../../../utils";
 type CartItem = {
   id: number;
   size: string;
-  crust: string;
   title: string;
   img: string;
-  ingredients: string[];
   number: number;
   amount: number;
+  crust?: string;
+  ingredients?: string[];
 };
 type Pizza = {
   pizza: {
@@ -121,7 +121,7 @@ const PizzaItem = ({ pizza }: Pizza) => {
         )}
         <span>{weight[sizes.indexOf(currentSize)]}g</span>
       </div>
-      <div className={s.title}>{"Pizza " + pizza.title}</div>
+      <div className={s.title}>{pizza.title}</div>
       <div className={s.ingredients}>
         {pizza.description && <span>({pizza.description}), </span>}
         {pizza.ingredients.join(", ")}

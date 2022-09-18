@@ -9,10 +9,10 @@ type cartItem = {
     title: string;
     img: string;
     size: string;
-    crust: string;
-    ingredients: string[];
     number: number;
     amount: number;
+    crust?: string;
+    ingredients?: string[];
   };
 };
 
@@ -22,12 +22,12 @@ const CartItem = ({ item }: cartItem) => {
   return (
     <div className={`${s.item}`}>
       <div className={s.item__head}>
-        <h3>Pizza {item.title}</h3>
+        <h3>{item.title}</h3>
         <span onClick={() => removeItem(cart, setCart, item)}></span>
       </div>
-      <div className={s.item__ingredients}>
-        {item.ingredients.join(", ") || null}
-      </div>
+      {item.ingredients && (
+        <div className={s.item__ingredients}>{item.ingredients.join(", ")}</div>
+      )}
       <div className={s.item__specification}>
         {item.size || null}
         {item.crust && `, ${item.crust}`}

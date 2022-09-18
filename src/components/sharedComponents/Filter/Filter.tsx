@@ -4,12 +4,13 @@ import filterLogo from "../../../assets/Filter.svg";
 import { useState } from "react";
 
 type FilterProps = {
+  title?: string;
   specification: string[];
   setFilter: React.Dispatch<React.SetStateAction<string[]>>;
   invert: number;
 };
 
-const Filter = ({ specification, setFilter, invert }: FilterProps) => {
+const Filter = ({ title, specification, setFilter, invert }: FilterProps) => {
   const [expanded, setExpanded] = useState(false);
   const [checked, setChecked] = useState<string[]>([]);
 
@@ -56,7 +57,7 @@ const Filter = ({ specification, setFilter, invert }: FilterProps) => {
           setExpanded(!expanded);
         }}
       >
-        <span>Filter</span>
+        <span>{title ? title : "Filter"}</span>
         <img src={filterLogo} alt=""></img>
       </div>
       <div className={expanded ? `${s.options} ${s.active}` : s.options}>

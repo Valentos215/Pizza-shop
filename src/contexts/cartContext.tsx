@@ -6,10 +6,10 @@ type cartItem = {
   title: string;
   img: string;
   size: string;
-  crust: string;
-  ingredients: string[];
   number: number;
   amount: number;
+  crust?: string;
+  ingredients?: string[];
 };
 
 export const CartContext = createContext<

@@ -1,10 +1,10 @@
 type CartItem = {
   id: number;
   size: string;
-  crust: string;
+  crust?: string;
   title: string;
   img: string;
-  ingredients: string[];
+  ingredients?: string[];
   number: number;
   amount: number;
 };
