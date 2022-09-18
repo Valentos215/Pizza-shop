@@ -21,6 +21,8 @@ function App() {
                 <Route path="/pizza" component={Pizza} exact />s
                 <Route path="/" component={Pizza} exact />
                 <Route path="/drinks" component={Products} />
+                <Route path="/sides" component={Products} />
+                <Route path="/dessert" component={Products} />
               </Switch>
             </div>
           </CartChecker>

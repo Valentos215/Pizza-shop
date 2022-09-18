@@ -3,7 +3,8 @@ import { useState } from "react";
 import Filter from "../sharedComponents/Filter/Filter";
 import Sort from "../sharedComponents/Sort/Sort";
 import ProductItem from "../sharedComponents/ProductItem/ProductItem";
-import jsonData from "../../assets/drinks.json";
+import jsonDrinks from "../../assets/drinks.json";
+import useFetch from "../../hooks/useFetch";
 
 type product = {
   id: number;
@@ -15,12 +16,13 @@ type product = {
   weight: number[];
 };
 
-const Products = () => {
+const Products = ({ match }: any) => {
   const [filter, setFilter] = useState<string[]>([]);
   const [sort, setSort] = useState<number>(-1);
   const sortCriteria = ["Price low-high", "Price high-low"];
-  const loadData = () => JSON.parse(JSON.stringify(jsonData));
+  const loadData = () => JSON.parse(JSON.stringify(jsonDrinks));
   const [products, setProducts] = useState<product[]>(loadData());
+  const { isLoading, response, error, doFetch } = useFetch(match.path.slice(1));
 
   const categories = () => {
     let arr: string[] = [];

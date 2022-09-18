@@ -1,20 +1,19 @@
-import { CurrentUserContext } from "./../contexts/currentUserContext";
 import axios from "axios";
-import { useEffect, useState, useCallback, useContext } from "react";
+import { useEffect, useState, useCallback } from "react";
 
-type ResponseType = {
-  token: string;
-  positions: { id: number; name: string }[];
-  total_users: number;
-  users: {
-    id: number;
-    photo: string;
-    name: string;
-    position: string;
-    email: string;
-    phone: string;
-  }[];
-};
+type RespType = {
+  id: number;
+  title: string;
+  img: string;
+  baseCost: number;
+  cost: number[];
+  popularity: number;
+  size: string[];
+  category: string;
+  weight: number[];
+  description: string[];
+  ingredients: string[];
+}[];
 
 type Options =
   | {
@@ -27,18 +26,17 @@ type Error = { fails: { name: string[] }[]; message: string };
 
 type UseFetchResult = {
   isLoading: boolean;
-  response: ResponseType | null;
+  response: RespType | null;
   error: Error | null;
   doFetch: (options?: Options) => void;
 };
 
 const useFetch = (url: string): UseFetchResult => {
-  const baseUrl = "https://frontend-test-assignment-api.abz.agency/api/v1/";
+  const baseUrl = "https://63270a7aba4a9c47532f8ff3.mockapi.io/api/v1/";
   const [isLoading, setIsLoading] = useState(false);
-  const [response, setResponse] = useState<ResponseType | null>(null);
+  const [response, setResponse] = useState<RespType | null>(null);
   const [error, setError] = useState<Error | null>(null);
   const [options, setOptions] = useState<Options>({});
-  const [token] = useContext(CurrentUserContext);
 
   const doFetch = useCallback((options = {}) => {
     setOptions(options);
@@ -47,14 +45,7 @@ const useFetch = (url: string): UseFetchResult => {
 
   useEffect(() => {
     let skipGetResponseAfterDestroy = false;
-    const requestOptions = {
-      ...options,
-      ...{
-        headers: {
-          Token: token ? token : "",
-        },
-      },
-    };
+    const requestOptions = options;
     if (!isLoading) return;
     axios(baseUrl + url, requestOptions)
       .then((res) => {
@@ -73,7 +64,7 @@ const useFetch = (url: string): UseFetchResult => {
     return () => {
       skipGetResponseAfterDestroy = true;
     };
-  }, [isLoading, options, url, token]);
+  }, [isLoading, options, url]);
 
   return { isLoading, response, error, doFetch };
 };

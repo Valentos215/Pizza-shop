@@ -5,7 +5,7 @@ import { useState } from "react";
 
 type FilterProps = {
   title?: string;
-  specification: string[];
+  specification: string[] | null;
   setFilter: React.Dispatch<React.SetStateAction<string[]>>;
   invert: number;
 };

@@ -3,8 +3,8 @@ import { useState, useEffect } from "react";
 import Filter from "../sharedComponents/Filter/Filter";
 import Sort from "../sharedComponents/Sort/Sort";
 import PizzaItem from "../sharedComponents/ProductItem/PizzaItem";
-import jsonData from "../../assets/pizzas.json";
 import useLocalStorage from "../../hooks/useLocalStorage";
+import useFetch from "../../hooks/useFetch";
 
 type pizza = {
   id: number;
@@ -23,10 +23,11 @@ const Pizza = () => {
   const [memSort, setMemSort] = useLocalStorage("sort");
   const [sort, setSort] = useState<number>(Number(memSort) || 0);
   const sortCriteria = ["Popularity", "Price low-high", "Price high-low"];
-  const loadData = () => JSON.parse(JSON.stringify(jsonData));
-  const [pizzas, setPizzas] = useState<pizza[]>(loadData());
+  const [pizzas, setPizzas] = useState<pizza[] | null>(null);
+  const { isLoading, response, error, doFetch } = useFetch("pizza");
 
   const ingredients = () => {
+    if (!pizzas) return null;
     let arr: string[] = [];
     pizzas.forEach((pizza: pizza) => {
       pizza.ingredients.forEach((ing) => {
@@ -36,7 +37,10 @@ const Pizza = () => {
     return arr;
   };
 
-  const filtered = () => {
+  const pizzasToShow = () => {
+    if (!pizzas) return null;
+    let filtered: pizza[] = [];
+    let toShow: pizza[] = [];
     const filt = pizzas.filter((pizza: pizza) => {
       if (invert) {
         return filter.every((ing) => !pizza.ingredients.includes(ing));
@@ -44,28 +48,35 @@ const Pizza = () => {
       return filter.some((ing) => pizza.ingredients.includes(ing));
     });
     if (filter[0]) {
-      return filt;
+      filtered = filt;
     } else {
-      return pizzas;
+      filtered = pizzas;
     }
-  };
-
-  const pizzasToShow = () => {
-    let toShow: pizza[] = [];
     if (sort === 0)
-      toShow = filtered().sort((a, b) => {
+      toShow = filtered.sort((a, b) => {
         return b.popularity - a.popularity;
       });
     if (sort === 1)
-      toShow = filtered().sort((a, b) => {
+      toShow = filtered.sort((a, b) => {
         return a.baseCost - b.baseCost;
       });
     if (sort === 2)
-      toShow = filtered().sort((a, b) => {
+      toShow = filtered.sort((a, b) => {
         return b.baseCost - a.baseCost;
       });
     return toShow;
   };
+
+  const itemsList = pizzasToShow();
+
+  useEffect(() => {
+    doFetch();
+  }, [doFetch]);
+
+  useEffect(() => {
+    if (!response) return;
+    setPizzas(response);
+  }, [response]);
 
   useEffect(() => {
     setMemSort(String(sort));
@@ -85,22 +96,29 @@ const Pizza = () => {
           />
           <Sort sortCriteria={sortCriteria} setSort={setSort} />
         </div>
-        {filter[0] && (
-          <div className={s.title}>
-            Pizzas {!!invert && <span> no </span>} includes: {filter.join(", ")}{" "}
-            <span
-              onClick={() => setInvert(Math.abs(invert - 1))}
-              className={s.invert}
-            >
-              Invert
-            </span>
-          </div>
+        {response && (
+          <>
+            {filter[0] && (
+              <div className={s.title}>
+                Pizzas {!!invert && <span> no </span>} includes:{" "}
+                {filter.join(", ")}{" "}
+                <span
+                  onClick={() => setInvert(Math.abs(invert - 1))}
+                  className={s.invert}
+                >
+                  Invert
+                </span>
+              </div>
+            )}
+            {itemsList && (
+              <div className={s.pizzaItems}>
+                {itemsList.map((pizza: pizza) => (
+                  <PizzaItem key={pizza.id} pizza={pizza} />
+                ))}
+              </div>
+            )}
+          </>
         )}
-        <div className={s.pizzaItems}>
-          {pizzasToShow().map((pizza: pizza) => (
-            <PizzaItem key={pizza.id} pizza={pizza} />
-          ))}
-        </div>
       </div>
     </div>
   );
