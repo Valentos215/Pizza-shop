@@ -1,0 +1,23 @@
+.wrapper {
+   margin-top: 100px;
+   width: 100%;
+   height: 100%;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+}
+.preloader {
+   width: 60px;
+   height: 60px;
+   border-radius: 50%;
+   border: 7px solid #fff;
+   border-left-color: #e31837;
+   border-top-color: #e31837;
+   border-right-color: #e31837;
+   animation: loader 1.3s linear infinite;
+}
+@keyframes loader {
+   100% {
+      transform: rotate(360deg);
+   }
+}

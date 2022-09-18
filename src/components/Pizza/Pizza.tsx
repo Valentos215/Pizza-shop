@@ -5,6 +5,7 @@ import Sort from "../sharedComponents/Sort/Sort";
 import PizzaItem from "../sharedComponents/ProductItem/PizzaItem";
 import useLocalStorage from "../../hooks/useLocalStorage";
 import useFetch from "../../hooks/useFetch";
+import Preloader from "../sharedComponents/Preloader/Preloader";
 
 type pizza = {
   id: number;
@@ -95,6 +96,7 @@ const Pizza = () => {
           <Sort sortCriteria={sortCriteria} setSort={setSort} />
         </div>
         {error && <h2>Something went wrong</h2>}
+        {isLoading && <Preloader />}
         {filter[0] && (
           <div className={s.title}>
             Pizzas {!!invert && <span> no </span>} contains {filter.join(", ")}{" "}

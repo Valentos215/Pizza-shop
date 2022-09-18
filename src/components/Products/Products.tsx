@@ -4,6 +4,7 @@ import Filter from "../sharedComponents/Filter/Filter";
 import Sort from "../sharedComponents/Sort/Sort";
 import ProductItem from "../sharedComponents/ProductItem/ProductItem";
 import useFetch from "../../hooks/useFetch";
+import Preloader from "../sharedComponents/Preloader/Preloader";
 
 type product = {
   id: number;
@@ -82,6 +83,7 @@ const Products = ({ match }: any) => {
           <Sort sortCriteria={sortCriteria} setSort={setSort} />
         </div>
         {error && <h2>Something went wrong</h2>}
+        {isLoading && <Preloader />}
         {filter[0] && <div className={s.title}>{filter.join(", ")}</div>}
         <div className={s.pizzaItems}>
           {itemsList &&
