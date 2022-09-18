@@ -1,9 +1,8 @@
 import s from "./Products.module.scss";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Filter from "../sharedComponents/Filter/Filter";
 import Sort from "../sharedComponents/Sort/Sort";
 import ProductItem from "../sharedComponents/ProductItem/ProductItem";
-import jsonDrinks from "../../assets/drinks.json";
 import useFetch from "../../hooks/useFetch";
 
 type product = {
@@ -20,11 +19,11 @@ const Products = ({ match }: any) => {
   const [filter, setFilter] = useState<string[]>([]);
   const [sort, setSort] = useState<number>(-1);
   const sortCriteria = ["Price low-high", "Price high-low"];
-  const loadData = () => JSON.parse(JSON.stringify(jsonDrinks));
-  const [products, setProducts] = useState<product[]>(loadData());
+  const [products, setProducts] = useState<product[] | null>(null);
   const { isLoading, response, error, doFetch } = useFetch(match.path.slice(1));
 
   const categories = () => {
+    if (!products) return null;
     let arr: string[] = [];
     products.forEach((product: product) => {
       if (!arr.includes(product.category)) arr.push(product.category);
@@ -32,36 +31,46 @@ const Products = ({ match }: any) => {
     return arr;
   };
 
-  const filtered = () => {
+  const productsToShow = () => {
+    if (!products) return null;
+    let filtered: product[] = [];
     const filt = products.filter((product: product) =>
       filter.some((cat) => product.category === cat)
     );
     if (filter[0]) {
-      return filt;
+      filtered = filt;
     } else {
-      return products;
+      filtered = products;
     }
-  };
-
-  const productsToShow = () => {
-    let toShow: product[] = [];
-    if (sort === -1) return filtered();
+    if (sort === -1) {
+      return filtered;
+    }
     if (sort === 0)
-      toShow = filtered().sort((a, b) => {
+      return filtered.sort((a, b) => {
         return a.cost[0] - b.cost[0];
       });
     if (sort === 1)
-      toShow = filtered().sort((a, b) => {
+      return filtered.sort((a, b) => {
         return b.cost[0] - a.cost[0];
       });
-    return toShow;
   };
+  const itemsList = productsToShow();
+
+  useEffect(() => {
+    setProducts(null);
+    doFetch();
+  }, [doFetch, match.path]);
+
+  useEffect(() => {
+    if (!response) return;
+    setProducts(response);
+  }, [response]);
 
   return (
     <div className="container">
       <div className={s.wrapper}>
         <div className={s.filters}>
-          {products[0].category && (
+          {products && products[0].category && (
             <Filter
               title="Category"
               specification={categories()}
@@ -69,13 +78,16 @@ const Products = ({ match }: any) => {
               invert={0}
             />
           )}
+          <p></p>
           <Sort sortCriteria={sortCriteria} setSort={setSort} />
         </div>
+        {error && <h2>Something went wrong</h2>}
         {filter[0] && <div className={s.title}>{filter.join(", ")}</div>}
         <div className={s.pizzaItems}>
-          {productsToShow().map((product: product) => (
-            <ProductItem key={product.id} product={product} />
-          ))}
+          {itemsList &&
+            itemsList.map((product: product) => (
+              <ProductItem key={product.id} product={product} />
+            ))}
         </div>
       </div>
     </div>

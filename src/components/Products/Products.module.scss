@@ -28,11 +28,14 @@
    }
 }
 .filters {
+   width: 100%;
    top: 50px;
    display: flex;
    flex-direction: row;
-   justify-content: space-between;
    margin-top: 40px;
+   & p {
+      flex: 1 0 auto;
+   }
    @media (max-width: 768px) {
       margin-top: 15px;
    }

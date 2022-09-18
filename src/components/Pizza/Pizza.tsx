@@ -40,7 +40,6 @@ const Pizza = () => {
   const pizzasToShow = () => {
     if (!pizzas) return null;
     let filtered: pizza[] = [];
-    let toShow: pizza[] = [];
     const filt = pizzas.filter((pizza: pizza) => {
       if (invert) {
         return filter.every((ing) => !pizza.ingredients.includes(ing));
@@ -53,18 +52,17 @@ const Pizza = () => {
       filtered = pizzas;
     }
     if (sort === 0)
-      toShow = filtered.sort((a, b) => {
+      return filtered.sort((a, b) => {
         return b.popularity - a.popularity;
       });
     if (sort === 1)
-      toShow = filtered.sort((a, b) => {
+      return filtered.sort((a, b) => {
         return a.baseCost - b.baseCost;
       });
     if (sort === 2)
-      toShow = filtered.sort((a, b) => {
+      return filtered.sort((a, b) => {
         return b.baseCost - a.baseCost;
       });
-    return toShow;
   };
 
   const itemsList = pizzasToShow();
@@ -96,28 +94,24 @@ const Pizza = () => {
           />
           <Sort sortCriteria={sortCriteria} setSort={setSort} />
         </div>
-        {response && (
-          <>
-            {filter[0] && (
-              <div className={s.title}>
-                Pizzas {!!invert && <span> no </span>} includes:{" "}
-                {filter.join(", ")}{" "}
-                <span
-                  onClick={() => setInvert(Math.abs(invert - 1))}
-                  className={s.invert}
-                >
-                  Invert
-                </span>
-              </div>
-            )}
-            {itemsList && (
-              <div className={s.pizzaItems}>
-                {itemsList.map((pizza: pizza) => (
-                  <PizzaItem key={pizza.id} pizza={pizza} />
-                ))}
-              </div>
-            )}
-          </>
+        {error && <h2>Something went wrong</h2>}
+        {filter[0] && (
+          <div className={s.title}>
+            Pizzas {!!invert && <span> no </span>} contains {filter.join(", ")}{" "}
+            <span
+              onClick={() => setInvert(Math.abs(invert - 1))}
+              className={s.invert}
+            >
+              Invert
+            </span>
+          </div>
+        )}
+        {itemsList && (
+          <div className={s.pizzaItems}>
+            {itemsList.map((pizza: pizza) => (
+              <PizzaItem key={pizza.id} pizza={pizza} />
+            ))}
+          </div>
         )}
       </div>
     </div>
