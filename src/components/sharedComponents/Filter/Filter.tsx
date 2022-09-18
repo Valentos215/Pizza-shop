@@ -6,9 +6,10 @@ import { useState } from "react";
 type FilterProps = {
   specification: string[];
   setFilter: React.Dispatch<React.SetStateAction<string[]>>;
+  invert: number;
 };
 
-const Filter = ({ specification, setFilter }: FilterProps) => {
+const Filter = ({ specification, setFilter, invert }: FilterProps) => {
   const [expanded, setExpanded] = useState(false);
   const [checked, setChecked] = useState<string[]>([]);
 
@@ -24,6 +25,22 @@ const Filter = ({ specification, setFilter }: FilterProps) => {
       setChecked(checked.filter((opt) => opt !== option));
     } else {
       setChecked([...checked, option]);
+    }
+  };
+
+  const checkboxClasses = (option: string) => {
+    if (!!invert) {
+      if (isChecked(option)) {
+        return `${s.checkbox} ${s.checkbox__denial} ${s.checkbox__denial_unchecked}`;
+      } else {
+        return `${s.checkbox} ${s.checkbox__denial}`;
+      }
+    } else {
+      if (isChecked(option)) {
+        return `${s.checkbox} ${s.checkbox__check} ${s.checkbox__check_checked}`;
+      } else {
+        return `${s.checkbox} ${s.checkbox__check}`;
+      }
     }
   };
 
@@ -47,12 +64,10 @@ const Filter = ({ specification, setFilter }: FilterProps) => {
           specification.sort().map((option) => (
             <div
               key={option}
-              className={
-                isChecked(option) ? `${s.option} ${s.checked}` : s.option
-              }
+              className={s.option}
               onClick={() => checkboxClick(option)}
             >
-              <span></span>
+              <span className={checkboxClasses(option)}></span>
               <p>{option.charAt(0).toUpperCase() + option.slice(1)}</p>
             </div>
           ))}

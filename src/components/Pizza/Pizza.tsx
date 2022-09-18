@@ -18,11 +18,15 @@ type pizza = {
 
 const Pizza = () => {
   const [filter, setFilter] = useState<string[]>([]);
+  const [memInvert, setMemInvert] = useLocalStorage("invert");
+  const [invert, setInvert] = useState(Number(memInvert) || 0);
   const [memSort, setMemSort] = useLocalStorage("sort");
   const [sort, setSort] = useState<number>(Number(memSort) || 0);
   const sortCriteria = ["Popularity", "Price low-high", "Price high-low"];
   const loadData = () => JSON.parse(JSON.stringify(jsonData));
   const [pizzas, setPizzas] = useState<pizza[]>(loadData());
+
+  console.log(invert);
 
   const ingredients = () => {
     let arr: string[] = [];
@@ -36,7 +40,10 @@ const Pizza = () => {
 
   const filtered = () => {
     const filt = pizzas.filter((pizza: pizza) => {
-      return filter.every((ing) => pizza.ingredients.includes(ing));
+      if (invert) {
+        return filter.every((ing) => !pizza.ingredients.includes(ing));
+      }
+      return filter.some((ing) => pizza.ingredients.includes(ing));
     });
     if (filter[0]) {
       return filt;
@@ -65,14 +72,32 @@ const Pizza = () => {
   useEffect(() => {
     setMemSort(String(sort));
   }, [sort, setMemSort]);
+  useEffect(() => {
+    setMemInvert(String(Number(invert) * 1));
+  }, [invert, setMemInvert]);
 
   return (
     <div className="container">
       <div className={s.wrapper}>
         <div className={s.filters}>
-          <Filter specification={ingredients()} setFilter={setFilter} />
+          <Filter
+            specification={ingredients()}
+            setFilter={setFilter}
+            invert={invert}
+          />
           <Sort sortCriteria={sortCriteria} setSort={setSort} />
         </div>
+        {filter[0] && (
+          <div className={s.title}>
+            Pizzas {!!invert && <span> no </span>} includes: {filter.join(", ")}{" "}
+            <span
+              onClick={() => setInvert(Math.abs(invert - 1))}
+              className={s.invert}
+            >
+              Invert
+            </span>
+          </div>
+        )}
         <div className={s.pizzaItems}>
           {pizzasToShow().map((pizza: pizza) => (
             <PizzaItem key={pizza.id} pizza={pizza} />

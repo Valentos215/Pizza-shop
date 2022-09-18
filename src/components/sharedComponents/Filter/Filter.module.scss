@@ -56,13 +56,19 @@
    &:hover {
       background-color: rgba(79, 79, 79, 0.3);
    }
-   & span {
-      position: relative;
-      display: block;
-      width: 25px;
-      height: 25px;
-      border-radius: 5px;
-      background-color: #e31837;
+   & p {
+      margin-left: 10px;
+   }
+}
+
+.checkbox {
+   position: relative;
+   display: block;
+   width: 25px;
+   height: 25px;
+   border-radius: 5px;
+   background-color: #e31837;
+   &__check {
       &:before {
          content: "";
          background-color: #fff;
@@ -87,15 +93,34 @@
          transition: all 0.2s ease 0s;
          opacity: 0;
       }
-   }
-   & p {
-      margin-left: 10px;
-   }
-   &.checked {
-      & span {
+      &_checked {
          &:before {
             opacity: 1;
          }
+         &:after {
+            opacity: 1;
+         }
+      }
+   }
+   &__denial {
+      &:before,
+      &:after {
+         content: "";
+         background-color: #fff;
+         position: absolute;
+         width: 2px;
+         height: 18.5px;
+         top: 3.5px;
+         left: 11.5px;
+         rotate: -45deg;
+         transition: all 0.2s;
+         opacity: 0;
+      }
+      &:after {
+         rotate: 45deg;
+      }
+      &_unchecked {
+         &:before,
          &:after {
             opacity: 1;
          }
