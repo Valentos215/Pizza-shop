@@ -99,7 +99,7 @@ const Pizza = () => {
         {isLoading && <Preloader />}
         {filter[0] && (
           <div className={s.title}>
-            Pizzas {!!invert && <span> no </span>} contains {filter.join(", ")}{" "}
+            Pizzas {!!invert ? "without" : "contains"} {filter.join(", ")}{" "}
             <span
               onClick={() => setInvert(Math.abs(invert - 1))}
               className={s.invert}

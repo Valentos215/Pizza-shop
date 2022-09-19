@@ -29,6 +29,9 @@
       position: absolute;
       left: 20px;
       bottom: 20px;
+      &.dark {
+         filter: invert(30%);
+      }
    }
    & span {
       position: absolute;
@@ -46,6 +49,7 @@
    }
 }
 .title {
+   flex: 1 0 auto;
    font-weight: 600;
    letter-spacing: 1px;
    margin-bottom: 20px;

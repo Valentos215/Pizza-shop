@@ -75,7 +75,11 @@ const ProductItem = ({ product }: Product) => {
       <div className={s.image}>
         <img className={s.image__main} src={product.img} alt=""></img>
         {cart.some((item) => item.id === product.id) && (
-          <img className={s.image__cartLogo} src={cartLogo} alt=""></img>
+          <img
+            className={`${s.image__cartLogo} ${s.dark}`}
+            src={cartLogo}
+            alt=""
+          ></img>
         )}
         {currentWeight && <span>{currentWeight}g</span>}
       </div>
