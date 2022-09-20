@@ -4,7 +4,7 @@ import Filter from "../sharedComponents/Filter/Filter";
 import Sort from "../sharedComponents/Sort/Sort";
 import ProductItem from "../sharedComponents/ProductItem/ProductItem";
 import useFetch from "../../hooks/useFetch";
-import Preloader from "../sharedComponents/Preloader/Preloader";
+import ProductSkeleton from "../sharedComponents/ProductItem/ProductSkeleton";
 
 type product = {
   id: number;
@@ -22,6 +22,7 @@ const Products = ({ match }: any) => {
   const sortCriteria = ["Price low-high", "Price high-low"];
   const [products, setProducts] = useState<product[] | null>(null);
   const { isLoading, response, error, doFetch } = useFetch(match.path.slice(1));
+  const skeletons = Array.from({ length: 8 }, (v, k) => k + 1);
 
   const categories = () => {
     if (!products) return null;
@@ -83,9 +84,9 @@ const Products = ({ match }: any) => {
           <Sort sortCriteria={sortCriteria} setSort={setSort} />
         </div>
         {error && <h2>Something went wrong</h2>}
-        {isLoading && <Preloader />}
         {filter[0] && <div className={s.title}>{filter.join(", ")}</div>}
         <div className={s.pizzaItems}>
+          {isLoading && skeletons.map((i) => <ProductSkeleton key={i} />)}
           {itemsList &&
             itemsList.map((product: product) => (
               <ProductItem key={product.id} product={product} />

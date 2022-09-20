@@ -5,7 +5,7 @@ import Sort from "../sharedComponents/Sort/Sort";
 import PizzaItem from "../sharedComponents/ProductItem/PizzaItem";
 import useLocalStorage from "../../hooks/useLocalStorage";
 import useFetch from "../../hooks/useFetch";
-import Preloader from "../sharedComponents/Preloader/Preloader";
+import PizzaSkeleton from "../sharedComponents/ProductItem/PizzaSkeleton";
 
 type pizza = {
   id: number;
@@ -26,6 +26,7 @@ const Pizza = () => {
   const sortCriteria = ["Popularity", "Price low-high", "Price high-low"];
   const [pizzas, setPizzas] = useState<pizza[] | null>(null);
   const { isLoading, response, error, doFetch } = useFetch("pizza");
+  const skeletons = Array.from({ length: 8 }, (v, k) => k + 1);
 
   const ingredients = () => {
     if (!pizzas) return null;
@@ -96,7 +97,6 @@ const Pizza = () => {
           <Sort sortCriteria={sortCriteria} setSort={setSort} />
         </div>
         {error && <h2>Something went wrong</h2>}
-        {isLoading && <Preloader />}
         {filter[0] && (
           <div className={s.title}>
             Pizzas {!!invert ? "without" : "contains"} {filter.join(", ")}{" "}
@@ -108,13 +108,13 @@ const Pizza = () => {
             </span>
           </div>
         )}
-        {itemsList && (
-          <div className={s.pizzaItems}>
-            {itemsList.map((pizza: pizza) => (
+        <div className={s.pizzaItems}>
+          {isLoading && skeletons.map((i) => <PizzaSkeleton key={i} />)}
+          {itemsList &&
+            itemsList.map((pizza: pizza) => (
               <PizzaItem key={pizza.id} pizza={pizza} />
             ))}
-          </div>
-        )}
+        </div>
       </div>
     </div>
   );

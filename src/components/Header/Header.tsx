@@ -20,7 +20,6 @@ const Header = ({ expanded, setExpanded }: HeaderProps) => {
 
   return (
     <>
-      <div className={s.background}></div>
       <ExpandedMenu expanded={expanded} setExpanded={setExpanded} />
       <div className={s.header}>
         <div className="container">

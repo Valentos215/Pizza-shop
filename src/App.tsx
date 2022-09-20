@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { SkeletonTheme } from "react-loading-skeleton";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import "./App.scss";
 import Header from "./components/Header/Header";
@@ -17,13 +18,15 @@ function App() {
           <CartChecker>
             <Header expanded={expanded} setExpanded={setExpanded} />
             <div className={expanded ? "expanded" : ""}>
-              <Switch>
-                <Route path="/pizza" component={Pizza} exact />s
-                <Route path="/" component={Pizza} exact />
-                <Route path="/drinks" component={Products} />
-                <Route path="/sides" component={Products} />
-                <Route path="/dessert" component={Products} />
-              </Switch>
+              <SkeletonTheme>
+                <Switch>
+                  <Route path="/pizza" component={Pizza} exact />s
+                  <Route path="/" component={Pizza} exact />
+                  <Route path="/drinks" component={Products} />
+                  <Route path="/sides" component={Products} />
+                  <Route path="/dessert" component={Products} />
+                </Switch>
+              </SkeletonTheme>
             </div>
           </CartChecker>
         </CartProvider>
