@@ -1,3 +1,6 @@
-container 1320px
 
-Logo: http://www.w3.org/2000/svg
+https://dominos.ua/api/v1/streets/check_delivery_zone/   - Post
+
+https://dominos.ua/api/v1/streets/search/?q=гер
+
+https://dominos.ua/api/v1/cities/update_default_city

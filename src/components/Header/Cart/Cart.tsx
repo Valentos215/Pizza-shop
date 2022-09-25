@@ -57,9 +57,11 @@ const Cart = () => {
         }
         {cart[0] && (
           <div className={expanded ? `${s.expand} ${s.active}` : s.expand}>
-            {cart.map((item) => (
-              <CartItem key={item.id + item.size + item.crust} item={item} />
-            ))}
+            {cart
+              .sort((a, b) => a.id - b.id)
+              .map((item) => (
+                <CartItem key={item.id + item.size + item.crust} item={item} />
+              ))}
           </div>
         )}
       </div>

@@ -67,3 +67,20 @@ export const removeItem = (
 ) => {
   setCart(cart.filter((i) => !compareItems(i, item)));
 };
+
+export const removeIngredient = (
+  cart: CartItem[],
+  setCart: React.Dispatch<React.SetStateAction<CartItem[]>>,
+  item: CartItem,
+  ingredient: string
+) => {
+  setCart(
+    cart.map((i) => {
+      if (compareItems(i, item)) {
+        let newIngs = item.ingredients?.filter((ing) => ing !== ingredient);
+        return { ...i, ingredients: newIngs };
+      }
+      return i;
+    })
+  );
+};

@@ -57,6 +57,60 @@
       letter-spacing: 0.5px;
       margin-bottom: 10px;
       color: #7d7d7d;
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      & div {
+         color: #222;
+         font-size: 14px;
+         line-height: 20px;
+         border-radius: 10px;
+         margin-bottom: 5px;
+         margin-right: 5px;
+         background: rgba(2, 2, 2, 0.1);
+         display: flex;
+         flex-direction: row;
+         justify-content: space-between;
+         &.last {
+            color: inherit;
+            padding: 0 7px;
+         }
+         & p {
+            margin: 0 7px;
+         }
+         & span {
+            display: block;
+            position: relative;
+            right: 1px;
+            top: 1px;
+            border-radius: 50%;
+            height: 18px;
+            width: 18px;
+            background: #e31837;
+            cursor: pointer;
+            transition: all 0.2s;
+            &:before,
+            &:after {
+               content: "";
+               position: absolute;
+               height: 10px;
+               width: 2px;
+               background: #fff;
+               rotate: 45deg;
+               left: 8px;
+               top: 4px;
+            }
+            &:after {
+               rotate: -45deg;
+            }
+            &:hover {
+               background: #cb1631;
+            }
+            &:active {
+               scale: 0.9;
+            }
+         }
+      }
    }
    &__specification {
       font-size: 13px;
@@ -70,9 +124,13 @@
       justify-content: space-between;
       align-items: center;
       &_amount {
+         flex: 1 0 auto;
          font-size: 16px;
          font-weight: 600;
          color: #222;
+         & span {
+            font-size: 11px;
+         }
       }
       &_counter {
          width: 90px;
