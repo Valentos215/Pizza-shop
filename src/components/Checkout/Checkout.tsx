@@ -1,4 +1,5 @@
 import s from "./Checkout.module.scss";
+import Form from "./Form/Form";
 import Order from "./Order/Order";
 
 const Checkout = () => {
@@ -6,6 +7,7 @@ const Checkout = () => {
     <div className="container">
       <div className={s.wrapper}>
         <Order />
+        <Form />
       </div>
     </div>
   );
