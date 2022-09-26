@@ -3,8 +3,10 @@ import Order from "./Order/Order";
 
 const Checkout = () => {
   return (
-    <div className={s.wrapper}>
-      <Order />
+    <div className="container">
+      <div className={s.wrapper}>
+        <Order />
+      </div>
     </div>
   );
 };

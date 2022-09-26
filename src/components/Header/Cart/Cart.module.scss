@@ -84,7 +84,6 @@
    }
 }
 .expand {
-   padding: 10px 10px 0px 15px;
    position: absolute;
    background-color: #fff;
    top: 55px;
@@ -98,5 +97,8 @@
    &.active {
       max-height: 430px;
       opacity: 1;
+   }
+   &__item {
+      border-bottom: 1px solid rgba(2, 2, 2, 0.3);
    }
 }

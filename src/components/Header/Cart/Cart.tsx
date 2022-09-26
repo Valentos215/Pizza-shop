@@ -60,7 +60,12 @@ const Cart = () => {
             {cart
               .sort((a, b) => a.id - b.id)
               .map((item) => (
-                <CartItem key={item.id + item.size + item.crust} item={item} />
+                <div
+                  key={item.id + item.size + item.crust}
+                  className={s.expand__item}
+                >
+                  <CartItem item={item} />
+                </div>
               ))}
           </div>
         )}

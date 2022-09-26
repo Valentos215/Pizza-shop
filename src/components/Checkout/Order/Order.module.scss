@@ -1,12 +1,13 @@
 .wrapper {
-   max-width: 600px;
+   max-width: 550px;
    max-height: 600px;
    width: 100%;
    display: flex;
    flex-direction: column;
    @media (max-width: 768px) {
       max-width: inherit;
-      max-height: 500px;
+      max-height: 400px;
+      margin-top: -10px;
    }
 }
 
@@ -20,25 +21,24 @@
 .order {
    padding: 10px 10px 0px 0px;
    border-radius: 25px;
-   border: 1px solid rgba(2, 2, 2, 0.1);
+   border: 1px solid rgba(2, 2, 2, 0.3);
    overflow: auto;
 }
 
 .item {
    display: flex;
    flex-direction: row;
+   border-bottom: 1px solid rgba(2, 2, 2, 0.3);
 }
 
 .image {
    flex: 1 1 120px;
    overflow: hidden;
    width: 100%;
-   margin: 0 auto;
    display: flex;
    flex-direction: column;
    align-items: center;
    justify-content: center;
-   margin-top: -10px;
    & img {
       display: block;
       height: 100px;
@@ -47,11 +47,11 @@
       object-fit: cover;
       @media (max-width: 450px) {
          width: 80px;
-         height: 120px;
          border-radius: 20px;
       }
    }
 }
 .body {
    flex: 1 0 70%;
+   margin-left: -20px;
 }
