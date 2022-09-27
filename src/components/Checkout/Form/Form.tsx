@@ -1,11 +1,15 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import s from "./Form.module.scss";
 import deliveryLogo from "../../../assets/Delivery.svg";
 import carryOutLogo from "../../../assets/CarryOut.svg";
 import Adress from "./Adress";
+import { CartContext } from "../../../contexts/cartContext";
+import { totalAmount } from "../../../utils";
+import Store from "./Store";
 
 const Form = () => {
   const [delivery, setDelivery] = useState(true);
+  const [cart] = useContext(CartContext);
 
   return (
     <div className={s.wrapper}>
@@ -37,6 +41,15 @@ const Form = () => {
         <input name="email" placeholder="E-mail"></input>
       </form>
       {delivery && <Adress />}
+      {!delivery && <Store />}
+      <textarea name="comment" rows={2} placeholder="Comment"></textarea>
+      <div className={s.total}>
+        <h3>Total</h3>
+        <p>
+          {totalAmount(cart)}.00<span> uah</span>
+        </p>
+        <div className={s.button}>Checkout</div>
+      </div>
     </div>
   );
 };

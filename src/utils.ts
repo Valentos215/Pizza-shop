@@ -84,3 +84,19 @@ export const removeIngredient = (
     })
   );
 };
+
+export const totalAmount = (cart: CartItem[]) => {
+  let total = 0;
+  cart.forEach((item) => {
+    total = total + item.amount * item.number;
+  });
+  return total;
+};
+
+export const totalNumber = (cart: CartItem[]) => {
+  let total = 0;
+  cart.forEach((item) => {
+    total = total + item.number;
+  });
+  return `0${total}`.slice(-2);
+};

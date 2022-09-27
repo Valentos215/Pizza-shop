@@ -4,25 +4,11 @@ import cartLogo from "../../../assets/Cart.svg";
 import { useState, useContext } from "react";
 import { CartContext } from "../../../contexts/cartContext";
 import CartItem from "./CartItem";
+import { totalAmount, totalNumber } from "../../../utils";
 
 const Cart = () => {
   const [expanded, setExpanded] = useState(false);
   const [cart] = useContext(CartContext);
-
-  const totalAmount = () => {
-    let total = 0;
-    cart.forEach((item) => {
-      total = total + item.amount * item.number;
-    });
-    return total;
-  };
-  const totalNumber = () => {
-    let total = 0;
-    cart.forEach((item) => {
-      total = total + item.number;
-    });
-    return `0${total}`.slice(-2);
-  };
 
   return (
     <>
@@ -34,23 +20,21 @@ const Cart = () => {
         <div
           className={s.viewer}
           onClick={() => {
-            if (totalAmount()) setExpanded(!expanded);
+            if (cart[0]) setExpanded(!expanded);
           }}
         >
           <div className={s.counter}>
-            <span>{totalNumber()}</span>
+            <span>{totalNumber(cart)}</span>
             <img src={cartLogo} alt=""></img>
           </div>
-          {totalAmount() > 0 && (
-            <label className={s.amount}>{`${totalAmount()}.00 uah`}</label>
+          {cart[0] && (
+            <label className={s.amount}>{`${totalAmount(cart)}.00 uah`}</label>
           )}
         </div>
         {
           <Link
-            className={
-              totalAmount() ? s.checkout : `${s.checkout} ${s.disabled}`
-            }
-            to={totalAmount() ? "checkout" : "#"}
+            className={cart[0] ? s.checkout : `${s.checkout} ${s.disabled}`}
+            to={cart[0] ? "checkout" : "#"}
           >
             Checkout
           </Link>
@@ -71,13 +55,13 @@ const Cart = () => {
         )}
       </div>
       <div className={`${s.cart} ${s.small}`}>
-        <Link to={totalAmount() ? "checkout" : "#"} className={s.viewer}>
+        <Link to={cart[0] ? "checkout" : "#"} className={s.viewer}>
           <div className={s.counter}>
             <span>00</span>
             <img src={cartLogo} alt=""></img>
           </div>
-          {totalAmount() > 0 && (
-            <label className={s.amount}>{`${totalAmount()}.00 uah`}</label>
+          {cart[0] && (
+            <label className={s.amount}>{`${totalAmount(cart)}.00 uah`}</label>
           )}
         </Link>
       </div>

@@ -13,12 +13,11 @@ const Adress = () => {
             placeholder="Street"
           ></input>
         </div>
-        <div className={s.form__row}>
+        <div className={`${s.form__row} ${s.two}`}>
           <input name="house" placeholder="House"></input>
           <input name="apartment" placeholder="Apartment"></input>
           <input name="entrance" placeholder="Entrance"></input>
         </div>
-        <textarea name="comment" rows={2} placeholder="Comment"></textarea>
       </form>
     </div>
   );

@@ -1,15 +1,30 @@
 .adress {
-   flex: 0 1 50%;
-   display: flex;
-   flex-direction: column;
 }
 .form {
+   display: flex;
+   flex-direction: column;
    &__row {
-   }
-   & input {
-      &.expand {
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      margin-bottom: 20px;
+      & input {
+         width: 49.5%;
+      }
+      &.two {
+         & input {
+            width: 32.7%;
+         }
       }
    }
-   & textarea {
+   & input {
+      line-height: 30px;
+      border-radius: 15px;
+      border: 1px solid rgba(2, 2, 2, 0.2);
+      padding: 0 10px;
+      font-size: 15px;
+      &.expand {
+      }
    }
 }
