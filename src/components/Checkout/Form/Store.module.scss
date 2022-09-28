@@ -43,6 +43,9 @@
       padding: 0 10px;
       font-size: 15px;
       margin-bottom: 20px;
+      &.error {
+         border-color: #e31837;
+      }
    }
 }
 .expand {

@@ -1,84 +1,130 @@
 import s from "./Store.module.scss";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import jsonData from "../../../assets/cities.json";
 
-const Store = () => {
-  const cities = ["Kyiv", "Brovary", "Dnipro", "Irpin", "Lviv", "Vinnytsia"];
+type City = { id: string; slug: string; stores: string[] };
+type StoreAdress = { city: string; store: string };
+type StoreProps = {
+  setStoreAdress: React.Dispatch<React.SetStateAction<StoreAdress | null>>;
+  check: boolean;
+  setCheck: React.Dispatch<React.SetStateAction<boolean>>;
+};
+
+const Store = ({ setStoreAdress, check, setCheck }: StoreProps) => {
   const [cityExpand, setCityExpand] = useState(false);
-  const [city, setCity] = useState("");
+  const [city, setCity] = useState<City | null>(null);
   const [citySearch, setCitySearch] = useState("");
   const [storeExpand, setStoreExpand] = useState(false);
   const [store, setStore] = useState("");
   const [storeSearch, setStoreSearch] = useState("");
+
+  const cities: City[] = JSON.parse(JSON.stringify(jsonData));
+
+  const currentCities = cities.filter((city) => {
+    if (citySearch)
+      return city.slug.toUpperCase().includes(citySearch.toUpperCase());
+    return city;
+  });
+  const currentStores = city?.stores.filter((store) => {
+    if (storeSearch)
+      return store.toUpperCase().includes(storeSearch.toUpperCase());
+    return store;
+  });
+
+  useEffect(() => {
+    if (!city || !store) {
+      setStoreAdress(null);
+    } else {
+      setStoreAdress({ city: city!.id, store: store });
+    }
+  }, [city, store, setStoreAdress]);
+
   return (
     <div className={s.store}>
-      <h3>Store</h3>
+      <h3
+        onClick={() => {
+          setCitySearch(city ? city.slug : "");
+          setCityExpand(false);
+          setStoreExpand(false);
+          setStoreSearch(store);
+        }}
+      >
+        Store
+      </h3>
       <form className={s.form}>
         <div
-          tabIndex={7}
-          onBlur={() => {
-            setCitySearch(city);
-            setCityExpand(false);
+          onFocus={() => {
+            setCityExpand(true);
+            setStoreExpand(false);
           }}
-          onFocus={() => setCityExpand(true)}
           className={
             cityExpand ? `${s.form__input} ${s.active}` : s.form__input
           }
         >
           <input
-            onClick={() => setCitySearch("")}
+            onClick={() => {
+              setCitySearch("");
+              setCheck(false);
+            }}
             onChange={(e) => setCitySearch(e.target.value)}
-            name="city"
             placeholder="Choose city"
             value={citySearch}
+            autoComplete="off"
+            className={(check && !city && s.error) || ""}
           ></input>
           <span></span>
           <div className={cityExpand ? `${s.expand} ${s.active}` : s.expand}>
-            {cities.map((city) => (
-              <p
-                onClick={() => {
-                  setCity(city);
-                  setCitySearch(city);
-                  setCityExpand(false);
-                }}
-                key={city}
-              >
-                {city}
-              </p>
-            ))}
+            {currentCities &&
+              currentCities.map((city: City) => (
+                <p
+                  onClick={() => {
+                    setCity(city);
+                    setCitySearch(city.slug);
+                    setCityExpand(false);
+                    setStore("");
+                    setStoreSearch("");
+                  }}
+                  key={city.id}
+                >
+                  {city.slug}
+                </p>
+              ))}
           </div>
         </div>
         <div
-          tabIndex={8}
-          onBlur={() => {
-            setStoreSearch(store);
-            setStoreExpand(false);
+          onFocus={() => {
+            if (city) setStoreExpand(true);
           }}
-          onFocus={() => setStoreExpand(true)}
           className={
             storeExpand ? `${s.form__input} ${s.active}` : s.form__input
           }
         >
           <input
-            onClick={() => setStoreSearch("")}
+            onClick={() => {
+              setStoreSearch("");
+              setCheck(false);
+            }}
             onChange={(e) => setStoreSearch(e.target.value)}
-            name="store"
             placeholder="Choose store"
             value={storeSearch}
+            autoComplete="off"
+            className={(check && !store && s.error) || ""}
           ></input>
           <span></span>
           <div className={storeExpand ? `${s.expand} ${s.active}` : s.expand}>
-            {cities.map((city) => (
-              <p
-                onClick={() => {
-                  setStore(city);
-                  setStoreSearch(city);
-                  setStoreExpand(false);
-                }}
-                key={city}
-              >
-                {city}
-              </p>
-            ))}
+            {currentStores &&
+              currentStores.map((store) => (
+                <p
+                  onClick={() => {
+                    setStore(store);
+                    setStoreSearch(store);
+                    setStoreExpand(false);
+                  }}
+                  key={store}
+                >
+                  {store}
+                </p>
+              ))}
           </div>
         </div>
       </form>

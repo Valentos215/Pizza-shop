@@ -10,6 +10,14 @@ import Store from "./Store";
 const Form = () => {
   const [delivery, setDelivery] = useState(true);
   const [cart] = useContext(CartContext);
+  const [check, setCheck] = useState(false);
+  const [deliveryAdress, setDeliveryAdress] = useState();
+  const [storeAdress, setStoreAdress] = useState<{
+    city: string;
+    store: string;
+  } | null>(null);
+
+  const disabled = (delivery && !deliveryAdress) || (!delivery && !storeAdress);
 
   return (
     <div className={s.wrapper}>
@@ -41,14 +49,25 @@ const Form = () => {
         <input name="email" placeholder="E-mail"></input>
       </form>
       {delivery && <Adress />}
-      {!delivery && <Store />}
+      {!delivery && (
+        <Store
+          setStoreAdress={setStoreAdress}
+          check={check}
+          setCheck={setCheck}
+        />
+      )}
       <textarea name="comment" rows={2} placeholder="Comment"></textarea>
       <div className={s.total}>
         <h3>Total</h3>
         <p>
           {totalAmount(cart)}.00<span> uah</span>
         </p>
-        <div className={s.button}>Checkout</div>
+        <div
+          className={disabled ? `${s.button} ${s.disabled}` : s.button}
+          onClick={() => setCheck(true)}
+        >
+          Checkout
+        </div>
       </div>
     </div>
   );

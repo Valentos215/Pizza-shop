@@ -1,0 +1,122 @@
+[
+  {
+    "id": "686ac63c-bdad-4719-b20c-a3cf5c9cb4a6",
+    "slug": "Brovary",
+    "stores": ["St. Chornovola, 2"]
+  },
+  {
+    "id": "54e2ae06-145a-4fbf-980f-40c7eeba27de",
+    "slug": "Irpin",
+    "stores": ["St. University, 2z"]
+  },
+  {
+    "id": "66acc716-fd3f-4ba6-a466-c0ae1cdf5203",
+    "slug": "Kyiv",
+    "stores": [
+      "14 Sahaidachnogo str.",
+      "Drahomanova St., 44A",
+      "Heroiv Stalingrad Avenue, 12G",
+      "77 Sichovyh Streltsiv Street",
+      "Kharkivske Shose, 152",
+      "Prosp. Sobornosti, 2/1",
+      "14 Obolonsky Ave.",
+      "11B Myshugy Street",
+      "Evhena Sverstyuk St., 3G",
+      "Baysena St., 17",
+      "Volodymyra Mayakovsky Ave., 61B",
+      "Honore de Balzac Street, 2A",
+      "Prosp. Lobanovskyi Valeriya, 3A",
+      "Hnata Yury St., 6",
+      "2/34 Boychuka Mykhailo St.",
+      "Georgia Kirpy St., 3",
+      "Vasylkivska Street, 8",
+      "31 A Vyshhorodska Street",
+      "Sviatoshynska St., 3",
+      "Perova Blvd., 36",
+      "212 Borshchagivska Street",
+      "83D Melnikova Street",
+      "Akhmatova Anna St., 49",
+      "Akademika Williams Street, 6A",
+      "Akademika Efremov St., 8A",
+      "Tereshchenkivska St., 4A",
+      "11/11 Husovsky St.",
+      "30/20 Svitlytskogo Street",
+      "17 Simiy Sosninykh str.",
+      "165 Antonovycha Street",
+      "4 Danyla Scherbakivskogo str.",
+      "Vasylkivska St., 100A",
+      "14/45 Vedradny Ave.",
+      "Almatynska St., 4",
+      "Str. Solomyanska, 6B",
+      "Prosp. Nauky, 11A",
+      "ul. Olesya Honchara, 62",
+      "17 Dorohozhitska Street",
+      "Milyutenko St., 7c",
+      "18 Vasyla Poryk Ave.",
+      "Prosp. Peremohy, 28",
+      "Pulyuya St., 8A",
+      "Str. Kiltseva doroha, 1"
+    ]
+  },
+  {
+    "id": "5f689ff0-32d7-41c0-9229-c378edae6697",
+    "slug": "Lviv",
+    "stores": [
+      "22 Hetmana Mazepa Street",
+      "Vyacheslava Chornovola Ave., 16i",
+      "5 Shevchenko Avenue",
+      "Prosp. Chervonoi Kalina, 62",
+      "174 Kulparkivska Street",
+      "Zaliznychna Street, 21",
+      "Pasichna St., 2"
+    ]
+  },
+  {
+    "id": "52c68f09-ef0c-464c-948d-43be3679a1eb",
+    "slug": "Odessa",
+    "stores": [
+      "86/1 Dobrovolskogo Street",
+      "Gretska Square, 5",
+      "Admiralsky Ave. 1",
+      "Mechnikova Street, 34/1",
+      "73 Akademika Williams Street",
+      "Shevchenko Ave., 8/13",
+      "7th km. Ovidiopolska road, 7"
+    ]
+  },
+  {
+    "id": "83355adb-c2c3-4824-8fe3-b38383a3275e",
+    "slug": "Sofiivska Borshchagivska",
+    "stores": ["Ivana Franka St., 6"]
+  },
+  {
+    "id": "2b6cdcbd-2476-4eff-b8b4-4334aabcf558",
+    "slug": "Kriukivshchyna",
+    "stores": ["Balukova, 1e,"]
+  },
+  {
+    "id": "e90c3818-7dfa-4479-aba7-b5759c675515",
+    "slug": "Rivne",
+    "stores": ["34 Soborna Street"]
+  },
+  {
+    "id": "513d8c54-4982-4c8a-8b14-f50884c29d51",
+    "slug": "Vinnytsia",
+    "stores": ["10 Zodchih Street"]
+  },
+  {
+    "id": "8c355cc2-227e-4f47-8dfc-7762ae4af2e5",
+    "slug": "Sviatopetrivske",
+    "stores": ["Ivana Franka str., 6 (Sofiivska Borshchagivska)"]
+  },
+  {
+    "id": "97b211fe-d71e-447c-8e07-1843de85f69b",
+    "slug": "Hatne",
+    "stores": ["Balukova, 1e, (Kryukivshchyna)"]
+  },
+  {
+    "id": "f7202ab4-8d7e-48a5-a617-a82819d7b0b9",
+    "slug": "Chornomorsk",
+    "stores": ["28T Myru Avenue"]
+  }
+]
