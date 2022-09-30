@@ -21,13 +21,16 @@ const Form = () => {
   } | null>(null);
 
   const errorMes = {
-    nameLength: "Name length 2-25 letters",
+    nameLong: "Name is to long",
+    nameShort: "Name is to short",
     nameRequired: "Name is required",
-    emailLength: "25 characters or less",
-    emailRequired: "Email is required",
+    nameValid: "Please use only latin letters",
+    emailLength: "E-mail is to long",
+    emailRequired: "E-mail is required",
     emailIncorrect: "Incorrect email",
     phoneRequired: "Phone number is required",
   };
+  const nameValidation = /^[A-Za-z]+$/;
 
   const adressError =
     (delivery && !deliveryAdress) || (!delivery && !storeAdress);
@@ -40,9 +43,10 @@ const Form = () => {
     },
     validationSchema: Yup.object({
       name: Yup.string()
-        .min(2, errorMes.nameLength)
-        .max(25, errorMes.nameLength)
-        .required(errorMes.nameRequired),
+        .min(2, errorMes.nameShort)
+        .max(25, errorMes.nameLong)
+        .required(errorMes.nameRequired)
+        .matches(nameValidation, errorMes.nameValid),
       email: Yup.string()
         .max(25, errorMes.emailLength)
         .email(errorMes.emailIncorrect)
@@ -59,7 +63,7 @@ const Form = () => {
 
   let nameError =
     (formik.touched.name && formik.errors.name) ||
-    formik.errors.name === errorMes.nameLength;
+    formik.errors.name === errorMes.nameLong;
   let emailError =
     (formik.touched.email && formik.errors.email) ||
     formik.errors.email === errorMes.emailLength;
@@ -91,7 +95,9 @@ const Form = () => {
       <h3>Contacts</h3>
       <form className={s.contacts}>
         <div className={s.contacts__input}>
-          <span>{nameError && formik.errors.name}</span>
+          <span className={nameError ? s.error : ""}>
+            {nameError ? formik.errors.name : "Name"}
+          </span>
           <input
             value={formik.values.name}
             onChange={formik.handleChange}
@@ -103,7 +109,9 @@ const Form = () => {
           ></input>
         </div>
         <div className={s.contacts__input}>
-          <span>{phoneError && formik.errors.phone}</span>
+          <span className={phoneError ? s.error : ""}>
+            {phoneError ? formik.errors.phone : "Phone"}
+          </span>
           <InputMask
             name="phone"
             mask="+38(099) 999 99 99"
@@ -113,18 +121,11 @@ const Form = () => {
             placeholder="Phone"
             className={phoneError ? s.error : ""}
           ></InputMask>
-          {/* <input
-            value={formik.values.phone}
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            name="phone"
-            placeholder="Phone"
-            className={phoneError ? s.error : ""}
-            autoComplete="off"
-          ></input> */}
         </div>
         <div className={s.contacts__input}>
-          <span>{emailError && formik.errors.email}</span>
+          <span className={emailError ? s.error : ""}>
+            {emailError ? formik.errors.email : "E-mail"}
+          </span>
           <input
             value={formik.values.email}
             onChange={formik.handleChange}

@@ -61,6 +61,8 @@ const Store = ({ setStoreAdress, check, setCheck }: StoreProps) => {
             cityExpand ? `${s.form__input} ${s.active}` : s.form__input
           }
         >
+          {!city && check && <p className={s.error}>Choose city</p>}
+          {(!check || !!city) && <p>City</p>}
           <input
             onClick={() => {
               setCitySearch("");
@@ -99,7 +101,10 @@ const Store = ({ setStoreAdress, check, setCheck }: StoreProps) => {
             storeExpand ? `${s.form__input} ${s.active}` : s.form__input
           }
         >
+          {!store && check && <p className={s.error}>Choose store</p>}
+          {(!check || !!store) && <p>Store</p>}
           <input
+            disabled={!city}
             onClick={() => {
               setStoreSearch("");
               setCheck(false);

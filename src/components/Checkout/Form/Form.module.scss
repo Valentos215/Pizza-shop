@@ -70,8 +70,11 @@
          height: 20px;
          line-height: 20px;
          font-weight: 600;
-         color: #e31837;
+         color: #222;
          margin-left: 12px;
+         &.error {
+            color: #e31837;
+         }
       }
    }
    & input {

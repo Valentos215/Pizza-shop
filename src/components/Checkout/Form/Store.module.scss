@@ -5,13 +5,22 @@
    flex-direction: column;
    &__input {
       position: relative;
+      margin-top: -20px;
+      & p {
+         font-size: 12px;
+         line-height: 20px;
+         margin-left: 15px;
+         &.error {
+            color: #e31837;
+         }
+      }
       & span {
          &:before,
          &:after {
             content: "";
             position: absolute;
             right: 20px;
-            top: 11px;
+            top: 31px;
             height: 10px;
             width: 2px;
             background: rgba(2, 2, 2, 0.3);
@@ -51,7 +60,7 @@
 .expand {
    width: 100%;
    position: absolute;
-   top: 35px;
+   top: 55px;
    z-index: 3;
    background: #fff;
    border-radius: 15px;
