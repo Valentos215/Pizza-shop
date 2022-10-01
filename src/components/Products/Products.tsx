@@ -59,6 +59,7 @@ const Products = ({ match }: any) => {
 
   useEffect(() => {
     setFilter(null);
+    setSort(-1);
     setProducts(null);
     doFetch();
   }, [doFetch, match.path]);
