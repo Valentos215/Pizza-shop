@@ -2,12 +2,14 @@
   {
     "id": "686ac63c-bdad-4719-b20c-a3cf5c9cb4a6",
     "slug": "Brovary",
-    "stores": ["St. Chornovola, 2"]
+    "stores": ["St. Chornovola, 2"],
+    "bbox": "30.737183,50.482186,30.863954,50.538658"
   },
   {
     "id": "54e2ae06-145a-4fbf-980f-40c7eeba27de",
     "slug": "Irpin",
-    "stores": ["St. University, 2z"]
+    "stores": ["St. University, 2z"],
+    "bbox": "30.187721,50.475334,30.298786,50.545797"
   },
   {
     "id": "66acc716-fd3f-4ba6-a466-c0ae1cdf5203",
@@ -56,7 +58,8 @@
       "Prosp. Peremohy, 28",
       "Pulyuya St., 8A",
       "Str. Kiltseva doroha, 1"
-    ]
+    ],
+    "bbox": "30.354437,50.366170,30.712866,50.530847"
   },
   {
     "id": "5f689ff0-32d7-41c0-9229-c378edae6697",
@@ -69,11 +72,12 @@
       "174 Kulparkivska Street",
       "Zaliznychna Street, 21",
       "Pasichna St., 2"
-    ]
+    ],
+    "bbox": "23.909183,49.769042,24.096214,49.891887"
   },
   {
     "id": "52c68f09-ef0c-464c-948d-43be3679a1eb",
-    "slug": "Odessa",
+    "slug": "Odesa",
     "stores": [
       "86/1 Dobrovolskogo Street",
       "Gretska Square, 5",
@@ -82,41 +86,49 @@
       "73 Akademika Williams Street",
       "Shevchenko Ave., 8/13",
       "7th km. Ovidiopolska road, 7"
-    ]
+    ],
+    "bbox": "30.613695,46.323931,30.810959,46.599629"
   },
   {
     "id": "83355adb-c2c3-4824-8fe3-b38383a3275e",
-    "slug": "Sofiivska Borshchagivska",
-    "stores": ["Ivana Franka St., 6"]
+    "slug": "Sofiivska Borshchagivka",
+    "stores": ["Ivana Franka St., 6"],
+    "bbox": "30.317421,50.395214,30.393962,50.426417"
   },
   {
     "id": "2b6cdcbd-2476-4eff-b8b4-4334aabcf558",
     "slug": "Kriukivshchyna",
-    "stores": ["Balukova, 1e,"]
+    "stores": ["Balukova, 1e,"],
+    "bbox": "30.341276,50.358645,30.413485,50.383935"
   },
   {
     "id": "e90c3818-7dfa-4479-aba7-b5759c675515",
     "slug": "Rivne",
-    "stores": ["34 Soborna Street"]
+    "stores": ["34 Soborna Street"],
+    "bbox": "26.174367,50.572597,26.313749,50.650762"
   },
   {
     "id": "513d8c54-4982-4c8a-8b14-f50884c29d51",
     "slug": "Vinnytsia",
-    "stores": ["10 Zodchih Street"]
+    "stores": ["10 Zodchih Street"],
+    "bbox": "28.380641,49.201551,28.546190,49.274317"
   },
   {
     "id": "8c355cc2-227e-4f47-8dfc-7762ae4af2e5",
     "slug": "Sviatopetrivske",
-    "stores": ["Ivana Franka str., 6 (Sofiivska Borshchagivska)"]
+    "stores": ["Ivana Franka str., 6 (Sofiivska Borshchagivska)"],
+    "bbox": "30.302277,50.370024,30.335081,50.396403"
   },
   {
     "id": "97b211fe-d71e-447c-8e07-1843de85f69b",
     "slug": "Hatne",
-    "stores": ["Balukova, 1e, (Kryukivshchyna)"]
+    "stores": ["Balukova, 1e, (Kryukivshchyna)"],
+    "bbox": "30.380140,50.343771,30.437013,50.370668"
   },
   {
     "id": "f7202ab4-8d7e-48a5-a617-a82819d7b0b9",
     "slug": "Chornomorsk",
-    "stores": ["28T Myru Avenue"]
+    "stores": ["28T Myru Avenue"],
+    "bbox": "30.625805,46.257499,30.665789,46.324231"
   }
 ]

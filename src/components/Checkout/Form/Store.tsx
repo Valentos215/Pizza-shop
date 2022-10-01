@@ -35,7 +35,7 @@ const Store = ({ setStoreAdress, check, setCheck }: StoreProps) => {
     if (!city || !store) {
       setStoreAdress(null);
     } else {
-      setStoreAdress({ city: city!.id, store: store });
+      setStoreAdress({ city: city!.slug, store: store });
     }
   }, [city, store, setStoreAdress]);
 

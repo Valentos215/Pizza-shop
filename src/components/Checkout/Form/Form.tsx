@@ -10,15 +10,23 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import InputMask from "react-input-mask";
 
+type StoreAdress = { city: string; store: string };
+type DeliveryAdress = {
+  city: string;
+  street: string;
+  house: string;
+  apartment?: string;
+  entrance?: string;
+};
+
 const Form = () => {
   const [delivery, setDelivery] = useState(true);
   const [cart] = useContext(CartContext);
   const [check, setCheck] = useState(false);
-  const [deliveryAdress, setDeliveryAdress] = useState();
-  const [storeAdress, setStoreAdress] = useState<{
-    city: string;
-    store: string;
-  } | null>(null);
+  const [deliveryAdress, setDeliveryAdress] = useState<DeliveryAdress | null>(
+    null
+  );
+  const [storeAdress, setStoreAdress] = useState<StoreAdress | null>(null);
 
   const errorMes = {
     nameLong: "Name is to long",
@@ -137,7 +145,13 @@ const Form = () => {
           ></input>
         </div>
       </form>
-      {delivery && <Adress />}
+      {delivery && (
+        <Adress
+          setDeliveryAdress={setDeliveryAdress}
+          check={check}
+          setCheck={setCheck}
+        />
+      )}
       {!delivery && (
         <Store
           setStoreAdress={setStoreAdress}

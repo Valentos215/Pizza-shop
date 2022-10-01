@@ -6,7 +6,7 @@ import { useState } from "react";
 type FilterProps = {
   title?: string;
   specification: string[] | null;
-  setFilter: React.Dispatch<React.SetStateAction<string[]>>;
+  setFilter: React.Dispatch<React.SetStateAction<string[] | null>>;
   invert: number;
 };
 
@@ -46,7 +46,11 @@ const Filter = ({ title, specification, setFilter, invert }: FilterProps) => {
   };
 
   useEffect(() => {
-    setFilter(checked);
+    if (checked[0]) {
+      setFilter(checked);
+    } else {
+      setFilter(null);
+    }
   }, [checked, setFilter]);
 
   return (

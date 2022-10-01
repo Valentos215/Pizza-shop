@@ -17,7 +17,7 @@ type product = {
 };
 
 const Products = ({ match }: any) => {
-  const [filter, setFilter] = useState<string[]>([]);
+  const [filter, setFilter] = useState<string[] | null>(null);
   const [sort, setSort] = useState<number>(-1);
   const sortCriteria = ["Price low-high", "Price high-low"];
   const [products, setProducts] = useState<product[] | null>(null);
@@ -36,11 +36,10 @@ const Products = ({ match }: any) => {
   const productsToShow = () => {
     if (!products) return null;
     let filtered: product[] = [];
-    const filt = products.filter((product: product) =>
-      filter.some((cat) => product.category === cat)
-    );
-    if (filter[0]) {
-      filtered = filt;
+    if (filter) {
+      filtered = products.filter((product: product) =>
+        filter.some((cat) => product.category === cat)
+      );
     } else {
       filtered = products;
     }
@@ -66,6 +65,7 @@ const Products = ({ match }: any) => {
   useEffect(() => {
     if (!response) return;
     setProducts(response);
+    if (!response[0].category) setFilter(null);
   }, [response]);
 
   return (
@@ -84,7 +84,7 @@ const Products = ({ match }: any) => {
           <Sort sortCriteria={sortCriteria} setSort={setSort} />
         </div>
         {error && <h2>Something went wrong</h2>}
-        {filter[0] && <div className={s.title}>{filter.join(", ")}</div>}
+        {filter && <div className={s.title}>{filter.join(", ")}</div>}
         <div className={s.pizzaItems}>
           {isLoading && skeletons.map((i) => <ProductSkeleton key={i} />)}
           {itemsList &&

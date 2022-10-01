@@ -18,7 +18,7 @@ type pizza = {
 };
 
 const Pizza = () => {
-  const [filter, setFilter] = useState<string[]>([]);
+  const [filter, setFilter] = useState<string[] | null>(null);
   const [memInvert, setMemInvert] = useLocalStorage("invert");
   const [invert, setInvert] = useState(Number(memInvert) || 0);
   const [memSort, setMemSort] = useLocalStorage("sort");
@@ -42,14 +42,13 @@ const Pizza = () => {
   const pizzasToShow = () => {
     if (!pizzas) return null;
     let filtered: pizza[] = [];
-    const filt = pizzas.filter((pizza: pizza) => {
-      if (invert) {
-        return filter.every((ing) => !pizza.ingredients.includes(ing));
-      }
-      return filter.some((ing) => pizza.ingredients.includes(ing));
-    });
-    if (filter[0]) {
-      filtered = filt;
+    if (filter) {
+      filtered = pizzas.filter((pizza: pizza) => {
+        if (invert) {
+          return filter.every((ing) => !pizza.ingredients.includes(ing));
+        }
+        return filter.some((ing) => pizza.ingredients.includes(ing));
+      });
     } else {
       filtered = pizzas;
     }
@@ -97,7 +96,7 @@ const Pizza = () => {
           <Sort sortCriteria={sortCriteria} setSort={setSort} />
         </div>
         {error && <h2>Something went wrong</h2>}
-        {filter[0] && (
+        {filter && (
           <div className={s.title}>
             Pizzas {!!invert ? "without" : "contains"} {filter.join(", ")}{" "}
             <span
