@@ -58,6 +58,7 @@ const Products = ({ match }: any) => {
   const itemsList = productsToShow();
 
   useEffect(() => {
+    setFilter(null);
     setProducts(null);
     doFetch();
   }, [doFetch, match.path]);
@@ -65,7 +66,6 @@ const Products = ({ match }: any) => {
   useEffect(() => {
     if (!response) return;
     setProducts(response);
-    if (!response[0].category) setFilter(null);
   }, [response]);
 
   return (
