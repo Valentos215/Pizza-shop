@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { SkeletonTheme } from "react-loading-skeleton";
 import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
 import "./App.scss";
@@ -7,18 +6,17 @@ import Header from "./components/Header/Header";
 import Pizza from "./components/Pizza/Pizza";
 import Products from "./components/Products/Products";
 import { CartProvider } from "./contexts/cartContext";
+import { ExpandProvider } from "./contexts/expandContext";
 import CartChecker from "./hok/cartChecker";
 
 function App() {
-  const [expanded, setExpanded] = useState(false);
-
   return (
     <div className="app-wrapper">
       <BrowserRouter>
-        <CartProvider>
-          <CartChecker>
-            <Header expanded={expanded} setExpanded={setExpanded} />
-            <div className={expanded ? "expanded" : ""}>
+        <ExpandProvider>
+          <CartProvider>
+            <CartChecker>
+              <Header />
               <SkeletonTheme>
                 <Switch>
                   <Route path="/" exact>
@@ -31,9 +29,9 @@ function App() {
                   <Route path="/checkout" component={Checkout} />
                 </Switch>
               </SkeletonTheme>
-            </div>
-          </CartChecker>
-        </CartProvider>
+            </CartChecker>
+          </CartProvider>
+        </ExpandProvider>
       </BrowserRouter>
     </div>
   );

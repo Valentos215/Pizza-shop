@@ -1,22 +1,20 @@
+import { useContext } from "react";
 import s from "./Header.module.scss";
 import logo from "../../assets/Logo.svg";
 import logoText from "../../assets/Logo_text.svg";
 import { Link, NavLink } from "react-router-dom";
 import Cart from "./Cart/Cart";
 import ExpandedMenu from "./ExpandedMenu/ExpandedMenu";
+import { ExpandContext } from "../../contexts/expandContext";
 
-type HeaderProps = {
-  expanded: boolean;
-  setExpanded: React.Dispatch<React.SetStateAction<boolean>>;
-};
-
-const Header = ({ expanded, setExpanded }: HeaderProps) => {
+const Header = () => {
   const navMenu = [
     { title: "Pizza", link: "pizza" },
     { title: "Drinks", link: "drinks" },
     { title: "Sides", link: "sides" },
     { title: "Dessert", link: "dessert" },
   ];
+  const [expanded, setExpanded] = useContext(ExpandContext);
 
   return (
     <>
