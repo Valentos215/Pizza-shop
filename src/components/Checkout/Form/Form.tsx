@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import s from "./Form.module.scss";
 import deliveryLogo from "../../../assets/Delivery.svg";
 import carryOutLogo from "../../../assets/CarryOut.svg";
@@ -9,6 +9,8 @@ import Store from "./Store";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import InputMask from "react-input-mask";
+import useFetch from "../../../hooks/useFetch";
+import Preloader from "../../sharedComponents/Preloader/Preloader";
 
 type StoreAdress = { city: string; store: string };
 type DeliveryAdress = {
@@ -18,15 +20,19 @@ type DeliveryAdress = {
   apartment?: string;
   entrance?: string;
 };
+type FormProps = {
+  setCheckoutSuccess: React.Dispatch<React.SetStateAction<boolean>>;
+};
 
-const Form = () => {
+const Form = ({ setCheckoutSuccess }: FormProps) => {
   const [delivery, setDelivery] = useState(true);
-  const [cart] = useContext(CartContext);
+  const [cart, setCart] = useContext(CartContext);
   const [check, setCheck] = useState(false);
   const [deliveryAdress, setDeliveryAdress] = useState<DeliveryAdress | null>(
     null
   );
   const [storeAdress, setStoreAdress] = useState<StoreAdress | null>(null);
+  const { isLoading, response, doFetch } = useFetch("pizza");
 
   const errorMes = {
     nameLong: "Name is to long",
@@ -62,10 +68,21 @@ const Form = () => {
       phone: Yup.string().required(errorMes.phoneRequired),
     }),
     onSubmit: (values) => {
+      if (isLoading) {
+        return;
+      }
       setCheck(true);
-      if (!adressError) console.log(values);
+      if (!adressError) {
+        doFetch();
+      }
     },
   });
+
+  useEffect(() => {
+    if (!response) return;
+    setCheckoutSuccess(true);
+    setCart([]);
+  }, [response]);
 
   const disabled = adressError || !formik.isValid;
 
@@ -161,6 +178,11 @@ const Form = () => {
       )}
       <textarea name="comment" rows={2} placeholder="Comment"></textarea>
       <div className={s.total}>
+        {isLoading && (
+          <div className={s.preloader}>
+            <Preloader />
+          </div>
+        )}
         <h3>Total</h3>
         <p>
           {totalAmount(cart)}.00<span> uah</span>
