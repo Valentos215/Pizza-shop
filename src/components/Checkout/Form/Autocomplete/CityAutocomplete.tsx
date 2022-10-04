@@ -2,7 +2,7 @@ import s from "./Autocomplete.module.scss";
 import { useEffect, useState } from "react";
 import jsonData from "../../../../assets/cities.json";
 
-type City_type = { id: string; slug: string; stores: string[] };
+type City_type = { id: string; slug: string; stores: string[]; bbox: string[] };
 type CityProps = {
   city: City_type | null;
   setCity: React.Dispatch<React.SetStateAction<City_type | null>>;
@@ -30,7 +30,9 @@ const CityAutocomplete = ({ city, setCity, check, setCheck }: CityProps) => {
     <div
       tabIndex={12}
       onFocus={() => setCityExpand(true)}
-      onBlur={() => setCityExpand(false)}
+      onBlur={() => {
+        setCityExpand(false);
+      }}
       className={cityExpand ? `${s.wrapper} ${s.active}` : s.wrapper}
     >
       {!city && check && <p className={s.error}>Choose city</p>}

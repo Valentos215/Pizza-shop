@@ -1,7 +1,7 @@
 import s from "./Autocomplete.module.scss";
 import { useEffect, useState } from "react";
 
-type City_type = { id: string; slug: string; stores: string[] };
+type City_type = { id: string; slug: string; stores: string[]; bbox: string[] };
 type StoreProps = {
   city: City_type | null;
   store: string;
@@ -42,6 +42,9 @@ const StoreAutocomplete = ({
         if (city) setStoreExpand(true);
       }}
       onBlur={() => setStoreExpand(false)}
+      onClick={() => {
+        if (!city) setCheck(true);
+      }}
       className={storeExpand ? `${s.wrapper} ${s.active}` : s.wrapper}
     >
       {!store && check && <p className={s.error}>Choose store</p>}

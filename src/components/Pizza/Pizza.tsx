@@ -87,34 +87,36 @@ const Pizza = () => {
   }, [invert, setMemInvert]);
 
   return (
-    <div className={expanded ? "container noScroll" : "container"}>
-      <div className={s.wrapper}>
-        <div className={s.filters}>
-          <Filter
-            specification={ingredients()}
-            setFilter={setFilter}
-            invert={invert}
-          />
-          <Sort sortCriteria={sortCriteria} setSort={setSort} />
-        </div>
-        {error && <h2>Something went wrong</h2>}
-        {filter && (
-          <div className={s.title}>
-            Pizzas {!!invert ? "without" : "contains"} {filter.join(", ")}{" "}
-            <span
-              onClick={() => setInvert(Math.abs(invert - 1))}
-              className={s.invert}
-            >
-              Invert
-            </span>
+    <div className={expanded ? "scroll off" : "scroll"}>
+      <div className="container">
+        <div className={s.wrapper}>
+          <div className={s.filters}>
+            <Filter
+              specification={ingredients()}
+              setFilter={setFilter}
+              invert={invert}
+            />
+            <Sort sortCriteria={sortCriteria} setSort={setSort} />
           </div>
-        )}
-        <div className={s.pizzaItems}>
-          {isLoading && skeletons.map((i) => <PizzaSkeleton key={i} />)}
-          {itemsList &&
-            itemsList.map((pizza: pizza) => (
-              <PizzaItem key={pizza.id} pizza={pizza} />
-            ))}
+          {error && <h2>Something went wrong</h2>}
+          {filter && (
+            <div className={s.title}>
+              Pizzas {!!invert ? "without" : "contains"} {filter.join(", ")}{" "}
+              <span
+                onClick={() => setInvert(Math.abs(invert - 1))}
+                className={s.invert}
+              >
+                Invert
+              </span>
+            </div>
+          )}
+          <div className={s.pizzaItems}>
+            {isLoading && skeletons.map((i) => <PizzaSkeleton key={i} />)}
+            {itemsList &&
+              itemsList.map((pizza: pizza) => (
+                <PizzaItem key={pizza.id} pizza={pizza} />
+              ))}
+          </div>
         </div>
       </div>
     </div>

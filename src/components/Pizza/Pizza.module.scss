@@ -1,12 +1,3 @@
-.container {
-   position: absolute;
-   height: 100%;
-   width: 100%;
-   background: none;
-   &.noScroll {
-      overflow: hidden;
-   }
-}
 .wrapper {
    width: 100%;
    display: flex;

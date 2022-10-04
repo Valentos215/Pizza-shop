@@ -1,5 +1,6 @@
 import { useState, useContext } from "react";
 import { CartContext } from "../../contexts/cartContext";
+import { ExpandContext } from "../../contexts/expandContext";
 import s from "./Checkout.module.scss";
 import Form from "./Form/Form";
 import Order from "./Order/Order";
@@ -7,6 +8,7 @@ import Order from "./Order/Order";
 const Checkout = () => {
   const [checkoutSuccess, setCheckoutSuccess] = useState(false);
   const [cart] = useContext(CartContext);
+  const [expanded] = useContext(ExpandContext);
 
   if (checkoutSuccess)
     return (
@@ -19,10 +21,12 @@ const Checkout = () => {
   }
 
   return (
-    <div className="container">
-      <div className={s.wrapper}>
-        <Order />
-        <Form setCheckoutSuccess={setCheckoutSuccess} />
+    <div className={expanded ? "scroll off" : "scroll"}>
+      <div className={"container"}>
+        <div className={s.wrapper}>
+          <Order />
+          <Form setCheckoutSuccess={setCheckoutSuccess} />
+        </div>
       </div>
     </div>
   );

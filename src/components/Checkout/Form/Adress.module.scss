@@ -13,7 +13,7 @@
       position: relative;
       margin-top: -20px;
       width: 100%;
-      margin-bottom: 20px;
+      margin-bottom: 25px;
       &.margin {
          width: 32.7%;
       }
@@ -27,34 +27,6 @@
             color: #e31837;
          }
       }
-      & span {
-         &:before,
-         &:after {
-            content: "";
-            position: absolute;
-            right: 20px;
-            top: 31px;
-            height: 10px;
-            width: 2px;
-            background: rgba(2, 2, 2, 0.3);
-            rotate: 45deg;
-            transition: all 0.2s;
-         }
-         &:after {
-            rotate: -45deg;
-            right: 27px;
-         }
-      }
-      &.active {
-         & span {
-            &:before {
-               rotate: -45deg;
-            }
-            &:after {
-               rotate: 45deg;
-            }
-         }
-      }
    }
    & input {
       width: 100%;
@@ -66,34 +38,5 @@
       &.error {
          border-color: #e31837;
       }
-   }
-}
-.expand {
-   width: 100%;
-   position: absolute;
-   top: 55px;
-   z-index: 3;
-   background: #fff;
-   border-radius: 15px;
-   overflow: auto;
-   border: 1px solid rgba(2, 2, 2, 0.2);
-   transition: all 0.3s;
-   height: 0px;
-   opacity: 0;
-   &__option {
-      font-size: 16px;
-      font-weight: 500;
-      color: rgba(2, 2, 2, 0.8);
-      line-height: 29px;
-      border-bottom: 1px solid rgba(2, 2, 2, 0.2);
-      padding: 0 20px;
-      cursor: pointer;
-      &:hover {
-         background: rgba(2, 2, 2, 0.1);
-      }
-   }
-   &.active {
-      height: 152px;
-      opacity: 1;
    }
 }

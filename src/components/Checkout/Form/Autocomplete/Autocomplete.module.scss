@@ -19,7 +19,7 @@
       border: 1px solid rgba(2, 2, 2, 0.2);
       padding: 0 10px;
       font-size: 15px;
-      margin-bottom: 20px;
+      margin-bottom: 25px;
       &.error {
          border-color: #e31837;
       }
@@ -63,13 +63,13 @@
    overflow: auto;
    border: 1px solid rgba(2, 2, 2, 0.2);
    transition: all 0.3s;
-   max-height: 0px;
+   height: 0px;
    opacity: 0;
    &__option {
       font-size: 16px;
       font-weight: 500;
       color: rgba(2, 2, 2, 0.8);
-      line-height: 30px;
+      line-height: 29px;
       border-bottom: 1px solid rgba(2, 2, 2, 0.2);
       padding: 0 20px;
       cursor: pointer;
@@ -78,7 +78,7 @@
       }
    }
    &.active {
-      max-height: 150px;
+      height: 152px;
       opacity: 1;
    }
 }

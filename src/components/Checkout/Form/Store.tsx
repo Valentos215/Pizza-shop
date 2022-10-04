@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import CityAutocomplete from "./Autocomplete/CityAutocomplete";
 import StoreAutocomplete from "./Autocomplete/StoreAutocomplete";
 
-type City_type = { id: string; slug: string; stores: string[] };
+type City_type = { id: string; slug: string; stores: string[]; bbox: string[] };
 type StoreAdress = { city: string; store: string };
 type StoreProps = {
   setStoreAdress: React.Dispatch<React.SetStateAction<StoreAdress | null>>;

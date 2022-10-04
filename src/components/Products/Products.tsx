@@ -72,28 +72,30 @@ const Products = ({ match }: any) => {
   }, [response]);
 
   return (
-    <div className={expanded ? "container noScroll" : "container"}>
-      <div className={s.wrapper}>
-        <div className={s.filters}>
-          {products && products[0].category && (
-            <Filter
-              title="Category"
-              specification={categories()}
-              setFilter={setFilter}
-              invert={0}
-            />
-          )}
-          <p></p>
-          <Sort sortCriteria={sortCriteria} setSort={setSort} />
-        </div>
-        {error && <h2>Something went wrong</h2>}
-        {filter && <div className={s.title}>{filter.join(", ")}</div>}
-        <div className={s.pizzaItems}>
-          {isLoading && skeletons.map((i) => <ProductSkeleton key={i} />)}
-          {itemsList &&
-            itemsList.map((product: product) => (
-              <ProductItem key={product.id} product={product} />
-            ))}
+    <div className={expanded ? "scroll off" : "scroll"}>
+      <div className={"container"}>
+        <div className={s.wrapper}>
+          <div className={s.filters}>
+            {products && products[0].category && (
+              <Filter
+                title="Category"
+                specification={categories()}
+                setFilter={setFilter}
+                invert={0}
+              />
+            )}
+            <p></p>
+            <Sort sortCriteria={sortCriteria} setSort={setSort} />
+          </div>
+          {error && <h2>Something went wrong</h2>}
+          {filter && <div className={s.title}>{filter.join(", ")}</div>}
+          <div className={s.pizzaItems}>
+            {isLoading && skeletons.map((i) => <ProductSkeleton key={i} />)}
+            {itemsList &&
+              itemsList.map((product: product) => (
+                <ProductItem key={product.id} product={product} />
+              ))}
+          </div>
         </div>
       </div>
     </div>
