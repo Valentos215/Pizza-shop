@@ -6,7 +6,7 @@ import {
   minusItem,
   plusItem,
   removeIngredient,
-} from "../../../utils";
+} from "../../../utils/utils";
 
 type cartItem = {
   id: number;

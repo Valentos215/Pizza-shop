@@ -4,13 +4,14 @@ import deliveryLogo from "../../../assets/Delivery.svg";
 import carryOutLogo from "../../../assets/CarryOut.svg";
 import Adress from "./Adress";
 import { CartContext } from "../../../contexts/cartContext";
-import { totalAmount } from "../../../utils";
+import { totalAmount } from "../../../utils/utils";
 import Store from "./Store";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import InputMask from "react-input-mask";
 import useFetch from "../../../hooks/useFetch";
 import Preloader from "../../sharedComponents/Preloader/Preloader";
+import { errorMes, nameValidation } from "../../../utils/constants";
 
 type StoreAdress = { city: string; store: string };
 type DeliveryAdress = {
@@ -33,18 +34,6 @@ const Form = ({ setCheckoutSuccess }: FormProps) => {
   );
   const [storeAdress, setStoreAdress] = useState<StoreAdress | null>(null);
   const { isLoading, response, doFetch } = useFetch("pizza");
-
-  const errorMes = {
-    nameLong: "Name is to long",
-    nameShort: "Name is to short",
-    nameRequired: "Name is required",
-    nameValid: "Please use only latin letters",
-    emailLength: "E-mail is to long",
-    emailRequired: "E-mail is required",
-    emailIncorrect: "Incorrect email",
-    phoneRequired: "Phone number is required",
-  };
-  const nameValidation = /^[A-Za-z]+$/;
 
   const adressError =
     (delivery && !deliveryAdress) || (!delivery && !storeAdress);
@@ -86,13 +75,13 @@ const Form = ({ setCheckoutSuccess }: FormProps) => {
 
   const disabled = adressError || !formik.isValid;
 
-  let nameError =
+  const nameError =
     (formik.touched.name && formik.errors.name) ||
     formik.errors.name === errorMes.nameLong;
-  let emailError =
+  const emailError =
     (formik.touched.email && formik.errors.email) ||
     formik.errors.email === errorMes.emailLength;
-  let phoneError = formik.touched.phone && formik.errors.phone;
+  const phoneError = formik.touched.phone && formik.errors.phone;
 
   return (
     <div className={s.wrapper}>

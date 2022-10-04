@@ -4,7 +4,7 @@ import cartLogo from "../../../assets/Cart.svg";
 import { useState, useContext } from "react";
 import { CartContext } from "../../../contexts/cartContext";
 import CartItem from "./CartItem";
-import { totalAmount, totalNumber } from "../../../utils";
+import { totalAmount, totalNumber } from "../../../utils/utils";
 
 const Cart = () => {
   const [expanded, setExpanded] = useState(false);

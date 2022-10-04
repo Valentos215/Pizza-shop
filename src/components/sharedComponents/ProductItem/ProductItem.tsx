@@ -2,7 +2,7 @@ import s from "./ProductItem.module.scss";
 import { useContext, useState } from "react";
 import cartLogo from "../../../assets/Cart.svg";
 import { CartContext } from "../../../contexts/cartContext";
-import { minusItem, plusItem } from "../../../utils";
+import { minusItem, plusItem } from "../../../utils/utils";
 
 type CartItem = {
   id: number;
