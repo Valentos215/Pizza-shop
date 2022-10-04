@@ -28,7 +28,7 @@ const Pizza = () => {
   const [pizzas, setPizzas] = useState<pizza[] | null>(null);
   const { isLoading, response, error, doFetch } = useFetch("pizza");
   const skeletons = Array.from({ length: 8 }, (v, k) => k + 1);
-  const [expanded, setExpanded] = useContext(ExpandContext);
+  const [expanded] = useContext(ExpandContext);
 
   const ingredients = () => {
     if (!pizzas) return null;
@@ -87,8 +87,8 @@ const Pizza = () => {
   }, [invert, setMemInvert]);
 
   return (
-    <div className="container">
-      <div className={expanded ? `${s.wrapper} ${s.noScroll}` : s.wrapper}>
+    <div className={expanded ? "container noScroll" : "container"}>
+      <div className={s.wrapper}>
         <div className={s.filters}>
           <Filter
             specification={ingredients()}

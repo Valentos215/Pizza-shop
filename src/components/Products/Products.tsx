@@ -1,10 +1,11 @@
 import s from "./Products.module.scss";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import Filter from "../sharedComponents/Filter/Filter";
 import Sort from "../sharedComponents/Sort/Sort";
 import ProductItem from "../sharedComponents/ProductItem/ProductItem";
 import useFetch from "../../hooks/useFetch";
 import ProductSkeleton from "../sharedComponents/ProductItem/ProductSkeleton";
+import { ExpandContext } from "../../contexts/expandContext";
 
 type product = {
   id: number;
@@ -21,6 +22,7 @@ const Products = ({ match }: any) => {
   const [sort, setSort] = useState<number>(-1);
   const sortCriteria = ["Price low-high", "Price high-low"];
   const [products, setProducts] = useState<product[] | null>(null);
+  const [expanded] = useContext(ExpandContext);
   const { isLoading, response, error, doFetch } = useFetch(match.path.slice(1));
   const skeletons = Array.from({ length: 8 }, (v, k) => k + 1);
 
@@ -70,7 +72,7 @@ const Products = ({ match }: any) => {
   }, [response]);
 
   return (
-    <div className="container">
+    <div className={expanded ? "container noScroll" : "container"}>
       <div className={s.wrapper}>
         <div className={s.filters}>
           {products && products[0].category && (

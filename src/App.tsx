@@ -1,13 +1,15 @@
+import React from "react";
 import { SkeletonTheme } from "react-loading-skeleton";
 import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
 import "./App.scss";
-import Checkout from "./components/Checkout/Checkout";
 import Header from "./components/Header/Header";
 import Pizza from "./components/Pizza/Pizza";
 import Products from "./components/Products/Products";
+import Preloader from "./components/sharedComponents/Preloader/Preloader";
 import { CartProvider } from "./contexts/cartContext";
 import { ExpandProvider } from "./contexts/expandContext";
 import CartChecker from "./hok/cartChecker";
+const Checkout = React.lazy(() => import("./components/Checkout/Checkout"));
 
 function App() {
   return (
@@ -26,7 +28,11 @@ function App() {
                   <Route path="/drinks" component={Products} />
                   <Route path="/sides" component={Products} />
                   <Route path="/dessert" component={Products} />
-                  <Route path="/checkout" component={Checkout} />
+                  <Route path="/checkout">
+                    <React.Suspense fallback={<Preloader />}>
+                      <Checkout />
+                    </React.Suspense>
+                  </Route>
                 </Switch>
               </SkeletonTheme>
             </CartChecker>
