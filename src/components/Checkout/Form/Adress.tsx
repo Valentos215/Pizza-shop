@@ -59,7 +59,7 @@ const Adress = ({ setDeliveryAdress, check, setCheck }: AdressProps) => {
         />
         <div className={s.form__row}>
           <div className={`${s.form__input} ${s.margin}`}>
-            {!house && check && <p className={s.error}>Enter house number</p>}
+            {!house && check && <p className={s.error}>House number</p>}
             {(!check || !!house) && <p>House</p>}
             <input
               value={house}
