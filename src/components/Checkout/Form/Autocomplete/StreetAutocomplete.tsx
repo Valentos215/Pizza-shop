@@ -46,7 +46,7 @@ const StreetAutocomplete = ({
             setSearchResults(resp.data.features);
           }
         });
-    }, 1000);
+    }, 500);
 
     return () => clearTimeout(delayDebounceFn);
   }, [streetSearch]);
