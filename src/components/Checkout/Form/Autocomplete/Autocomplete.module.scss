@@ -34,21 +34,21 @@
          height: 10px;
          width: 2px;
          background: rgba(2, 2, 2, 0.3);
-         rotate: 45deg;
+         transform: rotate(45deg);
          transition: all 0.2s;
       }
       &:after {
-         rotate: -45deg;
+         transform: rotate(-45deg);
          right: 27px;
       }
    }
    &.active {
       & span {
          &:before {
-            rotate: -45deg;
+            transform: rotate(-45deg);
          }
          &:after {
-            rotate: 45deg;
+            transform: rotate(45deg);
          }
       }
    }

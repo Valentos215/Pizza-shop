@@ -33,12 +33,12 @@
             height: 16px;
             width: 2px;
             background: rgba(2, 2, 2, 0.8);
-            rotate: 45deg;
+            transform: rotate(45deg);
             top: 6px;
             right: 13px;
          }
          &:after {
-            rotate: -45deg;
+            transform: rotate(-45deg);
          }
          &:hover {
             background: rgba(2, 2, 2, 0.1);
@@ -95,12 +95,12 @@
                height: 10px;
                width: 2px;
                background: #fff;
-               rotate: 45deg;
+               transform: rotate(45deg);
                left: 8px;
                top: 4px;
             }
             &:after {
-               rotate: -45deg;
+               transform: rotate(-45deg);
             }
             &:hover {
                background: #cb1631;
@@ -169,7 +169,7 @@
             }
             &.plus {
                &:after {
-                  rotate: 90deg;
+                  transform: rotate(90deg);
                }
             }
          }

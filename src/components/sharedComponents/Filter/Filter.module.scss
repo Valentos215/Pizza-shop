@@ -113,12 +113,12 @@
          height: 18.5px;
          top: 3.5px;
          left: 11.5px;
-         rotate: -45deg;
+         transform: rotate(-45deg);
          transition: all 0.2s;
          opacity: 0;
       }
       &:after {
-         rotate: 45deg;
+         transform: rotate(45deg);
       }
       &_unchecked {
          &:before,
