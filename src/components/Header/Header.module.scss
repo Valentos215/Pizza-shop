@@ -58,7 +58,9 @@
       line-height: 70px;
       text-align: center;
       &:hover {
-         font-weight: 700;
+         @media (min-width: 769px) {
+            font-weight: 700;
+         }
       }
    }
    & .active {

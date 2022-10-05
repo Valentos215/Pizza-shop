@@ -58,7 +58,9 @@
    align-items: center;
    padding: 0 15px;
    &:hover {
-      background-color: rgba(79, 79, 79, 0.3);
+      @media (min-width: 769px) {
+         background-color: rgba(79, 79, 79, 0.3);
+      }
    }
    & p {
       margin-left: 10px;

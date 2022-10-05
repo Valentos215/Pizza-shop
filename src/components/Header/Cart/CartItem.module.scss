@@ -42,10 +42,12 @@
             transform: rotate(-45deg);
          }
          &:hover {
-            background: rgba(2, 2, 2, 0.1);
-            &:before,
-            &:after {
-               background: #e31837;
+            @media (min-width: 769px) {
+               background: rgba(2, 2, 2, 0.1);
+               &:before,
+               &:after {
+                  background: #e31837;
+               }
             }
          }
          &:active {
@@ -106,7 +108,9 @@
                transform: rotate(-45deg);
             }
             &:hover {
-               background: #cb1631;
+               @media (min-width: 769px) {
+                  background: #cb1631;
+               }
             }
             &:active {
                scale: 0.9;
@@ -157,7 +161,9 @@
             transition: all 0.2s;
             cursor: pointer;
             &:hover {
-               background: #cb1631;
+               @media (min-width: 769px) {
+                  background: #cb1631;
+               }
             }
             &:active {
                scale: 0.9;

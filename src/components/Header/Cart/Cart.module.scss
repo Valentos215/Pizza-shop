@@ -21,11 +21,13 @@
    display: flex;
    cursor: pointer;
    &:hover {
-      & div {
-         background-color: #222;
-      }
-      & label {
-         color: #222;
+      @media (min-width: 769px) {
+         & div {
+            background-color: #222;
+         }
+         & label {
+            color: #222;
+         }
       }
    }
 }
@@ -73,15 +75,19 @@
    cursor: pointer;
    transition: all 0.3s ease;
    &:hover {
-      background-color: #b8112a;
+      @media (min-width: 769px) {
+         background-color: #b8112a;
+      }
    }
    &:active {
       transform: scale(0.95);
    }
    &.disabled {
       &:hover {
-         background-color: #4f4f4f;
-         cursor: no-drop;
+         @media (min-width: 769px) {
+            background-color: #4f4f4f;
+            cursor: no-drop;
+         }
       }
    }
 }
