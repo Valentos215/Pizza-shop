@@ -22,6 +22,7 @@
          flex: 0 0 30px;
          height: 30px;
          border-radius: 50%;
+         overflow: hidden;
          border: 1px solid rgba(2, 2, 2, 0.2);
          position: relative;
          transition: all 0.2s;
@@ -64,6 +65,7 @@
          font-size: 14px;
          line-height: 20px;
          border-radius: 10px;
+         overflow: hidden;
          margin-bottom: 5px;
          margin-right: 5px;
          background: rgba(2, 2, 2, 0.1);
@@ -83,6 +85,7 @@
             right: 1px;
             top: 1px;
             border-radius: 50%;
+            overflow: hidden;
             height: 18px;
             width: 18px;
             background: #e31837;
@@ -136,6 +139,7 @@
          height: 30px;
          background: #e31837;
          border-radius: 15px;
+         overflow: hidden;
          display: flex;
          flex-direction: row;
          & p {
@@ -147,6 +151,7 @@
          & span {
             width: 30px;
             border-radius: 50%;
+            overflow: hidden;
             border: 1px solid rgba(2, 2, 2, 0.15);
             position: relative;
             transition: all 0.2s;

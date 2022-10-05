@@ -10,6 +10,7 @@
    flex-direction: row;
    align-items: center;
    border-radius: 15px;
+   overflow: hidden;
    border: 1px solid rgb(79, 79, 79);
    cursor: pointer;
    & span {
@@ -44,12 +45,14 @@
 }
 .item {
    border-radius: 15px;
+   overflow: hidden;
 }
 .option {
    white-space: nowrap;
    font-size: 16px;
    line-height: 50px;
    border-radius: 15px;
+   overflow: hidden;
    color: rgb(79, 79, 79);
    display: flex;
    align-items: center;
@@ -68,6 +71,7 @@
    width: 25px;
    height: 25px;
    border-radius: 5px;
+   overflow: hidden;
    background-color: #e31837;
    &__check {
       &:before {
