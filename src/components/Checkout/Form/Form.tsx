@@ -117,7 +117,7 @@ const Form = ({ setCheckoutSuccess }: FormProps) => {
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             name="name"
-            placeholder="First name"
+            placeholder="George"
             className={nameError ? s.error : ""}
             autoComplete="off"
           ></input>
@@ -132,7 +132,7 @@ const Form = ({ setCheckoutSuccess }: FormProps) => {
             value={formik.values.phone}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
-            placeholder="Phone"
+            placeholder="+38(0xx) xxx xx xx"
             className={phoneError ? s.error : ""}
           ></InputMask>
         </div>
@@ -145,7 +145,7 @@ const Form = ({ setCheckoutSuccess }: FormProps) => {
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             name="email"
-            placeholder="E-mail"
+            placeholder="email@example.com"
             className={emailError ? s.error : ""}
             autoComplete="off"
           ></input>
