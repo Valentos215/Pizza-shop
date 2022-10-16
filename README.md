@@ -26,4 +26,4 @@ Added the ability to quickly and conveniently remove unnecessary ingredients fro
 
 ### Checkout
 
-Improved checkout page semantics. Added some animation and improved ways to interact with the form.
+Improved checkout page usability. Added some animation and improved ways to interact with the form.

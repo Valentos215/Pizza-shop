@@ -2,14 +2,14 @@ import React from "react";
 import { SkeletonTheme } from "react-loading-skeleton";
 import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
 import "./App.scss";
-import Header from "./components/Header/Header";
-import Pizza from "./components/Pizza/Pizza";
-import Products from "./components/Products/Products";
-import Preloader from "./components/sharedComponents/Preloader/Preloader";
-import { CartProvider } from "./contexts/cartContext";
-import { ExpandProvider } from "./contexts/expandContext";
-import CartChecker from "./hok/cartChecker";
-const Checkout = React.lazy(() => import("./components/Checkout/Checkout"));
+import Header from "./components/header/Header";
+import Pizza from "pages/pizza/Pizza";
+import Products from "pages/products/Products";
+import Preloader from "shared/components/preloader/Preloader";
+import { CartProvider } from "contexts/cartContext";
+import { ExpandProvider } from "contexts/expandContext";
+import CartChecker from "hok/cartChecker";
+const Checkout = React.lazy(() => import("pages/checkout/Checkout"));
 
 function App() {
   return (

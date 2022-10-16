@@ -1,13 +1,13 @@
-import { useContext } from "react";
+import React, { useContext } from "react";
 import s from "./Header.module.scss";
-import logo from "../../assets/Logo.svg";
-import logoText from "../../assets/Logo_text.svg";
+import logo from "assets/Logo.svg";
+import logoText from "assets/Logo_text.svg";
 import { Link, NavLink } from "react-router-dom";
-import Cart from "./Cart/Cart";
-import ExpandedMenu from "./ExpandedMenu/ExpandedMenu";
-import { ExpandContext } from "../../contexts/expandContext";
+import Cart from "./cart/Cart";
+import ExpandedMenu from "./expandedMenu/ExpandedMenu";
+import { ExpandContext } from "contexts/expandContext";
 
-const Header = () => {
+const Header = React.memo(() => {
   const navMenu = [
     { title: "Pizza", link: "pizza" },
     { title: "Drinks", link: "drinks" },
@@ -61,6 +61,6 @@ const Header = () => {
       </div>
     </>
   );
-};
+});
 
 export default Header;

@@ -1,5 +1,5 @@
 import s from "./Sort.module.scss";
-import sortLogo from "../../../assets/Sort.svg";
+import sortLogo from "assets/Sort.svg";
 import { useState } from "react";
 
 type SortProps = {

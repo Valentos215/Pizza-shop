@@ -1,17 +1,17 @@
-import { useContext, useState, useEffect } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import s from "./Form.module.scss";
-import deliveryLogo from "../../../assets/Delivery.svg";
-import carryOutLogo from "../../../assets/CarryOut.svg";
+import deliveryLogo from "assets/Delivery.svg";
+import carryOutLogo from "assets/CarryOut.svg";
 import Adress from "./Adress";
-import { CartContext } from "../../../contexts/cartContext";
-import { totalAmount } from "../../../utils/utils";
+import { CartContext } from "contexts/cartContext";
+import { totalAmount } from "utils/utils";
 import Store from "./Store";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import InputMask from "react-input-mask";
-import useFetch from "../../../hooks/useFetch";
-import Preloader from "../../sharedComponents/Preloader/Preloader";
-import { errorMes, nameValidation } from "../../../utils/constants";
+import useFetch from "shared/hooks/useFetch";
+import Preloader from "shared/components/preloader/Preloader";
+import { errorMes, nameValidation } from "utils/constants";
 
 type StoreAdress = { city: string; store: string };
 type DeliveryAdress = {
@@ -25,7 +25,7 @@ type FormProps = {
   setCheckoutSuccess: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-const Form = ({ setCheckoutSuccess }: FormProps) => {
+const Form = React.memo(({ setCheckoutSuccess }: FormProps) => {
   const [delivery, setDelivery] = useState(true);
   const [cart, setCart] = useContext(CartContext);
   const [check, setCheck] = useState(false);
@@ -185,6 +185,6 @@ const Form = ({ setCheckoutSuccess }: FormProps) => {
       </div>
     </div>
   );
-};
+});
 
 export default Form;

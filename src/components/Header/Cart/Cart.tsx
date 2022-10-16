@@ -1,14 +1,15 @@
 import s from "./Cart.module.scss";
 import { Link } from "react-router-dom";
-import cartLogo from "../../../assets/Cart.svg";
-import { useState, useContext } from "react";
-import { CartContext } from "../../../contexts/cartContext";
-import CartItem from "./CartItem";
-import { totalAmount, totalNumber } from "../../../utils/utils";
+import cartLogo from "assets/Cart.svg";
+import React, { useState, useContext } from "react";
+import { CartContext } from "contexts/cartContext";
+import CartItem from "components/header/cart/CartItem";
+import { totalAmount, totalNumber } from "utils/utils";
 
-const Cart = () => {
+const Cart = React.memo(() => {
   const [expanded, setExpanded] = useState(false);
   const [cart] = useContext(CartContext);
+  const cartIsEmpty = !cart[0];
 
   return (
     <>
@@ -20,26 +21,28 @@ const Cart = () => {
         <div
           className={s.viewer}
           onClick={() => {
-            if (cart[0]) setExpanded(!expanded);
+            if (!cartIsEmpty) setExpanded(!expanded);
           }}
         >
           <div className={s.counter}>
             <span>{totalNumber(cart)}</span>
             <img src={cartLogo} alt=""></img>
           </div>
-          {cart[0] && (
+          {!cartIsEmpty && (
             <label className={s.amount}>{`${totalAmount(cart)}.00 uah`}</label>
           )}
         </div>
         {
           <Link
-            className={cart[0] ? s.checkout : `${s.checkout} ${s.disabled}`}
-            to={cart[0] ? "checkout" : "#"}
+            className={
+              !cartIsEmpty ? s.checkout : `${s.checkout} ${s.disabled}`
+            }
+            to={!cartIsEmpty ? "checkout" : "#"}
           >
             Checkout
           </Link>
         }
-        {cart[0] && (
+        {!cartIsEmpty && (
           <div className={expanded ? `${s.expand} ${s.active}` : s.expand}>
             {cart
               .sort((a, b) => a.id - b.id)
@@ -55,18 +58,18 @@ const Cart = () => {
         )}
       </div>
       <div className={`${s.cart} ${s.small}`}>
-        <Link to={cart[0] ? "checkout" : "#"} className={s.viewer}>
+        <Link to={!cartIsEmpty ? "checkout" : "#"} className={s.viewer}>
           <div className={s.counter}>
             <span>00</span>
             <img src={cartLogo} alt=""></img>
           </div>
-          {cart[0] && (
+          {!cartIsEmpty && (
             <label className={s.amount}>{`${totalAmount(cart)}.00 uah`}</label>
           )}
         </Link>
       </div>
     </>
   );
-};
+});
 
 export default Cart;

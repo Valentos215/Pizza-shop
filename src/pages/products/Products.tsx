@@ -1,11 +1,11 @@
 import s from "./Products.module.scss";
-import { useState, useEffect, useContext } from "react";
-import Filter from "../sharedComponents/Filter/Filter";
-import Sort from "../sharedComponents/Sort/Sort";
-import ProductItem from "../sharedComponents/ProductItem/ProductItem";
-import useFetch from "../../hooks/useFetch";
-import ProductSkeleton from "../sharedComponents/ProductItem/ProductSkeleton";
-import { ExpandContext } from "../../contexts/expandContext";
+import React, { useState, useEffect, useContext } from "react";
+import Filter from "shared/components/filter/Filter";
+import Sort from "shared/components/sort/Sort";
+import ProductItem from "shared/components/productItem/ProductItem";
+import useFetch from "shared/hooks/useFetch";
+import ProductSkeleton from "shared/components/productItem/ProductSkeleton";
+import { ExpandContext } from "contexts/expandContext";
 
 type product = {
   id: number;
@@ -17,14 +17,14 @@ type product = {
   weight: number[];
 };
 
-const Products = ({ match }: any) => {
+const Products = React.memo(({ match }: any) => {
   const [filter, setFilter] = useState<string[] | null>(null);
   const [sort, setSort] = useState<number>(-1);
   const sortCriteria = ["Price low-high", "Price high-low"];
   const [products, setProducts] = useState<product[] | null>(null);
   const [expanded] = useContext(ExpandContext);
   const { isLoading, response, error, doFetch } = useFetch(match.path.slice(1));
-  const skeletons = Array.from({ length: 8 }, (v, k) => k + 1);
+  const skeletons = Array.from({ length: 12 }, (v, k) => k + 1);
 
   const categories = () => {
     if (!products) return null;
@@ -100,6 +100,6 @@ const Products = ({ match }: any) => {
       </div>
     </div>
   );
-};
+});
 
 export default Products;

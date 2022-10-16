@@ -1,12 +1,12 @@
 import s from "./Pizza.module.scss";
-import { useState, useEffect, useContext } from "react";
-import Filter from "../sharedComponents/Filter/Filter";
-import Sort from "../sharedComponents/Sort/Sort";
-import PizzaItem from "../sharedComponents/ProductItem/PizzaItem";
-import useLocalStorage from "../../hooks/useLocalStorage";
-import useFetch from "../../hooks/useFetch";
-import PizzaSkeleton from "../sharedComponents/ProductItem/PizzaSkeleton";
-import { ExpandContext } from "../../contexts/expandContext";
+import React, { useState, useEffect, useContext } from "react";
+import Filter from "shared/components/filter/Filter";
+import Sort from "shared/components/sort/Sort";
+import PizzaItem from "shared/components/productItem/PizzaItem";
+import useLocalStorage from "shared/hooks/useLocalStorage";
+import useFetch from "shared/hooks/useFetch";
+import PizzaSkeleton from "shared/components/productItem/PizzaSkeleton";
+import { ExpandContext } from "contexts/expandContext";
 
 type pizza = {
   id: number;
@@ -18,7 +18,7 @@ type pizza = {
   popularity: number;
 };
 
-const Pizza = () => {
+const Pizza = React.memo(() => {
   const [filter, setFilter] = useState<string[] | null>(null);
   const [memInvert, setMemInvert] = useLocalStorage("invert");
   const [invert, setInvert] = useState(Number(memInvert) || 0);
@@ -27,7 +27,7 @@ const Pizza = () => {
   const sortCriteria = ["Popularity", "Price low-high", "Price high-low"];
   const [pizzas, setPizzas] = useState<pizza[] | null>(null);
   const { isLoading, response, error, doFetch } = useFetch("pizza");
-  const skeletons = Array.from({ length: 8 }, (v, k) => k + 1);
+  const skeletons = Array.from({ length: 12 }, (v, k) => k + 1);
   const [expanded] = useContext(ExpandContext);
 
   const ingredients = () => {
@@ -121,6 +121,6 @@ const Pizza = () => {
       </div>
     </div>
   );
-};
+});
 
 export default Pizza;

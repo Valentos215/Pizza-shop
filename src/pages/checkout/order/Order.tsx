@@ -1,9 +1,9 @@
-import { useContext } from "react";
-import { CartContext } from "../../../contexts/cartContext";
-import CartItem from "../../Header/Cart/CartItem";
+import React, { useContext } from "react";
+import { CartContext } from "contexts/cartContext";
+import CartItem from "components/header/cart/CartItem";
 import s from "./Order.module.scss";
 
-const Order = () => {
+const Order = React.memo(() => {
   const [cart] = useContext(CartContext);
 
   if (!cart[0]) {
@@ -32,6 +32,6 @@ const Order = () => {
       </div>
     </div>
   );
-};
+});
 
 export default Order;

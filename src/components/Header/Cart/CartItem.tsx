@@ -1,12 +1,7 @@
-import { useContext } from "react";
-import { CartContext } from "../../../contexts/cartContext";
+import React, { useContext } from "react";
+import { CartContext } from "contexts/cartContext";
 import s from "./CartItem.module.scss";
-import {
-  removeItem,
-  minusItem,
-  plusItem,
-  removeIngredient,
-} from "../../../utils/utils";
+import { removeItem, minusItem, plusItem, removeIngredient } from "utils/utils";
 
 type cartItem = {
   id: number;
@@ -20,7 +15,7 @@ type cartItem = {
 };
 type CartItemProps = { item: cartItem; handle?: boolean };
 
-const CartItem = ({ item, handle = false }: CartItemProps) => {
+const CartItem = React.memo(({ item, handle = false }: CartItemProps) => {
   const [cart, setCart] = useContext(CartContext);
 
   return (
@@ -66,6 +61,6 @@ const CartItem = ({ item, handle = false }: CartItemProps) => {
       </div>
     </div>
   );
-};
+});
 
 export default CartItem;

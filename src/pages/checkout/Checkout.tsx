@@ -1,11 +1,11 @@
-import { useState, useContext } from "react";
-import { CartContext } from "../../contexts/cartContext";
-import { ExpandContext } from "../../contexts/expandContext";
+import React, { useState, useContext } from "react";
+import { CartContext } from "contexts/cartContext";
+import { ExpandContext } from "contexts/expandContext";
 import s from "./Checkout.module.scss";
-import Form from "./Form/Form";
-import Order from "./Order/Order";
+import Form from "./form/Form";
+import Order from "./order/Order";
 
-const Checkout = () => {
+const Checkout = React.memo(() => {
   const [checkoutSuccess, setCheckoutSuccess] = useState(false);
   const [cart] = useContext(CartContext);
   const [expanded] = useContext(ExpandContext);
@@ -30,6 +30,6 @@ const Checkout = () => {
       </div>
     </div>
   );
-};
+});
 
 export default Checkout;

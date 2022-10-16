@@ -1,8 +1,8 @@
 import s from "./ProductItem.module.scss";
-import { useContext, useState } from "react";
-import cartLogo from "../../../assets/Cart.svg";
-import { CartContext } from "../../../contexts/cartContext";
-import { minusItem, plusItem } from "../../../utils/utils";
+import React, { useContext, useState } from "react";
+import cartLogo from "assets/Cart.svg";
+import { CartContext } from "contexts/cartContext";
+import { minusItem, plusItem } from "utils/utils";
 
 type CartItem = {
   id: number;
@@ -26,7 +26,7 @@ type Product = {
   };
 };
 
-const ProductItem = ({ product }: Product) => {
+const ProductItem = React.memo(({ product }: Product) => {
   const [currentSize, setCurrentSize] = useState(product.size[0]);
   const [cart, setCart] = useContext(CartContext);
 
@@ -123,6 +123,6 @@ const ProductItem = ({ product }: Product) => {
       </div>
     </div>
   );
-};
+});
 
 export default ProductItem;
