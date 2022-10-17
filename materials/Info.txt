@@ -1,8 +1,0 @@
-
-https://dominos.ua/api/v1/streets/check_delivery_zone/   - Post
-
-https://dominos.ua/api/v1/streets/search/?q=гер
-
-https://dominos.ua/api/v1/cities/update_default_city
-
-https://dominos.ua/en/brovary/checkout/carryout
