@@ -1,23 +1,24 @@
-import s from "./Autocomplete.module.scss";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from 'react';
 
-type City_type = { id: string; slug: string; stores: string[]; bbox: string[] };
-type StoreProps = {
-  city: City_type | null;
+import { ICityType } from 'shared/types';
+
+import s from 'pages/checkout/form/autocomplete/Autocomplete.module.scss';
+
+interface IStoreAutocompleteProps {
+  city: ICityType | null;
   store: string;
-  setStore: React.Dispatch<React.SetStateAction<string>>;
+  setStore: (value: string) => void;
   check: boolean;
-  setCheck: React.Dispatch<React.SetStateAction<boolean>>;
-};
+  setCheck: (value: boolean) => void;
+}
 
 const StoreAutocomplete = React.memo(
-  ({ city, store, setStore, check, setCheck }: StoreProps) => {
+  ({ city, store, setStore, check, setCheck }: IStoreAutocompleteProps) => {
     const [storeExpand, setStoreExpand] = useState(false);
-    const [storeSearch, setStoreSearch] = useState("");
+    const [storeSearch, setStoreSearch] = useState('');
 
     const currentStores = city?.stores.filter((st: string) => {
-      if (storeSearch)
-        return st.toUpperCase().includes(storeSearch.toUpperCase());
+      if (storeSearch) return st.toUpperCase().includes(storeSearch.toUpperCase());
       return st;
     });
 
@@ -26,8 +27,8 @@ const StoreAutocomplete = React.memo(
     }, [store]);
 
     useEffect(() => {
-      setStore("");
-      setStoreSearch("");
+      setStore('');
+      setStoreSearch('');
     }, [city, setStore]);
 
     return (
@@ -47,14 +48,14 @@ const StoreAutocomplete = React.memo(
         <input
           disabled={!city}
           onClick={() => {
-            setStoreSearch("");
+            setStoreSearch('');
             setCheck(false);
           }}
           onChange={(e) => setStoreSearch(e.target.value)}
           placeholder="Choose store"
           value={storeSearch}
           autoComplete="off"
-          className={(check && !store && s.error) || ""}
+          className={(check && !store && s.error) || ''}
         ></input>
         <span></span>
         <div className={storeExpand ? `${s.expand} ${s.active}` : s.expand}>
@@ -74,7 +75,7 @@ const StoreAutocomplete = React.memo(
         </div>
       </div>
     );
-  }
+  },
 );
 
 export default StoreAutocomplete;

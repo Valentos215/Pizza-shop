@@ -1,9 +1,10 @@
 import React, { useContext } from "react";
+
 import { CartContext } from "contexts/cartContext";
-import s from "./CartItem.module.scss";
+import s from "components/header/cart/CartItem.module.scss";
 import { removeItem, minusItem, plusItem, removeIngredient } from "utils/utils";
 
-type cartItem = {
+interface ICartItem {
   id: number;
   title: string;
   img: string;
@@ -12,10 +13,11 @@ type cartItem = {
   amount: number;
   crust?: string;
   ingredients?: string[];
-};
-type CartItemProps = { item: cartItem; handle?: boolean };
+}
 
-const CartItem = React.memo(({ item, handle = false }: CartItemProps) => {
+interface ICartItemProps { item: ICartItem; handle?: boolean }
+
+const CartItem = React.memo(({ item, handle = false }: ICartItemProps) => {
   const [cart, setCart] = useContext(CartContext);
 
   return (

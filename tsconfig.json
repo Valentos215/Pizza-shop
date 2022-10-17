@@ -1,7 +1,6 @@
 {
   "compilerOptions": {
     "baseUrl": "src",
-
     "paths": {
       "@assets/*": ["assets/*"],
       "@components/*": ["components/*"],
@@ -11,7 +10,6 @@
       "@shared/*": ["app/_shared/*"],
       "@utils/*": ["utils/*"]
     },
-
     "target": "es5",
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,

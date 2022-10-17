@@ -1,15 +1,20 @@
-import React from "react";
-import { SkeletonTheme } from "react-loading-skeleton";
-import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
-import "./App.scss";
-import Header from "./components/header/Header";
-import Pizza from "pages/pizza/Pizza";
-import Products from "pages/products/Products";
-import Preloader from "shared/components/preloader/Preloader";
-import { CartProvider } from "contexts/cartContext";
-import { ExpandProvider } from "contexts/expandContext";
-import CartChecker from "hok/cartChecker";
-const Checkout = React.lazy(() => import("pages/checkout/Checkout"));
+import React from 'react';
+import { SkeletonTheme } from 'react-loading-skeleton';
+import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
+
+import Header from 'components/header/Header';
+import Preloader from 'shared/components/preloader/Preloader';
+import { CartProvider } from 'contexts/cartContext';
+import { ExpandProvider } from 'contexts/expandContext';
+import CartChecker from 'hok/cartChecker';
+
+import 'App.scss';
+
+import { ERouterLink } from 'constants/index';
+
+const PizzaLazy = React.lazy(() => import('pages/pizza/Pizza'));
+const ProductsLazy = React.lazy(() => import('pages/products/Products'));
+const Checkout = React.lazy(() => import('pages/checkout/Checkout'));
 
 function App() {
   return (
@@ -20,20 +25,20 @@ function App() {
             <CartChecker>
               <Header />
               <SkeletonTheme>
-                <Switch>
-                  <Route path="/" exact>
-                    <Redirect to="/pizza" />
-                  </Route>
-                  <Route path="/pizza" component={Pizza} exact />
-                  <Route path="/drinks" component={Products} />
-                  <Route path="/sides" component={Products} />
-                  <Route path="/dessert" component={Products} />
-                  <Route path="/checkout">
-                    <React.Suspense fallback={<Preloader />}>
+                <React.Suspense fallback={<Preloader />}>
+                  <Switch>
+                    <Route path={ERouterLink.Pizza} component={PizzaLazy} />
+                    <Route path={ERouterLink.Drinks} component={ProductsLazy} />
+                    <Route path={ERouterLink.Sides} component={ProductsLazy} />
+                    <Route path={ERouterLink.Dessert} component={ProductsLazy} />
+                    <Route path={ERouterLink.Checkout}>
                       <Checkout />
-                    </React.Suspense>
-                  </Route>
-                </Switch>
+                    </Route>
+                    <Route path={ERouterLink.Root} exact>
+                      <Redirect to={ERouterLink.Pizza} />
+                    </Route>
+                  </Switch>
+                </React.Suspense>
               </SkeletonTheme>
             </CartChecker>
           </CartProvider>

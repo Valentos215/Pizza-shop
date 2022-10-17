@@ -1,5 +1,5 @@
-import axios from "axios";
-import { useEffect, useState, useCallback } from "react";
+import axios from 'axios';
+import { useEffect, useState, useCallback } from 'react';
 
 type RespType = {
   id: number;
@@ -17,7 +17,7 @@ type RespType = {
 
 type Options =
   | {
-      method: "get" | "post" | "put" | "delete";
+      method: 'get' | 'post' | 'put' | 'delete';
       data: FormData;
     }
   | {};
@@ -32,7 +32,7 @@ type UseFetchResult = {
 };
 
 const useFetch = (url: string): UseFetchResult => {
-  const baseUrl = "https://63270a7aba4a9c47532f8ff3.mockapi.io/api/v1/";
+  const baseUrl = process.env.REACT_APP_BASE_URL;
   const [isLoading, setIsLoading] = useState(false);
   const [response, setResponse] = useState<RespType | null>(null);
   const [error, setError] = useState<Error | null>(null);
@@ -64,7 +64,7 @@ const useFetch = (url: string): UseFetchResult => {
     return () => {
       skipGetResponseAfterDestroy = true;
     };
-  }, [isLoading, options, url]);
+  }, [baseUrl, isLoading, options, url]);
 
   return { isLoading, response, error, doFetch };
 };

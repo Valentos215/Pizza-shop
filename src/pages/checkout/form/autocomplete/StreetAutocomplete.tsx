@@ -1,6 +1,6 @@
-import s from "./Autocomplete.module.scss";
-import React, { useEffect, useState } from "react";
-import axios from "axios";
+import s from './Autocomplete.module.scss';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 
 type Street = { id: string; text: string };
 type City_type = { id: string; slug: string; stores: string[]; bbox: string[] };
@@ -15,28 +15,32 @@ type StoreProps = {
 const StreetAutocomplete = React.memo(
   ({ city, street, setStreet, check, setCheck }: StoreProps) => {
     const [streetExpand, setStreetExpand] = useState(false);
-    const [streetSearch, setStreetSearch] = useState("");
+    const [streetSearch, setStreetSearch] = useState('');
     const [searchResults, setSearchResults] = useState<Street[] | null>(null);
+    const apiUrl = process.env.REACT_APP_API_URL;
+    const apiKey = process.env.REACT_APP_API_KEY;
+    const apiFetchParams = 'limit=5&country=UA&language=en&fuzzyMatch=true';
 
     useEffect(() => {
       setStreetExpand(false);
     }, [street]);
 
     useEffect(() => {
-      setStreet("");
-      setStreetSearch("");
+      setStreet('');
+      setStreetSearch('');
     }, [city, setStreet]);
 
     useEffect(() => {
       if (!streetSearch) return;
+
       const delayDebounceFn = setTimeout(() => {
         axios
           .get(
-            `https://api.mapbox.com/geocoding/v5/mapbox.places/${streetSearch}.json?bbox=${city?.bbox}&access_token=pk.eyJ1IjoidmFsZW50aW5vczIxNSIsImEiOiJjbDhuYzN5N3gwZXJiM29vYW5vdzJndzNtIn0.sXTtaj_m9upSxo6msqBwRA&limit=5&country=UA&language=en&fuzzyMatch=true`
+            `${apiUrl}${streetSearch}.json?bbox=${city?.bbox}&access_token=${apiKey}&${apiFetchParams}`,
           )
           .then((resp) => {
             if (!resp.data.features[0]) {
-              setSearchResults([{ id: "1", text: "No matches" }]);
+              setSearchResults([{ id: '1', text: 'No matches' }]);
             } else {
               setSearchResults(resp.data.features);
             }
@@ -44,7 +48,7 @@ const StreetAutocomplete = React.memo(
       }, 500);
 
       return () => clearTimeout(delayDebounceFn);
-    }, [streetSearch]);
+    }, [apiKey, apiUrl, city?.bbox, streetSearch]);
 
     return (
       <div
@@ -66,7 +70,7 @@ const StreetAutocomplete = React.memo(
         <input
           disabled={!city}
           onClick={() => {
-            setStreetSearch("");
+            setStreetSearch('');
             setCheck(false);
             setSearchResults(null);
           }}
@@ -74,7 +78,7 @@ const StreetAutocomplete = React.memo(
           placeholder="start typing..."
           value={streetSearch}
           autoComplete="off"
-          className={(check && !street && s.error) || ""}
+          className={(check && !street && s.error) || ''}
         ></input>
         <span></span>
         <div className={streetExpand ? `${s.expand} ${s.active}` : s.expand}>
@@ -94,7 +98,7 @@ const StreetAutocomplete = React.memo(
         </div>
       </div>
     );
-  }
+  },
 );
 
 export default StreetAutocomplete;

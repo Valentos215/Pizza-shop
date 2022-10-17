@@ -1,19 +1,15 @@
-import React, { useContext } from "react";
-import s from "./Header.module.scss";
-import logo from "assets/Logo.svg";
-import logoText from "assets/Logo_text.svg";
-import { Link, NavLink } from "react-router-dom";
-import Cart from "./cart/Cart";
-import ExpandedMenu from "./expandedMenu/ExpandedMenu";
-import { ExpandContext } from "contexts/expandContext";
+import React, { useContext } from 'react';
+import { Link, NavLink } from 'react-router-dom';
+
+import s from 'components/header/Header.module.scss';
+import logo from 'assets/Logo.svg';
+import logoText from 'assets/Logo_text.svg';
+import Cart from 'components/header/cart/Cart';
+import ExpandedMenu from 'components/header/expandedMenu/ExpandedMenu';
+import { ExpandContext } from 'contexts/expandContext';
+import { ERouterLink, NAV_MENU } from 'constants/index';
 
 const Header = React.memo(() => {
-  const navMenu = [
-    { title: "Pizza", link: "pizza" },
-    { title: "Drinks", link: "drinks" },
-    { title: "Sides", link: "sides" },
-    { title: "Dessert", link: "dessert" },
-  ];
   const [expanded, setExpanded] = useContext(ExpandContext);
 
   return (
@@ -23,15 +19,15 @@ const Header = React.memo(() => {
         <div className="container">
           <div className={s.header__wrapper}>
             <Link
-              to={"/"}
+              to={ERouterLink.Root}
               className={s.header__logo}
               onClick={() => setExpanded(false)}
             >
-              <img alt="" src={logo}></img>
-              <img alt="" src={logoText}></img>
+              <img alt="" src={logo} />
+              <img alt="" src={logoText} />
             </Link>
             <div className={s.nav}>
-              {navMenu.map((item) => (
+              {NAV_MENU.map((item) => (
                 <NavLink
                   key={item.title}
                   to={item.link}

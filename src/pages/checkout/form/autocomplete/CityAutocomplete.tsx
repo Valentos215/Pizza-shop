@@ -1,27 +1,32 @@
-import s from "./Autocomplete.module.scss";
-import React, { useEffect, useState } from "react";
-import jsonData from "assets/cities.json";
+import React, { useEffect, useState } from 'react';
 
-type City_type = { id: string; slug: string; stores: string[]; bbox: string[] };
-type CityProps = {
-  city: City_type | null;
-  setCity: React.Dispatch<React.SetStateAction<City_type | null>>;
+import Show from 'shared/components/show/Show';
+import { ICityType } from 'shared/types';
+
+import jsonData from 'assets/cities.json';
+
+import s from 'pages/checkout/form/autocomplete/Autocomplete.module.scss';
+
+interface ICityAutocompleteProps {
+  city: ICityType | null;
+  setCity: (value: ICityType | null) => void;
   check: boolean;
-  setCheck: React.Dispatch<React.SetStateAction<boolean>>;
-};
+  setCheck: (value: boolean) => void;
+}
 
 const CityAutocomplete = React.memo(
-  ({ city, setCity, check, setCheck }: CityProps) => {
+  ({ city, setCity, check, setCheck }: ICityAutocompleteProps) => {
     const [cityExpand, setCityExpand] = useState(false);
-    const [citySearch, setCitySearch] = useState("");
+    const [citySearch, setCitySearch] = useState('');
 
-    const cities: City_type[] = JSON.parse(JSON.stringify(jsonData));
+    const cities: ICityType[] = JSON.parse(JSON.stringify(jsonData));
 
     const currentCities = cities.filter((city) => {
-      if (citySearch)
-        return city.slug.toUpperCase().includes(citySearch.toUpperCase());
+      if (citySearch) return city.slug.toUpperCase().includes(citySearch.toUpperCase());
       return city;
     });
+
+    const shouldShowChooseCity = !city && check;
 
     useEffect(() => {
       setCityExpand(false);
@@ -36,30 +41,36 @@ const CityAutocomplete = React.memo(
         }}
         className={cityExpand ? `${s.wrapper} ${s.active}` : s.wrapper}
       >
-        {!city && check && <p className={s.error}>Choose city</p>}
-        {(!check || !!city) && <p>City</p>}
+        <Show condition={shouldShowChooseCity}>
+          <p className={s.error}>Choose city</p>
+        </Show>
+
+        <Show condition={!check || !!city}>
+          <p>City</p>
+        </Show>
+
         <input
           onClick={() => {
-            setCitySearch("");
+            setCitySearch('');
             setCheck(false);
           }}
           onChange={(e) => setCitySearch(e.target.value)}
           placeholder="Choose city"
           value={citySearch}
           autoComplete="off"
-          className={(check && !city && s.error) || ""}
-        ></input>
+          className={(check && !city && s.error) || ''}
+        />
         <span></span>
         <div className={cityExpand ? `${s.expand} ${s.active}` : s.expand}>
           {currentCities &&
-            currentCities.map((city: City_type) => (
+            currentCities.map((city: ICityType) => (
               <div
+                key={city.id}
                 className={s.expand__option}
                 onClick={() => {
                   setCity(city);
                   setCitySearch(city.slug);
                 }}
-                key={city.id}
               >
                 {city.slug}
               </div>
@@ -67,7 +78,7 @@ const CityAutocomplete = React.memo(
         </div>
       </div>
     );
-  }
+  },
 );
 
 export default CityAutocomplete;

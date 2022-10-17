@@ -1,9 +1,11 @@
-import React, { useState, useContext } from "react";
-import { CartContext } from "contexts/cartContext";
-import { ExpandContext } from "contexts/expandContext";
-import s from "./Checkout.module.scss";
-import Form from "./form/Form";
-import Order from "./order/Order";
+import React, { useState, useContext } from 'react';
+
+import { CartContext } from 'contexts/cartContext';
+import { ExpandContext } from 'contexts/expandContext';
+import Form from 'pages/checkout/form/Form';
+import Order from 'pages/checkout/order/Order';
+
+import s from 'pages/checkout/Checkout.module.scss';
 
 const Checkout = React.memo(() => {
   const [checkoutSuccess, setCheckoutSuccess] = useState(false);
@@ -16,13 +18,14 @@ const Checkout = React.memo(() => {
         You have successfully placed an order, wait for the operator's call
       </div>
     );
-  if (!cart[0]) {
+
+  if (!cart.length) {
     return <div className={s.title}>Cart is empty</div>;
   }
 
   return (
-    <div className={expanded ? "scroll off" : "scroll"}>
-      <div className={"container"}>
+    <div className={expanded ? 'scroll off' : 'scroll'}>
+      <div className={'container'}>
         <div className={s.wrapper}>
           <Order />
           <Form setCheckoutSuccess={setCheckoutSuccess} />
