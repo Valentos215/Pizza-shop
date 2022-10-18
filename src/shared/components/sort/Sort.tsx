@@ -1,13 +1,14 @@
-import s from "./Sort.module.scss";
-import sortLogo from "assets/Sort.svg";
-import { useState } from "react";
+import { useState, memo } from 'react';
 
-type SortProps = {
+import sortLogo from 'assets/Sort.svg';
+
+import s from './Sort.module.scss';
+interface ISortProps {
   sortCriteria: string[];
-  setSort: React.Dispatch<React.SetStateAction<number>>;
-};
+  setSort: (value: number) => void;
+}
 
-const Sort = ({ sortCriteria, setSort }: SortProps) => {
+const Sort = memo(({ sortCriteria, setSort }: ISortProps) => {
   const [expanded, setExpanded] = useState(false);
 
   const itemClick = (optionNum: number) => {
@@ -18,18 +19,15 @@ const Sort = ({ sortCriteria, setSort }: SortProps) => {
     setExpanded(false);
   };
 
+  const expandClassName = expanded ? `${s.options} ${s.active}` : s.options;
+
   return (
     <div className={s.sort} tabIndex={3} onBlur={() => setExpanded(false)}>
-      <div
-        className={s.button}
-        onClick={() => {
-          setExpanded(!expanded);
-        }}
-      >
+      <div className={s.button} onClick={() => setExpanded(!expanded)}>
         <span>Sort</span>
         <img src={sortLogo} alt=""></img>
       </div>
-      <div className={expanded ? `${s.options} ${s.active}` : s.options}>
+      <div className={expandClassName}>
         {sortCriteria &&
           sortCriteria.map((option, i) => (
             <div key={option} className={s.option} onClick={() => itemClick(i)}>
@@ -39,6 +37,6 @@ const Sort = ({ sortCriteria, setSort }: SortProps) => {
       </div>
     </div>
   );
-};
+});
 
 export default Sort;

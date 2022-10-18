@@ -35,7 +35,7 @@
    display: flex;
    flex-direction: row;
    margin-top: 40px;
-   & p {
+   &__space {
       flex: 1 0 auto;
    }
    @media (max-width: 768px) {

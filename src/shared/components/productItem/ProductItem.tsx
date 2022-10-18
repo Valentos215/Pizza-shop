@@ -1,20 +1,14 @@
-import s from "./ProductItem.module.scss";
-import React, { useContext, useState } from "react";
-import cartLogo from "assets/Cart.svg";
-import { CartContext } from "contexts/cartContext";
-import { minusItem, plusItem } from "utils/utils";
+import { useContext, useState, memo } from 'react';
 
-type CartItem = {
-  id: number;
-  size: string;
-  title: string;
-  img: string;
-  number: number;
-  amount: number;
-  crust?: string;
-  ingredients?: string[];
-};
-type Product = {
+import cartLogo from 'assets/Cart.svg';
+import { CartContext } from 'contexts/cartContext';
+import Show from 'shared/components/show/Show';
+import { minusItem, plusItem } from 'utils/utils';
+import { ICartItem } from 'shared/components/cartItem/utils/cartItem.utils';
+
+import s from './ProductItem.module.scss';
+
+interface IProductItemProps {
   product: {
     id: number;
     title: string;
@@ -24,16 +18,14 @@ type Product = {
     cost: number[];
     weight: number[];
   };
-};
+}
 
-const ProductItem = React.memo(({ product }: Product) => {
+const ProductItem = memo(({ product }: IProductItemProps) => {
   const [currentSize, setCurrentSize] = useState(product.size[0]);
   const [cart, setCart] = useContext(CartContext);
 
   const currentCost = product.cost[product.size.indexOf(currentSize)];
-  const currentWeight = product.weight
-    ? product.weight[product.size.indexOf(currentSize)]
-    : null;
+  const currentWeight = product.weight ? product.weight[product.size.indexOf(currentSize)] : null;
 
   const count = (): number => {
     let counter = 0;
@@ -45,7 +37,7 @@ const ProductItem = React.memo(({ product }: Product) => {
     return counter;
   };
 
-  const currentItem: CartItem = {
+  const currentItem: ICartItem = {
     ...product,
     size: currentSize,
     number: count(),
@@ -70,56 +62,52 @@ const ProductItem = React.memo(({ product }: Product) => {
     ]);
   };
 
+  const totalAmount = currentItem.amount * (currentItem.number || 1);
+
+  const productInCart = cart.some((item) => item.id === product.id);
+
+  const sizeClassName = (size: string) => (size === currentSize ? s.size__checked : '');
+
   return (
     <div className={s.wrapper}>
       <div className={s.image}>
         <img className={s.image__main} src={product.img} alt=""></img>
-        {cart.some((item) => item.id === product.id) && (
-          <img
-            className={`${s.image__cartLogo} ${s.dark}`}
-            src={cartLogo}
-            alt=""
-          ></img>
-        )}
-        {currentWeight && <span>{currentWeight}g</span>}
+        <Show condition={productInCart}>
+          <img className={`${s.image__cartLogo} ${s.dark}`} src={cartLogo} alt="" />
+        </Show>
+        {!!currentWeight && <span>{currentWeight}g</span>}
       </div>
       <div className={s.title}>{product.title}</div>
       <div className={s.size}>
         {product.size.map((size) => (
-          <span
-            key={size}
-            onClick={() => {
-              sizeClick(size);
-            }}
-            className={size === currentSize ? s.size__checked : ""}
-          >
+          <span key={size} onClick={() => sizeClick(size)} className={sizeClassName(size)}>
             {size}
           </span>
         ))}
       </div>
       <div className={s.checkout}>
         <div className={s.checkout__amount}>
-          {currentItem.amount * (currentItem.number || 1)}
+          {totalAmount}
           <span> uah</span>
         </div>
-        {!currentItem.number && (
+        <Show condition={!currentItem.number}>
           <div className={s.checkout__tocartButton} onClick={toCartClick}>
             To cart
           </div>
-        )}
-        {currentItem.number > 0 && (
+        </Show>
+        <Show condition={currentItem.number > 0}>
           <div className={s.checkout__count}>
             <div
               onClick={() => minusItem(cart, setCart, currentItem)}
               className={`${s.checkout__count_button} ${s.minus}`}
             ></div>
-            <span>{("0" + currentItem.number).slice(-2)}</span>
+            <span>{('0' + currentItem.number).slice(-2)}</span>
             <div
               onClick={() => plusItem(cart, setCart, currentItem)}
               className={`${s.checkout__count_button} ${s.plus}`}
             ></div>
           </div>
-        )}
+        </Show>
       </div>
     </div>
   );

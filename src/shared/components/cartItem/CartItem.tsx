@@ -1,0 +1,60 @@
+import { useContext, memo } from 'react';
+
+import { CartContext } from 'contexts/cartContext';
+import Show from 'shared/components/show/Show';
+import { removeItem, minusItem, plusItem, removeIngredient } from 'utils/utils';
+import { ICartItem } from 'shared/components/cartItem/utils/cartItem.utils';
+
+import s from './CartItem.module.scss';
+
+interface ICartItemProps {
+  item: ICartItem;
+  handle?: boolean;
+}
+
+const CartItem = memo(({ item, handle = false }: ICartItemProps) => {
+  const [cart, setCart] = useContext(CartContext);
+
+  const itemTotalAmount = item.amount * item.number;
+
+  return (
+    <div className={s.item}>
+      <div className={s.item__head}>
+        <h3>{item.title}</h3>
+        <span onClick={() => removeItem(cart, setCart, item)}></span>
+      </div>
+      {!!item.ingredients && (
+        <div className={s.item__ingredients}>
+          <Show condition={!handle}>{item.ingredients.join(', ')}</Show>
+          <Show condition={handle && item.ingredients.length > 1}>
+            {item.ingredients.map((ing) => (
+              <div key={ing}>
+                <p>{ing}</p>
+                <span onClick={() => removeIngredient(cart, setCart, item, ing)}></span>
+              </div>
+            ))}
+          </Show>
+          <Show condition={handle && item.ingredients.length === 1}>
+            <div className={s.last}>{item.ingredients[0]}</div>
+          </Show>
+        </div>
+      )}
+      <div className={s.item__specification}>
+        {item.size}
+        {item.crust && `, ${item.crust}`}
+      </div>
+      <div className={s.item__total}>
+        <div className={s.item__total_amount}>
+          {itemTotalAmount}.00<span> uah</span>
+        </div>
+        <div className={s.item__total_counter}>
+          <span onClick={() => minusItem(cart, setCart, item)}></span>
+          <p>{item.number}</p>
+          <span onClick={() => plusItem(cart, setCart, item)} className={s.plus}></span>
+        </div>
+      </div>
+    </div>
+  );
+});
+
+export default CartItem;

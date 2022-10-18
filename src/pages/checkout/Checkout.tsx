@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import { useState, useContext, memo } from 'react';
 
 import { CartContext } from 'contexts/cartContext';
 import { ExpandContext } from 'contexts/expandContext';
@@ -7,10 +7,12 @@ import Order from 'pages/checkout/order/Order';
 
 import s from 'pages/checkout/Checkout.module.scss';
 
-const Checkout = React.memo(() => {
+const Checkout = memo(() => {
   const [checkoutSuccess, setCheckoutSuccess] = useState(false);
   const [cart] = useContext(CartContext);
   const [expanded] = useContext(ExpandContext);
+
+  const scrollClassNames = expanded ? 'scroll off' : 'scroll';
 
   if (checkoutSuccess)
     return (
@@ -24,7 +26,7 @@ const Checkout = React.memo(() => {
   }
 
   return (
-    <div className={expanded ? 'scroll off' : 'scroll'}>
+    <div className={scrollClassNames}>
       <div className={'container'}>
         <div className={s.wrapper}>
           <Order />

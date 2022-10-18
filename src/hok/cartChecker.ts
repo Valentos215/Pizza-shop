@@ -1,10 +1,11 @@
-import { useContext, useEffect } from "react";
-import { CartContext } from "contexts/cartContext";
-import useLocalStorage from "shared/hooks/useLocalStorage";
+import { useContext, useEffect } from 'react';
+
+import { CartContext } from 'contexts/cartContext';
+import useLocalStorage from 'shared/hooks/useLocalStorage';
 
 const CartChecker = ({ children }: any) => {
   const [cart, setCart] = useContext(CartContext);
-  const [localCart, setLocalCart] = useLocalStorage("cart");
+  const [localCart, setLocalCart] = useLocalStorage('cart');
 
   useEffect(() => {
     if (localCart) setCart(JSON.parse(localCart));

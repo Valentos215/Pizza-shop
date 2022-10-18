@@ -1,12 +1,14 @@
-import React, { useContext } from "react";
-import { CartContext } from "contexts/cartContext";
-import CartItem from "components/header/cart/CartItem";
-import s from "./Order.module.scss";
+import { useContext, memo } from 'react';
 
-const Order = React.memo(() => {
+import { CartContext } from 'contexts/cartContext';
+import CartItem from 'shared/components/cartItem/CartItem';
+
+import s from './Order.module.scss';
+
+const Order = memo(() => {
   const [cart] = useContext(CartContext);
 
-  if (!cart[0]) {
+  if (!cart.length) {
     return null;
   }
 
@@ -17,10 +19,7 @@ const Order = React.memo(() => {
         {cart
           .sort((a, b) => a.id - b.id)
           .map((item) => (
-            <div
-              key={item.id + item.id + item.size + item.crust}
-              className={s.item}
-            >
+            <div key={item.id + item.id + item.size + item.crust} className={s.item}>
               <div className={s.image}>
                 <img src={item.img} alt=""></img>
               </div>

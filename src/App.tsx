@@ -25,7 +25,7 @@ function App() {
             <CartChecker>
               <Header />
               <SkeletonTheme>
-                <React.Suspense fallback={<Preloader />}>
+                <React.Suspense fallback={<></>}>
                   <Switch>
                     <Route path={ERouterLink.Pizza} component={PizzaLazy} />
                     <Route path={ERouterLink.Drinks} component={ProductsLazy} />

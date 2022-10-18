@@ -1,6 +1,7 @@
-import s from "./ProductSkeleton.module.scss";
-import Skeleton from "react-loading-skeleton";
-import "react-loading-skeleton/dist/skeleton.css";
+import Skeleton from 'react-loading-skeleton';
+import 'react-loading-skeleton/dist/skeleton.css';
+
+import s from './ProductSkeleton.module.scss';
 
 const ProductSkeleton = () => {
   return (

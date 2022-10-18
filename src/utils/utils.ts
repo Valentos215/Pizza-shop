@@ -1,4 +1,4 @@
-type CartItem = {
+interface ICartItem {
   id: number;
   size: string;
   crust?: string;
@@ -7,14 +7,9 @@ type CartItem = {
   ingredients?: string[];
   number: number;
   amount: number;
-};
+}
 
-export const compareItems = (
-  item1: CartItem,
-  item2: CartItem,
-  size?: string,
-  crust?: string
-) => {
+export const compareItems = (item1: ICartItem, item2: ICartItem, size?: string, crust?: string) => {
   if (item1.crust) {
     return (
       item1.id === item2.id &&
@@ -29,9 +24,9 @@ export const compareItems = (
 };
 
 export const minusItem = (
-  cart: CartItem[],
-  setCart: React.Dispatch<React.SetStateAction<CartItem[]>>,
-  item: CartItem
+  cart: ICartItem[],
+  setCart: React.Dispatch<React.SetStateAction<ICartItem[]>>,
+  item: ICartItem,
 ) => {
   setCart(
     cart
@@ -41,14 +36,14 @@ export const minusItem = (
           return { ...i, number: i.number - 1 };
         }
         return i;
-      })
+      }),
   );
 };
 
 export const plusItem = (
-  cart: CartItem[],
-  setCart: React.Dispatch<React.SetStateAction<CartItem[]>>,
-  item: CartItem
+  cart: ICartItem[],
+  setCart: (value: ICartItem[]) => void,
+  item: ICartItem,
 ) => {
   setCart(
     cart.map((i) => {
@@ -56,23 +51,23 @@ export const plusItem = (
         return { ...i, number: i.number + 1 };
       }
       return i;
-    })
+    }),
   );
 };
 
 export const removeItem = (
-  cart: CartItem[],
-  setCart: React.Dispatch<React.SetStateAction<CartItem[]>>,
-  item: CartItem
+  cart: ICartItem[],
+  setCart: (value: ICartItem[]) => void,
+  item: ICartItem,
 ) => {
   setCart(cart.filter((i) => !compareItems(i, item)));
 };
 
 export const removeIngredient = (
-  cart: CartItem[],
-  setCart: React.Dispatch<React.SetStateAction<CartItem[]>>,
-  item: CartItem,
-  ingredient: string
+  cart: ICartItem[],
+  setCart: (value: ICartItem[]) => void,
+  item: ICartItem,
+  ingredient: string,
 ) => {
   setCart(
     cart.map((i) => {
@@ -81,11 +76,11 @@ export const removeIngredient = (
         return { ...i, ingredients: newIngs };
       }
       return i;
-    })
+    }),
   );
 };
 
-export const totalAmount = (cart: CartItem[]) => {
+export const totalAmount = (cart: ICartItem[]) => {
   let total = 0;
   cart.forEach((item) => {
     total = total + item.amount * item.number;
@@ -93,10 +88,19 @@ export const totalAmount = (cart: CartItem[]) => {
   return total;
 };
 
-export const totalNumber = (cart: CartItem[]) => {
+export const totalNumber = (cart: ICartItem[]) => {
   let total = 0;
   cart.forEach((item) => {
     total = total + item.number;
   });
   return `0${total}`.slice(-2);
 };
+
+export const ucFirst = (name: string) => {
+  if (!name) {
+    return '';
+  }
+  return name[0].toUpperCase() + name.slice(1);
+};
+
+export const range = (length: number) => Array.from({ length: length }, (v, k) => k + 1);

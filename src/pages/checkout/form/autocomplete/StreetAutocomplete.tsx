@@ -1,22 +1,23 @@
-import s from './Autocomplete.module.scss';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState, memo } from 'react';
+
 import axios from 'axios';
+import Show from 'shared/components/show/Show';
+import { ICity, IStreet } from 'pages/checkout/form/utils/form.utils';
 
-type Street = { id: string; text: string };
-type City_type = { id: string; slug: string; stores: string[]; bbox: string[] };
-type StoreProps = {
-  city: City_type | null;
+import s from './Autocomplete.module.scss';
+interface IStreetAutocompleteProps {
+  city: ICity | null;
   street: string;
-  setStreet: React.Dispatch<React.SetStateAction<string>>;
+  setStreet: (value: string) => void;
   check: boolean;
-  setCheck: React.Dispatch<React.SetStateAction<boolean>>;
-};
+  setCheck: (value: boolean) => void;
+}
 
-const StreetAutocomplete = React.memo(
-  ({ city, street, setStreet, check, setCheck }: StoreProps) => {
+const StreetAutocomplete = memo(
+  ({ city, street, setStreet, check, setCheck }: IStreetAutocompleteProps) => {
     const [streetExpand, setStreetExpand] = useState(false);
     const [streetSearch, setStreetSearch] = useState('');
-    const [searchResults, setSearchResults] = useState<Street[] | null>(null);
+    const [searchResults, setSearchResults] = useState<IStreet[] | null>(null);
     const apiUrl = process.env.REACT_APP_API_URL;
     const apiKey = process.env.REACT_APP_API_KEY;
     const apiFetchParams = 'limit=5&country=UA&language=en&fuzzyMatch=true';
@@ -31,7 +32,9 @@ const StreetAutocomplete = React.memo(
     }, [city, setStreet]);
 
     useEffect(() => {
-      if (!streetSearch) return;
+      if (!streetSearch) {
+        return;
+      }
 
       const delayDebounceFn = setTimeout(() => {
         axios
@@ -50,6 +53,10 @@ const StreetAutocomplete = React.memo(
       return () => clearTimeout(delayDebounceFn);
     }, [apiKey, apiUrl, city?.bbox, streetSearch]);
 
+    const wrapperClassName = streetExpand ? `${s.wrapper} ${s.active}` : s.wrapper;
+    const inputClassName = check && !street ? s.error : '';
+    const expandClassName = streetExpand ? `${s.expand} ${s.active}` : s.expand;
+
     return (
       <div
         tabIndex={14}
@@ -63,10 +70,14 @@ const StreetAutocomplete = React.memo(
         onClick={() => {
           if (!city) setCheck(true);
         }}
-        className={streetExpand ? `${s.wrapper} ${s.active}` : s.wrapper}
+        className={wrapperClassName}
       >
-        {!street && check && <p className={s.error}>Choose street</p>}
-        {(!check || !!street) && <p>Street</p>}
+        <Show condition={!street && check}>
+          <p className={s.error}>Choose street</p>
+        </Show>
+        <Show condition={!check || !!street}>
+          <p>Street</p>
+        </Show>
         <input
           disabled={!city}
           onClick={() => {
@@ -78,10 +89,10 @@ const StreetAutocomplete = React.memo(
           placeholder="start typing..."
           value={streetSearch}
           autoComplete="off"
-          className={(check && !street && s.error) || ''}
+          className={inputClassName}
         ></input>
         <span></span>
-        <div className={streetExpand ? `${s.expand} ${s.active}` : s.expand}>
+        <div className={expandClassName}>
           {searchResults &&
             searchResults.map((street) => (
               <div

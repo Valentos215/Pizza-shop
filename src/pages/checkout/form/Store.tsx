@@ -1,19 +1,19 @@
-import s from "./Store.module.scss";
-import React, { useEffect, useState } from "react";
-import CityAutocomplete from "./autocomplete/CityAutocomplete";
-import StoreAutocomplete from "pages/checkout/form/autocomplete/StoreAutocomplete";
+import { useEffect, useState, memo } from 'react';
 
-type City_type = { id: string; slug: string; stores: string[]; bbox: string[] };
-type StoreAdress = { city: string; store: string };
-type StoreProps = {
-  setStoreAdress: React.Dispatch<React.SetStateAction<StoreAdress | null>>;
+import CityAutocomplete from 'pages/checkout/form/autocomplete/CityAutocomplete';
+import StoreAutocomplete from 'pages/checkout/form/autocomplete/StoreAutocomplete';
+import { ICity, IStoreAdress } from 'pages/checkout/form/utils/form.utils';
+
+import s from './Store.module.scss';
+interface IStoreProps {
+  setStoreAdress: (value: IStoreAdress | null) => void;
   check: boolean;
-  setCheck: React.Dispatch<React.SetStateAction<boolean>>;
-};
+  setCheck: (value: boolean) => void;
+}
 
-const Store = React.memo(({ setStoreAdress, check, setCheck }: StoreProps) => {
-  const [city, setCity] = useState<City_type | null>(null);
-  const [store, setStore] = useState("");
+const Store = memo(({ setStoreAdress, check, setCheck }: IStoreProps) => {
+  const [city, setCity] = useState<ICity | null>(null);
+  const [store, setStore] = useState('');
 
   useEffect(() => {
     if (!city || !store) {
@@ -27,12 +27,7 @@ const Store = React.memo(({ setStoreAdress, check, setCheck }: StoreProps) => {
     <div className={s.store}>
       <h3>Store</h3>
       <form className={s.form}>
-        <CityAutocomplete
-          city={city}
-          setCity={setCity}
-          check={check}
-          setCheck={setCheck}
-        />
+        <CityAutocomplete city={city} setCity={setCity} check={check} setCheck={setCheck} />
         <StoreAutocomplete
           city={city}
           store={store}

@@ -14,7 +14,7 @@ interface IProductsToShowParams {
   sort: number;
 }
 
-type TProductsToShowResult = IProduct[] | null | undefined;
+type TProductsToShowResult = IProduct[] | null;
 
 export const productsToShow = ({
   products,
@@ -42,4 +42,6 @@ export const productsToShow = ({
   if (sort === 0) return filtered.sort((a, b) => a.cost[0] - b.cost[0]);
 
   if (sort === 1) return filtered.sort((a, b) => b.cost[0] - a.cost[0]);
+
+  return null;
 };

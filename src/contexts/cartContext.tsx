@@ -1,25 +1,12 @@
-import React from "react";
-import { createContext, useState } from "react";
+import React from 'react';
 
-type cartItem = {
-  id: number;
-  title: string;
-  img: string;
-  size: string;
-  number: number;
-  amount: number;
-  crust?: string;
-  ingredients?: string[];
-};
+import { createContext, useState } from 'react';
+import { ICartItem } from 'shared/components/cartItem/utils/cartItem.utils';
 
 export const CartContext = createContext<
-  [cartItem[], React.Dispatch<React.SetStateAction<cartItem[]>>]
+  [ICartItem[], React.Dispatch<React.SetStateAction<ICartItem[]>>]
 >([[], () => []]);
 export const CartProvider = ({ children }: any) => {
-  const [cart, setCart] = useState<cartItem[]>([]);
-  return (
-    <CartContext.Provider value={[cart, setCart]}>
-      {children}
-    </CartContext.Provider>
-  );
+  const [cart, setCart] = useState<ICartItem[]>([]);
+  return <CartContext.Provider value={[cart, setCart]}>{children}</CartContext.Provider>;
 };

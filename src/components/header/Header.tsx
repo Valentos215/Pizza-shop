@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import { useContext, memo } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 
 import s from 'components/header/Header.module.scss';
@@ -9,8 +9,10 @@ import ExpandedMenu from 'components/header/expandedMenu/ExpandedMenu';
 import { ExpandContext } from 'contexts/expandContext';
 import { ERouterLink, NAV_MENU } from 'constants/index';
 
-const Header = React.memo(() => {
+const Header = memo(() => {
   const [expanded, setExpanded] = useContext(ExpandContext);
+
+  const burgerClassName = expanded ? `${s.burger} ${s.active}` : s.burger;
 
   return (
     <>
@@ -42,12 +44,7 @@ const Header = React.memo(() => {
               <div onClick={() => setExpanded(false)}>
                 <Cart />
               </div>
-              <div
-                className={expanded ? `${s.burger} ${s.active}` : s.burger}
-                onClick={() => {
-                  setExpanded(!expanded);
-                }}
-              >
+              <div className={burgerClassName} onClick={() => setExpanded(!expanded)}>
                 <span className={s.span}></span>
                 <span className={s.span2}></span>
               </div>

@@ -1,20 +1,14 @@
-import s from "./ProductItem.module.scss";
-import React, { useContext, useState } from "react";
-import cartLogo from "assets/Cart.svg";
-import { CartContext } from "contexts/cartContext";
-import { minusItem, plusItem } from "utils/utils";
+import { useContext, useState, memo } from 'react';
 
-type CartItem = {
-  id: number;
-  size: string;
-  title: string;
-  img: string;
-  number: number;
-  amount: number;
-  crust?: string;
-  ingredients?: string[];
-};
-type Pizza = {
+import cartLogo from 'assets/Cart.svg';
+import { CartContext } from 'contexts/cartContext';
+import Show from '../show/Show';
+import { minusItem, plusItem } from 'utils/utils';
+import { ICartItem } from 'shared/components/cartItem/utils/cartItem.utils';
+import { PIZZA_SIZES, PIZZA_CRUSTS, PIZZA_WEIGHT } from 'constants/index';
+
+import s from './ProductItem.module.scss';
+interface IPizzaItemProps {
   pizza: {
     id: number;
     title: string;
@@ -24,24 +18,17 @@ type Pizza = {
     baseCost: number;
     popularity: number;
   };
-};
+}
 
-const PizzaItem = React.memo(({ pizza }: Pizza) => {
-  const sizes = ["Standard size", "Large", "New Yorker"];
-  const crusts = ["Standard crust", "Thin", "Philadelphia", "Hot-Dog Crust"];
-  const weight = [560, 750, 810];
-  const [currentSize, setCurrentSize] = useState(sizes[0]);
-  const [currentCrust, setCurrentCrust] = useState(crusts[0]);
+const PizzaItem = memo(({ pizza }: IPizzaItemProps) => {
+  const [currentSize, setCurrentSize] = useState(PIZZA_SIZES[0]);
+  const [currentCrust, setCurrentCrust] = useState(PIZZA_CRUSTS[0]);
   const [cart, setCart] = useContext(CartContext);
 
   const count = (): number => {
     let counter = 0;
     cart.forEach((item) => {
-      if (
-        item.id === pizza.id &&
-        item.size === currentSize &&
-        item.crust === currentCrust
-      ) {
+      if (item.id === pizza.id && item.size === currentSize && item.crust === currentCrust) {
         counter = item.number;
       }
     });
@@ -50,19 +37,19 @@ const PizzaItem = React.memo(({ pizza }: Pizza) => {
 
   const amount = () => {
     const sizeRate = () => {
-      if (currentSize === sizes[1]) return 1.18;
-      if (currentSize === sizes[2]) return 1.32;
+      if (currentSize === PIZZA_SIZES[1]) return 1.18;
+      if (currentSize === PIZZA_SIZES[2]) return 1.32;
       return 1;
     };
     const crustRate = () => {
-      if (currentCrust === crusts[2]) return 1.2;
-      if (currentCrust === crusts[3]) return 1.24;
+      if (currentCrust === PIZZA_CRUSTS[2]) return 1.2;
+      if (currentCrust === PIZZA_CRUSTS[3]) return 1.24;
       return 1;
     };
     return Math.ceil(pizza.baseCost * sizeRate() * crustRate());
   };
 
-  const currentItem: CartItem = {
+  const currentItem: ICartItem = {
     ...pizza,
     size: currentSize,
     crust: currentCrust,
@@ -72,14 +59,14 @@ const PizzaItem = React.memo(({ pizza }: Pizza) => {
 
   const sizeClick = (size: string) => {
     setCurrentSize(size);
-    setCurrentCrust(crusts[0]);
+    setCurrentCrust(PIZZA_CRUSTS[0]);
   };
 
   const crustClick = (crust: string) => {
-    if (currentSize !== sizes[2]) {
+    if (currentSize !== PIZZA_SIZES[2]) {
       setCurrentCrust(crust);
     } else {
-      if (crust === crusts[0] || crust === crusts[1]) {
+      if (crust === PIZZA_CRUSTS[0] || crust === PIZZA_CRUSTS[1]) {
         setCurrentCrust(crust);
       }
     }
@@ -101,79 +88,77 @@ const PizzaItem = React.memo(({ pizza }: Pizza) => {
     ]);
   };
 
+  const totalAmount = currentItem.amount * (currentItem.number || 1);
+
+  const pizzaInCart = cart.some((item) => item.id === pizza.id);
+
   const crustClasses = (crust: string) => {
     if (crust === currentCrust) {
       return `${s.crust__checked}`;
     }
-    if (currentSize === sizes[2]) {
-      if (crust === crusts[2] || crust === crusts[3]) {
+    if (currentSize === PIZZA_SIZES[2]) {
+      if (crust === PIZZA_CRUSTS[2] || crust === PIZZA_CRUSTS[3]) {
         return `${s.crust__disabled}`;
       }
     }
   };
 
+  const sizeClassName = (size: string) => (size === currentSize ? s.size__checked : '');
+
   return (
     <div className={s.wrapper}>
       <div className={s.image}>
         <img className={s.image__main} src={pizza.img} alt=""></img>
-        {cart.some((item) => item.id === pizza.id) && (
-          <img className={s.image__cartLogo} src={cartLogo} alt=""></img>
-        )}
-        <span>{weight[sizes.indexOf(currentSize)]}g</span>
+        <Show condition={pizzaInCart}>
+          <img className={s.image__cartLogo} src={cartLogo} alt="" />
+        </Show>
+        <span>{PIZZA_WEIGHT[PIZZA_SIZES.indexOf(currentSize)]}g</span>
       </div>
       <div className={s.title}>{pizza.title}</div>
       <div className={s.ingredients}>
-        {pizza.description && <span>({pizza.description}), </span>}
-        {pizza.ingredients.join(", ")}
+        <Show condition={!!pizza.description}>
+          <span>({pizza.description}), </span>
+        </Show>
+        {pizza.ingredients.join(', ')}
         <p>You can remove some ingredients at checkout</p>
       </div>
       <div className={s.size}>
-        {sizes.map((size) => (
-          <span
-            key={size}
-            onClick={() => {
-              sizeClick(size);
-            }}
-            className={size === currentSize ? s.size__checked : ""}
-          >
+        {PIZZA_SIZES.map((size) => (
+          <span key={size} onClick={() => sizeClick(size)} className={sizeClassName(size)}>
             {size}
           </span>
         ))}
       </div>
       <div className={s.crust}>
-        {crusts.map((crust) => (
-          <span
-            key={crust}
-            onClick={() => crustClick(crust)}
-            className={crustClasses(crust)}
-          >
+        {PIZZA_CRUSTS.map((crust) => (
+          <span key={crust} onClick={() => crustClick(crust)} className={crustClasses(crust)}>
             {crust}
           </span>
         ))}
       </div>
       <div className={s.checkout}>
         <div className={s.checkout__amount}>
-          {currentItem.amount * (currentItem.number || 1)}
+          {totalAmount}
           <span> uah</span>
         </div>
-        {!currentItem.number && (
+        <Show condition={!currentItem.number}>
           <div className={s.checkout__tocartButton} onClick={toCartClick}>
             To cart
           </div>
-        )}
-        {currentItem.number > 0 && (
+        </Show>
+        <Show condition={currentItem.number > 0}>
           <div className={s.checkout__count}>
             <div
               onClick={() => minusItem(cart, setCart, currentItem)}
               className={`${s.checkout__count_button} ${s.minus}`}
             ></div>
-            <span>{("0" + currentItem.number).slice(-2)}</span>
+            <span>{('0' + currentItem.number).slice(-2)}</span>
             <div
               onClick={() => plusItem(cart, setCart, currentItem)}
               className={`${s.checkout__count_button} ${s.plus}`}
             ></div>
           </div>
-        )}
+        </Show>
       </div>
     </div>
   );

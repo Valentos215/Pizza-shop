@@ -1,5 +1,6 @@
-import axios from 'axios';
 import { useEffect, useState, useCallback } from 'react';
+
+import axios from 'axios';
 
 type RespType = {
   id: number;
@@ -46,7 +47,9 @@ const useFetch = (url: string): UseFetchResult => {
   useEffect(() => {
     let skipGetResponseAfterDestroy = false;
     const requestOptions = options;
-    if (!isLoading) return;
+    if (!isLoading) {
+      return;
+    }
     axios(baseUrl + url, requestOptions)
       .then((res) => {
         if (!skipGetResponseAfterDestroy) {

@@ -1,25 +1,28 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState, memo } from 'react';
 
-import { ICityType } from 'shared/types';
+import Show from 'shared/components/show/Show';
+import { ICity } from 'pages/checkout/form/utils/form.utils';
 
 import s from 'pages/checkout/form/autocomplete/Autocomplete.module.scss';
 
 interface IStoreAutocompleteProps {
-  city: ICityType | null;
+  city: ICity | null;
   store: string;
   setStore: (value: string) => void;
   check: boolean;
   setCheck: (value: boolean) => void;
 }
 
-const StoreAutocomplete = React.memo(
+const StoreAutocomplete = memo(
   ({ city, store, setStore, check, setCheck }: IStoreAutocompleteProps) => {
     const [storeExpand, setStoreExpand] = useState(false);
     const [storeSearch, setStoreSearch] = useState('');
 
-    const currentStores = city?.stores.filter((st: string) => {
-      if (storeSearch) return st.toUpperCase().includes(storeSearch.toUpperCase());
-      return st;
+    const currentStores = city?.stores.filter((store: string) => {
+      if (storeSearch) {
+        return store.toUpperCase().includes(storeSearch.toUpperCase());
+      }
+      return store;
     });
 
     useEffect(() => {
@@ -31,6 +34,10 @@ const StoreAutocomplete = React.memo(
       setStoreSearch('');
     }, [city, setStore]);
 
+    const wrapperClassName = storeExpand ? `${s.wrapper} ${s.active}` : s.wrapper;
+    const inputClassName = check && !store ? s.error : '';
+    const expandClassName = storeExpand ? `${s.expand} ${s.active}` : s.expand;
+
     return (
       <div
         tabIndex={13}
@@ -41,10 +48,14 @@ const StoreAutocomplete = React.memo(
         onClick={() => {
           if (!city) setCheck(true);
         }}
-        className={storeExpand ? `${s.wrapper} ${s.active}` : s.wrapper}
+        className={wrapperClassName}
       >
-        {!store && check && <p className={s.error}>Choose store</p>}
-        {(!check || !!store) && <p>Store</p>}
+        <Show condition={!store && check}>
+          <p className={s.error}>Choose store</p>
+        </Show>
+        <Show condition={!check || !!store}>
+          <p>Store</p>
+        </Show>
         <input
           disabled={!city}
           onClick={() => {
@@ -55,10 +66,10 @@ const StoreAutocomplete = React.memo(
           placeholder="Choose store"
           value={storeSearch}
           autoComplete="off"
-          className={(check && !store && s.error) || ''}
+          className={inputClassName}
         ></input>
         <span></span>
-        <div className={storeExpand ? `${s.expand} ${s.active}` : s.expand}>
+        <div className={expandClassName}>
           {currentStores &&
             currentStores.map((store) => (
               <div

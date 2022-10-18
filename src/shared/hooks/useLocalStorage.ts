@@ -1,11 +1,8 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react';
 
-type useLStOutput = [string, React.Dispatch<React.SetStateAction<string>>];
+type TUseLocalStorageOutput = [string, (value: string) => void];
 
-const useLocalStorage = (
-  key: string,
-  initialValue: string = ""
-): useLStOutput => {
+const useLocalStorage = (key: string, initialValue: string = ''): TUseLocalStorageOutput => {
   const [value, setValue] = useState<string>(() => {
     return localStorage.getItem(key) || initialValue;
   });

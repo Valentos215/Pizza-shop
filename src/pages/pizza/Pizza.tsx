@@ -1,39 +1,33 @@
-import s from "./Pizza.module.scss";
-import React, { useState, useEffect, useContext } from "react";
-import Filter from "shared/components/filter/Filter";
-import Sort from "shared/components/sort/Sort";
-import PizzaItem from "shared/components/productItem/PizzaItem";
-import useLocalStorage from "shared/hooks/useLocalStorage";
-import useFetch from "shared/hooks/useFetch";
-import PizzaSkeleton from "shared/components/productItem/PizzaSkeleton";
-import { ExpandContext } from "contexts/expandContext";
+import { useState, useEffect, useContext, memo } from 'react';
 
-type pizza = {
-  id: number;
-  title: string;
-  img: string;
-  description: string[];
-  ingredients: string[];
-  baseCost: number;
-  popularity: number;
-};
+import Filter from 'shared/components/filter/Filter';
+import Sort from 'shared/components/sort/Sort';
+import PizzaItem from 'shared/components/productItem/PizzaItem';
+import useLocalStorage from 'shared/hooks/useLocalStorage';
+import useFetch from 'shared/hooks/useFetch';
+import PizzaSkeleton from 'shared/components/productItem/PizzaSkeleton';
+import Show from 'shared/components/show/Show';
+import { ExpandContext } from 'contexts/expandContext';
+import { IPizza, pizzasToShow } from './utils/pizza.utils';
+import { range } from 'utils/utils';
 
-const Pizza = React.memo(() => {
+import s from './Pizza.module.scss';
+
+const Pizza = memo(() => {
   const [filter, setFilter] = useState<string[] | null>(null);
-  const [memInvert, setMemInvert] = useLocalStorage("invert");
+  const [memInvert, setMemInvert] = useLocalStorage('invert');
   const [invert, setInvert] = useState(Number(memInvert) || 0);
-  const [memSort, setMemSort] = useLocalStorage("sort");
+  const [memSort, setMemSort] = useLocalStorage('sort');
   const [sort, setSort] = useState<number>(Number(memSort) || 0);
-  const sortCriteria = ["Popularity", "Price low-high", "Price high-low"];
-  const [pizzas, setPizzas] = useState<pizza[] | null>(null);
-  const { isLoading, response, error, doFetch } = useFetch("pizza");
-  const skeletons = Array.from({ length: 12 }, (v, k) => k + 1);
+  const sortCriteria = ['Popularity', 'Price low-high', 'Price high-low'];
+  const [pizzas, setPizzas] = useState<IPizza[] | null>(null);
+  const { isLoading, response, error, doFetch } = useFetch('pizza');
   const [expanded] = useContext(ExpandContext);
 
   const ingredients = () => {
     if (!pizzas) return null;
     let arr: string[] = [];
-    pizzas.forEach((pizza: pizza) => {
+    pizzas.forEach((pizza: IPizza) => {
       pizza.ingredients.forEach((ing) => {
         if (!arr.includes(ing)) arr.push(ing);
       });
@@ -41,34 +35,9 @@ const Pizza = React.memo(() => {
     return arr;
   };
 
-  const pizzasToShow = () => {
-    if (!pizzas) return null;
-    let filtered: pizza[] = [];
-    if (filter) {
-      filtered = pizzas.filter((pizza: pizza) => {
-        if (invert) {
-          return filter.every((ing) => !pizza.ingredients.includes(ing));
-        }
-        return filter.some((ing) => pizza.ingredients.includes(ing));
-      });
-    } else {
-      filtered = pizzas;
-    }
-    if (sort === 0)
-      return filtered.sort((a, b) => {
-        return b.popularity - a.popularity;
-      });
-    if (sort === 1)
-      return filtered.sort((a, b) => {
-        return a.baseCost - b.baseCost;
-      });
-    if (sort === 2)
-      return filtered.sort((a, b) => {
-        return b.baseCost - a.baseCost;
-      });
-  };
+  const itemsList = pizzasToShow({ pizzas, filter, sort, invert });
 
-  const itemsList = pizzasToShow();
+  const scrollClassNames = expanded ? 'scroll off' : 'scroll';
 
   useEffect(() => {
     doFetch();
@@ -87,35 +56,34 @@ const Pizza = React.memo(() => {
   }, [invert, setMemInvert]);
 
   return (
-    <div className={expanded ? "scroll off" : "scroll"}>
+    <div className={scrollClassNames}>
       <div className="container">
         <div className={s.wrapper}>
           <div className={s.filters}>
-            <Filter
-              specification={ingredients()}
-              setFilter={setFilter}
-              invert={invert}
-            />
+            <Filter specification={ingredients()} setFilter={setFilter} invert={invert} />
             <Sort sortCriteria={sortCriteria} setSort={setSort} />
           </div>
-          {error && <h2>Something went wrong</h2>}
-          {filter && (
+          <Show condition={!!error}>
+            <h2>Something went wrong</h2>
+          </Show>
+          <Show condition={!!filter}>
             <div className={s.title}>
-              Pizzas {!!invert ? "without" : "contains"} {filter.join(", ")}{" "}
-              <span
-                onClick={() => setInvert(Math.abs(invert - 1))}
-                className={s.invert}
-              >
+              Pizzas {!!invert ? 'without' : 'contains'} {filter && filter.join(', ')}{' '}
+              <span onClick={() => setInvert(Math.abs(invert - 1))} className={s.invert}>
                 Invert
               </span>
             </div>
-          )}
+          </Show>
           <div className={s.pizzaItems}>
-            {isLoading && skeletons.map((i) => <PizzaSkeleton key={i} />)}
-            {itemsList &&
-              itemsList.map((pizza: pizza) => (
-                <PizzaItem key={pizza.id} pizza={pizza} />
+            <Show condition={isLoading}>
+              {range(8).map((i) => (
+                <PizzaSkeleton key={i} />
               ))}
+            </Show>
+            <Show condition={!!itemsList}>
+              {!!itemsList &&
+                itemsList.map((pizza: IPizza) => <PizzaItem key={pizza.id} pizza={pizza} />)}
+            </Show>
           </div>
         </div>
       </div>
