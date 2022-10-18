@@ -3,6 +3,7 @@ import { useState, memo } from 'react';
 import sortLogo from 'assets/Sort.svg';
 
 import s from './Sort.module.scss';
+
 interface ISortProps {
   sortCriteria: string[];
   setSort: (value: number) => void;

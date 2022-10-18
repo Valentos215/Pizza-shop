@@ -5,14 +5,14 @@ import { useState } from 'react';
 
 import s from './Filter.module.scss';
 
-type FilterProps = {
+interface IFilterProps {
   title?: string;
   specification: string[] | null;
   setFilter: (value: string[] | null) => void;
   invert: number;
-};
+}
 
-const Filter = memo(({ title, specification, setFilter, invert }: FilterProps) => {
+const Filter = memo(({ title, specification, setFilter, invert }: IFilterProps) => {
   const [expanded, setExpanded] = useState(false);
   const [checked, setChecked] = useState<string[]>([]);
 
