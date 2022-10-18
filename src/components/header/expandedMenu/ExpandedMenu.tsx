@@ -8,7 +8,6 @@ import { Link } from 'react-router-dom';
 import { ucFirst } from 'utils/utils';
 
 import s from './ExpandedMenu.module.scss';
-
 interface IExpandMenuProps {
   expanded: boolean;
   setExpanded: (value: boolean) => void;

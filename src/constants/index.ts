@@ -31,4 +31,4 @@ export const PIZZA_SIZES = ['Standard size', 'Large', 'New Yorker'];
 
 export const PIZZA_CRUSTS = ['Standard crust', 'Thin', 'Philadelphia', 'Hot-Dog Crust'];
 
-export const PIZZA_WEIGHT = [560, 750, 810];
+export const PIZZA_WEIGHT = [550, 760, 810];

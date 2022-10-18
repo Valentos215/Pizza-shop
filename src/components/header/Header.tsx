@@ -1,13 +1,14 @@
-import { useContext, memo } from 'react';
+import { memo, useContext } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 
-import s from 'components/header/Header.module.scss';
 import logo from 'assets/Logo.svg';
 import logoText from 'assets/Logo_text.svg';
 import Cart from 'components/header/cart/Cart';
 import ExpandedMenu from 'components/header/expandedMenu/ExpandedMenu';
 import { ExpandContext } from 'contexts/expandContext';
 import { ERouterLink, NAV_MENU } from 'constants/index';
+
+import s from 'components/header/Header.module.scss';
 
 const Header = memo(() => {
   const [expanded, setExpanded] = useContext(ExpandContext);

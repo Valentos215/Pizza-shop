@@ -1,4 +1,4 @@
-import { useState, useContext, memo } from 'react';
+import { memo, useState, useContext } from 'react';
 
 import { Link } from 'react-router-dom';
 import cartLogo from 'assets/Cart.svg';

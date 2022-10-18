@@ -3,17 +3,16 @@ import { useEffect, useState, memo } from 'react';
 import CityAutocomplete from 'pages/checkout/form/autocomplete/CityAutocomplete';
 import StreetAutocomplete from 'pages/checkout/form/autocomplete/StreetAutocomplete';
 import { ICity, IDeliveryAdress } from 'pages/checkout/form/utils/form.utils';
-
-import s from './Adress.module.scss';
 import Show from 'shared/components/show/Show';
 
-type AdressProps = {
+import s from './Adress.module.scss';
+interface IAdressProps {
   setDeliveryAdress: (value: IDeliveryAdress | null) => void;
   check: boolean;
   setCheck: (value: boolean) => void;
-};
+}
 
-const Adress = memo(({ setDeliveryAdress, check, setCheck }: AdressProps) => {
+const Adress = memo(({ setDeliveryAdress, check, setCheck }: IAdressProps) => {
   const [city, setCity] = useState<ICity | null>(null);
   const [street, setStreet] = useState('');
   const [house, setHouse] = useState('');
