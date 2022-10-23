@@ -8,11 +8,16 @@ const CartChecker = ({ children }: any) => {
   const [localCart, setLocalCart] = useLocalStorage('cart');
 
   useEffect(() => {
-    if (localCart) setCart(JSON.parse(localCart));
+    if (localCart) {
+      setCart(JSON.parse(localCart));
+    }
   }, []);
 
   useEffect(() => {
-    if (!cart) return;
+    if (!cart) {
+      return;
+    }
+
     setLocalCart(JSON.stringify(cart));
   }, [cart, setLocalCart]);
 

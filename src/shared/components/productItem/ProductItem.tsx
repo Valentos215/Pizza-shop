@@ -5,56 +5,54 @@ import { CartContext } from 'contexts/cartContext';
 import Show from 'shared/components/show/Show';
 import { minusItem, plusItem } from 'utils/utils';
 import { ICartItem } from 'shared/components/cartItem/utils/cartItem.utils';
+import { IProduct } from '@pages/products/utils/products.utils';
 
-import s from './ProductItem.module.scss';
+import s from 'shared/components/productItem/ProductItem.module.scss';
 
 interface IProductItemProps {
-  product: {
-    id: number;
-    title: string;
-    img: string;
-    category: string;
-    size: string[];
-    cost: number[];
-    weight: number[];
-  };
+  product: IProduct;
 }
 
 const ProductItem = memo(({ product }: IProductItemProps) => {
-  const [currentSize, setCurrentSize] = useState(product.size[0]);
+  const { id, size, title, img, weight, cost } = product;
+  const [currentSize, setCurrentSize] = useState(size[0]);
   const [cart, setCart] = useContext(CartContext);
 
-  const currentCost = product.cost[product.size.indexOf(currentSize)];
-  const currentWeight = product.weight ? product.weight[product.size.indexOf(currentSize)] : null;
+  const currentCost = cost[size.indexOf(currentSize)];
+  const currentWeight = weight ? weight[size.indexOf(currentSize)] : null;
 
-  const count = (): number => {
+  const getCount = (): number => {
     let counter = 0;
+
     cart.forEach((item) => {
-      if (item.id === product.id && item.size === currentSize) {
-        counter = item.number;
+      const { id, size, number } = item;
+
+      if (id === product.id && size === currentSize) {
+        counter = number;
       }
     });
+
     return counter;
   };
 
   const currentItem: ICartItem = {
     ...product,
     size: currentSize,
-    number: count(),
+    number: getCount(),
     amount: currentCost,
   };
 
-  const sizeClick = (size: string) => {
+  const onSizeClick = (size: string) => {
     setCurrentSize(size);
   };
 
-  const toCartClick = () => {
+  const onCartClick = () => {
     setCart([
       ...cart,
       {
-        id: product.id,
-        title: product.title,
-        img: product.img,
+        id,
+        title,
+        img,
         size: currentSize,
         number: 1,
         amount: currentCost,
@@ -64,34 +62,35 @@ const ProductItem = memo(({ product }: IProductItemProps) => {
 
   const totalAmount = currentItem.amount * (currentItem.number || 1);
 
-  const productInCart = cart.some((item) => item.id === product.id);
+  const productInCart = cart.some((item) => item.id === id);
 
   const sizeClassName = (size: string) => (size === currentSize ? s.size__checked : '');
 
   return (
     <div className={s.wrapper}>
       <div className={s.image}>
-        <img className={s.image__main} src={product.img} alt=""></img>
+        <img className={s.image__main} src={img} alt="" />
         <Show condition={productInCart}>
           <img className={`${s.image__cartLogo} ${s.dark}`} src={cartLogo} alt="" />
         </Show>
         {!!currentWeight && <span>{currentWeight}g</span>}
       </div>
-      <div className={s.title}>{product.title}</div>
+      <div className={s.title}>{title}</div>
       <div className={s.size}>
-        {product.size.map((size) => (
-          <span key={size} onClick={() => sizeClick(size)} className={sizeClassName(size)}>
+        {size.map((size) => (
+          <span key={size} onClick={() => onSizeClick(size)} className={sizeClassName(size)}>
             {size}
           </span>
         ))}
       </div>
+      {/*TODO: you have duplicate for this part in Product.tsx. Move this part to separate component and reuse */}
       <div className={s.checkout}>
         <div className={s.checkout__amount}>
           {totalAmount}
           <span> uah</span>
         </div>
         <Show condition={!currentItem.number}>
-          <div className={s.checkout__tocartButton} onClick={toCartClick}>
+          <div className={s.checkout__tocartButton} onClick={onCartClick}>
             To cart
           </div>
         </Show>
@@ -100,12 +99,12 @@ const ProductItem = memo(({ product }: IProductItemProps) => {
             <div
               onClick={() => minusItem(cart, setCart, currentItem)}
               className={`${s.checkout__count_button} ${s.minus}`}
-            ></div>
+            />
             <span>{('0' + currentItem.number).slice(-2)}</span>
             <div
               onClick={() => plusItem(cart, setCart, currentItem)}
               className={`${s.checkout__count_button} ${s.plus}`}
-            ></div>
+            />
           </div>
         </Show>
       </div>

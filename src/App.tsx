@@ -3,7 +3,6 @@ import { SkeletonTheme } from 'react-loading-skeleton';
 import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
 
 import Header from 'components/header/Header';
-import Preloader from 'shared/components/preloader/Preloader';
 import { CartProvider } from 'contexts/cartContext';
 import { ExpandProvider } from 'contexts/expandContext';
 import CartChecker from 'hok/cartChecker';

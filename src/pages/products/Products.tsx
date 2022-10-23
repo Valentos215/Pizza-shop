@@ -6,7 +6,11 @@ import ProductItem from 'shared/components/productItem/ProductItem';
 import useFetch from 'shared/hooks/useFetch';
 import ProductSkeleton from 'shared/components/productItem/ProductSkeleton';
 import { ExpandContext } from 'contexts/expandContext';
-import { IProduct, productsToShow } from 'pages/products/utils/products.utils';
+import {
+  getFilteredCategories,
+  IProduct,
+  productsToShow,
+} from 'pages/products/utils/products.utils';
 import { range } from 'utils/utils';
 import Show from 'shared/components/show/Show';
 
@@ -21,17 +25,6 @@ const Products = memo(({ match }: any) => {
 
   const sortCriteria = ['Price low-high', 'Price high-low'];
 
-  const categories = () => {
-    if (!products) {
-      return null;
-    }
-    const arr: string[] = [];
-    products.forEach((product) => {
-      if (!arr.includes(product.category)) arr.push(product.category);
-    });
-    return arr;
-  };
-
   const itemsList = productsToShow({ products, filter, sort });
 
   const scrollClassNames = expanded ? 'scroll off' : 'scroll';
@@ -44,10 +37,9 @@ const Products = memo(({ match }: any) => {
   }, [doFetch, match.path]);
 
   useEffect(() => {
-    if (!response) {
-      return;
+    if (response) {
+      setProducts(response);
     }
-    setProducts(response);
   }, [response]);
 
   return (
@@ -58,7 +50,7 @@ const Products = memo(({ match }: any) => {
             <Show condition={!!products && !!products[0].category}>
               <Filter
                 title="Category"
-                specification={categories()}
+                specification={getFilteredCategories(products)}
                 setFilter={setFilter}
                 invert={0}
               />

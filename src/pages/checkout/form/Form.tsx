@@ -1,80 +1,93 @@
 import { useContext, useState, useEffect, memo } from 'react';
 
+import InputMask from 'react-input-mask';
+import { useFormik } from 'formik';
+import * as Yup from 'yup';
+
 import deliveryLogo from 'assets/Delivery.svg';
 import carryOutLogo from 'assets/CarryOut.svg';
-import Adress from 'pages/checkout/form/Adress';
+import Address from 'pages/checkout/form/Address';
 import { CartContext } from 'contexts/cartContext';
 import { totalAmount } from 'utils/utils';
 import Store from 'pages/checkout/form/Store';
-import { useFormik } from 'formik';
-import * as Yup from 'yup';
-import InputMask from 'react-input-mask';
 import useFetch from 'shared/hooks/useFetch';
 import Preloader from 'shared/components/preloader/Preloader';
 import Show from 'shared/components/show/Show';
 import { ERROR_MES, NAME_VALIDATION } from 'constants/index';
 import { IDeliveryAdress, IStoreAdress } from 'pages/checkout/form/utils/form.utils';
 
-import s from './Form.module.scss';
+import s from 'pages/checkout/form/Form.module.scss';
+
 interface IFormProps {
   setCheckoutSuccess: (value: boolean) => void;
 }
 
+const validation = Yup.object({
+  name: Yup.string()
+    .min(2, ERROR_MES.NameShort)
+    .max(25, ERROR_MES.NameLong)
+    .required(ERROR_MES.NameRequired)
+    .matches(NAME_VALIDATION, ERROR_MES.NameValid),
+  email: Yup.string()
+    .max(25, ERROR_MES.EmailLength)
+    .email(ERROR_MES.EmailIncorrect)
+    .required(ERROR_MES.EmailRequired),
+  phone: Yup.string().required(ERROR_MES.PhoneRequired),
+});
+
 const Form = memo(({ setCheckoutSuccess }: IFormProps) => {
   const [delivery, setDelivery] = useState(true);
   const [cart, setCart] = useContext(CartContext);
-  const [check, setCheck] = useState(false);
-  const [deliveryAdress, setDeliveryAdress] = useState<IDeliveryAdress | null>(null);
-  const [storeAdress, setStoreAdress] = useState<IStoreAdress | null>(null);
+  const [showAddressOrStore, setShowAddressOrStore] = useState(false);
+  const [deliveryAddress, setDeliveryAddress] = useState<IDeliveryAdress | null>(null);
+  const [storeAddress, setStoreAddress] = useState<IStoreAdress | null>(null);
   const { isLoading, response, doFetch } = useFetch('pizza');
 
-  const adressError = (delivery && !deliveryAdress) || (!delivery && !storeAdress);
+  const addressError = (delivery && !deliveryAddress) || (!delivery && !storeAddress);
+
+  const initialValues = {
+    name: '',
+    phone: '',
+    email: '',
+  };
+
+  const onSubmit = (): void => {
+    // TODO: remove this logic
+    if (isLoading) {
+      return;
+    }
+
+    setShowAddressOrStore(true);
+
+    if (!addressError) {
+      doFetch();
+    }
+  };
 
   const formik = useFormik({
-    initialValues: {
-      name: '',
-      phone: '',
-      email: '',
-    },
-    validationSchema: Yup.object({
-      name: Yup.string()
-        .min(2, ERROR_MES.nameShort)
-        .max(25, ERROR_MES.nameLong)
-        .required(ERROR_MES.nameRequired)
-        .matches(NAME_VALIDATION, ERROR_MES.nameValid),
-      email: Yup.string()
-        .max(25, ERROR_MES.emailLength)
-        .email(ERROR_MES.emailIncorrect)
-        .required(ERROR_MES.emailRequired),
-      phone: Yup.string().required(ERROR_MES.phoneRequired),
-    }),
-    onSubmit: (values) => {
-      if (isLoading) {
-        return;
-      }
-      setCheck(true);
-      if (!adressError) {
-        doFetch();
-      }
-    },
+    initialValues,
+    validationSchema: validation,
+    onSubmit,
   });
 
-  useEffect(() => {
-    if (!response) return;
-    setCheckoutSuccess(true);
-    setCart([]);
-  }, [response]);
+  const { values, touched, errors, isValid, handleBlur, handleChange, handleSubmit } = formik;
 
-  const nameError =
-    (formik.touched.name && formik.errors.name) || formik.errors.name === ERROR_MES.nameLong;
-  const emailError =
-    (formik.touched.email && formik.errors.email) || formik.errors.email === ERROR_MES.emailLength;
-  const phoneError = formik.touched.phone && formik.errors.phone;
+  useEffect(() => {
+    if (response) {
+      setCheckoutSuccess(true);
+      setCart([]);
+    }
+  }, [response, setCart, setCheckoutSuccess]);
+
+  const nameError = (touched.name && errors.name) || errors.name === ERROR_MES.NameLong;
+  const emailError = (touched.email && errors.email) || errors.email === ERROR_MES.EmailLength;
+  const phoneError = touched.phone && errors.phone;
 
   const deliveryClassName = delivery ? `${s.delivery__item} ${s.active}` : s.delivery__item;
-  const cerryOutClassName = delivery ? s.delivery__item : `${s.delivery__item} ${s.active}`;
-  const buttonClassName = adressError || !formik.isValid ? `${s.button} ${s.disabled}` : s.button;
+  const carryOutClassName = delivery ? s.delivery__item : `${s.delivery__item} ${s.active}`;
+  const buttonClassName = addressError || !isValid ? `${s.button} ${s.disabled}` : s.button;
 
+  // TODO: separate this large component to more small components and move them logic
   return (
     <div className={s.wrapper}>
       <h3>Checkout order</h3>
@@ -83,63 +96,65 @@ const Form = memo(({ setCheckoutSuccess }: IFormProps) => {
           <img src={deliveryLogo} alt="" />
           <span>Delivery</span>
         </div>
-        <div className={cerryOutClassName} onClick={() => setDelivery(false)}>
+        <div className={carryOutClassName} onClick={() => setDelivery(false)}>
           <img src={carryOutLogo} alt="" />
-          <span>Cerry out</span>
+          <span>Carry out</span>
         </div>
       </div>
       <h3>Contacts</h3>
       <form className={s.contacts}>
         <div className={s.contacts__input}>
-          <span className={nameError ? s.error : ''}>
-            {nameError ? formik.errors.name : 'Name'}
-          </span>
+          <span className={nameError ? s.error : ''}>{nameError ? errors.name : 'Name'}</span>
           <input
-            value={formik.values.name}
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
+            value={values.name}
+            onChange={handleChange}
+            onBlur={handleBlur}
             name="name"
             placeholder="George"
             className={nameError ? s.error : ''}
             autoComplete="off"
-          ></input>
+          />
         </div>
         <div className={s.contacts__input}>
-          <span className={phoneError ? s.error : ''}>
-            {phoneError ? formik.errors.phone : 'Phone'}
-          </span>
+          <span className={phoneError ? s.error : ''}>{phoneError ? errors.phone : 'Phone'}</span>
           <InputMask
             name="phone"
             mask="+38(099) 999 99 99"
-            value={formik.values.phone}
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
+            value={values.phone}
+            onChange={handleChange}
+            onBlur={handleBlur}
             placeholder="+38(0xx) xxx xx xx"
             className={phoneError ? s.error : ''}
-          ></InputMask>
+          />
         </div>
         <div className={s.contacts__input}>
-          <span className={emailError ? s.error : ''}>
-            {emailError ? formik.errors.email : 'E-mail'}
-          </span>
+          <span className={emailError ? s.error : ''}>{emailError ? errors.email : 'E-mail'}</span>
           <input
-            value={formik.values.email}
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
+            value={values.email}
+            onChange={handleChange}
+            onBlur={handleBlur}
             name="email"
             placeholder="email@example.com"
             className={emailError ? s.error : ''}
             autoComplete="off"
-          ></input>
+          />
         </div>
       </form>
       <Show condition={delivery}>
-        <Adress setDeliveryAdress={setDeliveryAdress} check={check} setCheck={setCheck} />
+        <Address
+          setDeliveryAddress={setDeliveryAddress}
+          showAddressOrStore={showAddressOrStore}
+          setShowAddressOrStore={setShowAddressOrStore}
+        />
       </Show>
       <Show condition={!delivery}>
-        <Store setStoreAdress={setStoreAdress} check={check} setCheck={setCheck} />
+        <Store
+          setStoreAddress={setStoreAddress}
+          showAddressOrStore={showAddressOrStore}
+          setShowAddressOrStore={setShowAddressOrStore}
+        />
       </Show>
-      <textarea name="comment" rows={2} placeholder="Comment"></textarea>
+      <textarea name="comment" rows={2} placeholder="Comment" />
       <div className={s.total}>
         <Show condition={isLoading}>
           <div className={s.preloader}>
@@ -150,7 +165,8 @@ const Form = memo(({ setCheckoutSuccess }: IFormProps) => {
         <p>
           {totalAmount(cart)}.00<span> uah</span>
         </p>
-        <div className={buttonClassName} onClick={() => formik.handleSubmit()}>
+        {/*TODO: Replace div to button and add property disabled if isLoading*/}
+        <div className={buttonClassName} onClick={() => handleSubmit()}>
           Checkout
         </div>
       </div>

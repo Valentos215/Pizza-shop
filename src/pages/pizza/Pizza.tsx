@@ -8,10 +8,10 @@ import useFetch from 'shared/hooks/useFetch';
 import PizzaSkeleton from 'shared/components/productItem/PizzaSkeleton';
 import Show from 'shared/components/show/Show';
 import { ExpandContext } from 'contexts/expandContext';
-import { IPizza, pizzasToShow } from './utils/pizza.utils';
+import { getFilteredIngredients, IPizza, pizzasToShow } from './utils/pizza.utils';
 import { range } from 'utils/utils';
 
-import s from './Pizza.module.scss';
+import s from 'pages/pizza/Pizza.module.scss';
 
 const Pizza = memo(() => {
   const [filter, setFilter] = useState<string[] | null>(null);
@@ -19,21 +19,11 @@ const Pizza = memo(() => {
   const [invert, setInvert] = useState(Number(memInvert) || 0);
   const [memSort, setMemSort] = useLocalStorage('sort');
   const [sort, setSort] = useState<number>(Number(memSort) || 0);
-  const sortCriteria = ['Popularity', 'Price low-high', 'Price high-low'];
   const [pizzas, setPizzas] = useState<IPizza[] | null>(null);
   const { isLoading, response, error, doFetch } = useFetch('pizza');
   const [expanded] = useContext(ExpandContext);
 
-  const ingredients = () => {
-    if (!pizzas) return null;
-    let arr: string[] = [];
-    pizzas.forEach((pizza: IPizza) => {
-      pizza.ingredients.forEach((ing) => {
-        if (!arr.includes(ing)) arr.push(ing);
-      });
-    });
-    return arr;
-  };
+  const sortCriteria = ['Popularity', 'Price low-high', 'Price high-low'];
 
   const itemsList = pizzasToShow({ pizzas, filter, sort, invert });
 
@@ -51,6 +41,7 @@ const Pizza = memo(() => {
   useEffect(() => {
     setMemSort(String(sort));
   }, [sort, setMemSort]);
+
   useEffect(() => {
     setMemInvert(String(Number(invert) * 1));
   }, [invert, setMemInvert]);
@@ -60,7 +51,11 @@ const Pizza = memo(() => {
       <div className="container">
         <div className={s.wrapper}>
           <div className={s.filters}>
-            <Filter specification={ingredients()} setFilter={setFilter} invert={invert} />
+            <Filter
+              specification={getFilteredIngredients(pizzas)}
+              setFilter={setFilter}
+              invert={invert}
+            />
             <Sort sortCriteria={sortCriteria} setSort={setSort} />
           </div>
           <Show condition={!!error}>

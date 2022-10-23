@@ -1,9 +1,9 @@
-import { useEffect, memo } from 'react';
+import { useEffect, memo, useState } from 'react';
 
 import filterLogo from 'assets/Filter.svg';
-import { useState } from 'react';
 
-import s from './Filter.module.scss';
+import s from 'shared/components/filter/Filter.module.scss';
+import Show from 'shared/components/show/Show';
 
 interface IFilterProps {
   title?: string;
@@ -16,21 +16,21 @@ const Filter = memo(({ title, specification, setFilter, invert }: IFilterProps) 
   const [expanded, setExpanded] = useState(false);
   const [checked, setChecked] = useState<string[]>([]);
 
+  // TODO: move to filter.utils
   const isChecked = (option: string): boolean => {
     return checked.includes(option);
   };
 
+  // TODO: move to filter.utils
   const checkboxClick = (option: string) => {
-    if (!expanded) {
-      return;
-    }
-    if (isChecked(option)) {
+    if (expanded && isChecked(option)) {
       setChecked(checked.filter((opt) => opt !== option));
     } else {
       setChecked([...checked, option]);
     }
   };
 
+  // TODO: move to filter.utils
   const checkboxClasses = (option: string) => {
     if (!!invert) {
       if (isChecked(option)) {
@@ -50,9 +50,11 @@ const Filter = memo(({ title, specification, setFilter, invert }: IFilterProps) 
   useEffect(() => {
     if (checked[0]) {
       setFilter(checked);
-    } else {
-      setFilter(null);
+
+      return;
     }
+
+    setFilter(null);
   }, [checked, setFilter]);
 
   const expandedClassName = expanded ? `${s.options} ${s.active}` : s.options;
@@ -66,16 +68,17 @@ const Filter = memo(({ title, specification, setFilter, invert }: IFilterProps) 
         }}
       >
         <span>{title ? title : 'Filter'}</span>
-        <img src={filterLogo} alt=""></img>
+        <img src={filterLogo} alt="" />
       </div>
       <div className={expandedClassName}>
-        {specification &&
-          specification.sort().map((option) => (
+        <Show condition={!!specification}>
+          {specification?.sort().map((option) => (
             <div key={option} className={s.option} onClick={() => checkboxClick(option)}>
-              <span className={checkboxClasses(option)}></span>
+              <span className={checkboxClasses(option)} />
               <p>{option.charAt(0).toUpperCase() + option.slice(1)}</p>
             </div>
           ))}
+        </Show>
       </div>
     </div>
   );

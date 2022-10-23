@@ -6,14 +6,14 @@ export const NAV_MENU = [
 ];
 
 export const ERROR_MES = {
-  nameLong: 'Name is to long',
-  nameShort: 'Name is to short',
-  nameRequired: 'Name is required',
-  nameValid: 'Please use only latin letters',
-  emailLength: 'E-mail is to long',
-  emailRequired: 'E-mail is required',
-  emailIncorrect: 'Incorrect email',
-  phoneRequired: 'Phone number is required',
+  NameLong: 'Name is to long',
+  NameShort: 'Name is to short',
+  NameRequired: 'Name is required',
+  NameValid: 'Please use only latin letters',
+  EmailLength: 'E-mail is to long',
+  EmailRequired: 'E-mail is required',
+  EmailIncorrect: 'Incorrect email',
+  PhoneRequired: 'Phone number is required',
 };
 
 export const NAME_VALIDATION = /^[A-Za-z]+$/;
@@ -28,6 +28,20 @@ export enum ERouterLink {
 }
 
 export const PIZZA_SIZES = ['Standard size', 'Large', 'New Yorker'];
+
+// TODO: use enum instead array
+// export enum PIZZA_SIZES {
+//   Standard = 'Standard size',
+//   Large = 'Large',
+//   NewYorker = 'New Yorker',
+// }
+
+// TODO: use enum instead array
+// export enum PIZZA_WEIGHT {
+//   Standard = 500,
+//   Large = 760,
+//   NewYorker = 810,
+// }
 
 export const PIZZA_CRUSTS = ['Standard crust', 'Thin', 'Philadelphia', 'Hot-Dog Crust'];
 

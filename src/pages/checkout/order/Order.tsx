@@ -3,7 +3,7 @@ import { useContext, memo } from 'react';
 import { CartContext } from 'contexts/cartContext';
 import CartItem from 'shared/components/cartItem/CartItem';
 
-import s from './Order.module.scss';
+import s from 'pages/checkout/order/Order.module.scss';
 
 const Order = memo(() => {
   const [cart] = useContext(CartContext);

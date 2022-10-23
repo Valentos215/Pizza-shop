@@ -10,11 +10,11 @@ interface IStoreAutocompleteProps {
   store: string;
   setStore: (value: string) => void;
   check: boolean;
-  setCheck: (value: boolean) => void;
+  setShowAddressOrStore: (value: boolean) => void;
 }
 
 const StoreAutocomplete = memo(
-  ({ city, store, setStore, check, setCheck }: IStoreAutocompleteProps) => {
+  ({ city, store, setStore, check, setShowAddressOrStore }: IStoreAutocompleteProps) => {
     const [storeExpand, setStoreExpand] = useState(false);
     const [storeSearch, setStoreSearch] = useState('');
 
@@ -22,6 +22,7 @@ const StoreAutocomplete = memo(
       if (storeSearch) {
         return store.toUpperCase().includes(storeSearch.toUpperCase());
       }
+
       return store;
     });
 
@@ -46,7 +47,7 @@ const StoreAutocomplete = memo(
         }}
         onBlur={() => setStoreExpand(false)}
         onClick={() => {
-          if (!city) setCheck(true);
+          if (!city) setShowAddressOrStore(true);
         }}
         className={wrapperClassName}
       >
@@ -60,14 +61,14 @@ const StoreAutocomplete = memo(
           disabled={!city}
           onClick={() => {
             setStoreSearch('');
-            setCheck(false);
+            setShowAddressOrStore(false);
           }}
           onChange={(e) => setStoreSearch(e.target.value)}
           placeholder="Choose store"
           value={storeSearch}
           autoComplete="off"
           className={inputClassName}
-        ></input>
+        />
         <span></span>
         <div className={expandClassName}>
           {currentStores &&

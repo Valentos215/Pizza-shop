@@ -5,7 +5,7 @@ import Show from 'shared/components/show/Show';
 import { removeItem, minusItem, plusItem, removeIngredient } from 'utils/utils';
 import { ICartItem } from 'shared/components/cartItem/utils/cartItem.utils';
 
-import s from './CartItem.module.scss';
+import s from 'shared/components/cartItem/CartItem.module.scss';
 
 interface ICartItemProps {
   item: ICartItem;
@@ -21,7 +21,7 @@ const CartItem = memo(({ item, handle = false }: ICartItemProps) => {
     <div className={s.item}>
       <div className={s.item__head}>
         <h3>{item.title}</h3>
-        <span onClick={() => removeItem(cart, setCart, item)}></span>
+        <span onClick={() => removeItem(cart, setCart, item)} />
       </div>
       {!!item.ingredients && (
         <div className={s.item__ingredients}>
@@ -30,7 +30,7 @@ const CartItem = memo(({ item, handle = false }: ICartItemProps) => {
             {item.ingredients.map((ing) => (
               <div key={ing}>
                 <p>{ing}</p>
-                <span onClick={() => removeIngredient(cart, setCart, item, ing)}></span>
+                <span onClick={() => removeIngredient(cart, setCart, item, ing)} />
               </div>
             ))}
           </Show>
@@ -48,9 +48,9 @@ const CartItem = memo(({ item, handle = false }: ICartItemProps) => {
           {itemTotalAmount}.00<span> uah</span>
         </div>
         <div className={s.item__total_counter}>
-          <span onClick={() => minusItem(cart, setCart, item)}></span>
+          <span onClick={() => minusItem(cart, setCart, item)} />
           <p>{item.number}</p>
-          <span onClick={() => plusItem(cart, setCart, item)} className={s.plus}></span>
+          <span onClick={() => plusItem(cart, setCart, item)} className={s.plus} />
         </div>
       </div>
     </div>

@@ -39,9 +39,29 @@ export const productsToShow = ({
     return filtered;
   }
 
-  if (sort === 0) return filtered.sort((a, b) => a.cost[0] - b.cost[0]);
+  if (sort === 0) {
+    return filtered.sort((a, b) => a.cost[0] - b.cost[0]);
+  }
 
-  if (sort === 1) return filtered.sort((a, b) => b.cost[0] - a.cost[0]);
+  if (sort === 1) {
+    return filtered.sort((a, b) => b.cost[0] - a.cost[0]);
+  }
 
   return null;
+};
+
+export const getFilteredCategories = (products: IProduct[] | null): string[] | null => {
+  if (!products) {
+    return null;
+  }
+
+  const arr: string[] = [];
+
+  products.forEach((product) => {
+    if (!arr.includes(product.category)) {
+      arr.push(product.category);
+    }
+  });
+
+  return arr;
 };
