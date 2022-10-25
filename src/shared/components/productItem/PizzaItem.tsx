@@ -7,6 +7,7 @@ import { minusItem, plusItem } from 'utils/utils';
 import { ICartItem } from 'shared/components/cartItem/utils/cartItem.utils';
 import { PIZZA_SIZES, PIZZA_CRUSTS, PIZZA_WEIGHT } from 'constants/index';
 import { IPizza } from '@pages/pizza/utils/pizza.utils';
+import { getAmount, getCount } from './utils/pizzaItem.utils';
 
 import s from 'shared/components/productItem/ProductItem.module.scss';
 
@@ -20,60 +21,12 @@ const PizzaItem = memo(({ pizza }: IPizzaItemProps) => {
   const [currentCrust, setCurrentCrust] = useState(PIZZA_CRUSTS[0]);
   const [cart, setCart] = useContext(CartContext);
 
-  // TODO: move to pizzaItem.utils
-  const getCount = (): number => {
-    let counter = 0;
-
-    cart.forEach((item) => {
-      const { id, size, crust, number } = item;
-
-      if (id === pizza.id && size === currentSize && crust === currentCrust) {
-        counter = number;
-      }
-    });
-
-    return counter;
-  };
-
-  // TODO: move to pizzaItem.utils
-  const getAmount = () => {
-    const sizeRate = () => {
-      if (currentSize === PIZZA_SIZES[1]) {
-        // TODO: do not use magic numbers
-        return 1.18;
-      }
-      if (currentSize === PIZZA_SIZES[2]) {
-        // TODO: do not use magic numbers
-        return 1.32;
-      }
-
-      return 1;
-    };
-
-    // TODO: move to pizzaItem.utils
-    const getCrustRate = () => {
-      if (currentCrust === PIZZA_CRUSTS[2]) {
-        // TODO: do not use magic numbers
-        return 1.2;
-      }
-      if (currentCrust === PIZZA_CRUSTS[3]) {
-        // TODO: do not use magic numbers
-        return 1.24;
-      }
-
-      // TODO: do not use magic numbers
-      return 1;
-    };
-
-    return Math.ceil(pizza.baseCost * sizeRate() * getCrustRate());
-  };
-
   const currentItem: ICartItem = {
     ...pizza,
     size: currentSize,
     crust: currentCrust,
-    number: getCount(),
-    amount: getAmount(),
+    number: getCount({ cart, currentSize, currentCrust, pizzaId: pizza.id }),
+    amount: getAmount({ currentSize, currentCrust, baseCost }),
   };
 
   const onSizeClick = (size: string) => {

@@ -29,20 +29,22 @@ export enum ERouterLink {
 
 export const PIZZA_SIZES = ['Standard size', 'Large', 'New Yorker'];
 
-// TODO: use enum instead array
+export const PIZZA_CRUSTS = ['Standard crust', 'Thin', 'Philadelphia', 'Hot-Dog Crust'];
+
+export const PIZZA_WEIGHT = [550, 760, 810];
+
+export const PIZZA_SIZE_RATE = [1, 1.18, 1.32];
+
+export const PIZZA_CRUST_RATE = [1, 1, 1.18, 1.32];
+
 // export enum PIZZA_SIZES {
 //   Standard = 'Standard size',
 //   Large = 'Large',
 //   NewYorker = 'New Yorker',
 // }
 
-// TODO: use enum instead array
 // export enum PIZZA_WEIGHT {
 //   Standard = 500,
 //   Large = 760,
 //   NewYorker = 810,
 // }
-
-export const PIZZA_CRUSTS = ['Standard crust', 'Thin', 'Philadelphia', 'Hot-Dog Crust'];
-
-export const PIZZA_WEIGHT = [550, 760, 810];
