@@ -3,11 +3,11 @@ import { useContext, useState, memo } from 'react';
 import cartLogo from 'assets/Cart.svg';
 import { CartContext } from 'contexts/cartContext';
 import Show from 'shared/components/show/Show';
-import { minusItem, plusItem } from 'utils/utils';
+import CheckoutSection from 'shared/components/productItem/checkoutSection/CheckoutSection';
 import { ICartItem } from 'shared/components/cartItem/utils/cartItem.utils';
 import { PIZZA_SIZES, PIZZA_CRUSTS, PIZZA_WEIGHT } from 'constants/index';
 import { IPizza } from '@pages/pizza/utils/pizza.utils';
-import { getAmount, getCount } from './utils/pizzaItem.utils';
+import { getAmount, getCount } from 'shared/components/productItem/utils/pizzaItem.utils';
 
 import s from 'shared/components/productItem/ProductItem.module.scss';
 
@@ -16,10 +16,10 @@ interface IPizzaItemProps {
 }
 
 const PizzaItem = memo(({ pizza }: IPizzaItemProps) => {
-  const { id, img, title, ingredients, description, baseCost, popularity } = pizza;
+  const { img, title, ingredients, description, baseCost } = pizza;
   const [currentSize, setCurrentSize] = useState(PIZZA_SIZES[0]);
   const [currentCrust, setCurrentCrust] = useState(PIZZA_CRUSTS[0]);
-  const [cart, setCart] = useContext(CartContext);
+  const [cart] = useContext(CartContext);
 
   const currentItem: ICartItem = {
     ...pizza,
@@ -43,24 +43,6 @@ const PizzaItem = memo(({ pizza }: IPizzaItemProps) => {
       }
     }
   };
-
-  const onCartClick = () => {
-    setCart([
-      ...cart,
-      {
-        id,
-        title,
-        img,
-        size: currentSize,
-        crust: currentCrust,
-        ingredients: pizza.ingredients,
-        number: 1,
-        amount: currentItem.amount,
-      },
-    ]);
-  };
-
-  const totalAmount = currentItem.amount * (currentItem.number || 1);
 
   const pizzaInCart = cart.some((item) => item.id === pizza.id);
 
@@ -109,31 +91,8 @@ const PizzaItem = memo(({ pizza }: IPizzaItemProps) => {
           </span>
         ))}
       </div>
-      {/*TODO: you have duplicate for this part in Product.tsx. Move this part to separate component and reuse */}
-      <div className={s.checkout}>
-        <div className={s.checkout__amount}>
-          {totalAmount}
-          <span> uah</span>
-        </div>
-        <Show condition={!currentItem.number}>
-          <div className={s.checkout__tocartButton} onClick={onCartClick}>
-            To cart
-          </div>
-        </Show>
-        <Show condition={currentItem.number > 0}>
-          <div className={s.checkout__count}>
-            <div
-              onClick={() => minusItem(cart, setCart, currentItem)}
-              className={`${s.checkout__count_button} ${s.minus}`}
-            />
-            <span>{('0' + currentItem.number).slice(-2)}</span>
-            <div
-              onClick={() => plusItem(cart, setCart, currentItem)}
-              className={`${s.checkout__count_button} ${s.plus}`}
-            />
-          </div>
-        </Show>
-      </div>
+
+      <CheckoutSection currentItem={currentItem} />
     </div>
   );
 });
