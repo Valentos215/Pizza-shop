@@ -4,12 +4,12 @@ import InputMask from 'react-input-mask';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 
-import { CartContext } from 'contexts/cartContext';
 import Address from 'pages/checkout/form/Address';
 import Store from 'pages/checkout/form/Store';
 import DeliverySet from 'pages/checkout/form/deliverySet/DeliverySet';
 import Total from './total/Total';
 import Show from 'shared/components/show/Show';
+import { CartContext } from 'contexts/cartContext';
 import useFetch from 'shared/hooks/useFetch';
 import { ERROR_MES, NAME_VALIDATION } from 'constants/index';
 import { IDeliveryAdress, IStoreAdress } from 'pages/checkout/form/utils/form.utils';
