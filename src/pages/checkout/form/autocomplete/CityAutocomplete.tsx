@@ -10,12 +10,12 @@ import s from 'pages/checkout/form/autocomplete/Autocomplete.module.scss';
 interface ICityAutocompleteProps {
   city: ICity | null;
   setCity: (value: ICity | null) => void;
-  showAddressOrStore: boolean;
-  setShowAddressOrStore: (value: boolean) => void;
+  shouldCheck: boolean;
+  setShouldCheck: (value: boolean) => void;
 }
 
 const CityAutocomplete = memo(
-  ({ city, setCity, showAddressOrStore, setShowAddressOrStore }: ICityAutocompleteProps) => {
+  ({ city, setCity, shouldCheck, setShouldCheck }: ICityAutocompleteProps) => {
     const [cityExpand, setCityExpand] = useState(false);
     const [citySearch, setCitySearch] = useState('');
 
@@ -33,7 +33,7 @@ const CityAutocomplete = memo(
     }, [city]);
 
     const wrapperClassName = cityExpand ? `${s.wrapper} ${s.active}` : s.wrapper;
-    const inputClassName = showAddressOrStore && !city ? s.error : '';
+    const inputClassName = shouldCheck && !city ? s.error : '';
     const expandClassName = cityExpand ? `${s.expand} ${s.active}` : s.expand;
 
     return (
@@ -45,16 +45,16 @@ const CityAutocomplete = memo(
         }}
         className={wrapperClassName}
       >
-        <Show condition={!city && showAddressOrStore}>
+        <Show condition={!city && shouldCheck}>
           <p className={s.error}>Choose city</p>
         </Show>
-        <Show condition={!showAddressOrStore || !!city}>
+        <Show condition={!shouldCheck || !!city}>
           <p>City</p>
         </Show>
         <input
           onClick={() => {
             setCitySearch('');
-            setShowAddressOrStore(false);
+            setShouldCheck(false);
           }}
           onChange={(e) => setCitySearch(e.target.value)}
           placeholder="Choose city"

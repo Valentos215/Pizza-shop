@@ -4,15 +4,13 @@ import InputMask from 'react-input-mask';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 
-import deliveryLogo from 'assets/Delivery.svg';
-import carryOutLogo from 'assets/CarryOut.svg';
-import Address from 'pages/checkout/form/Address';
 import { CartContext } from 'contexts/cartContext';
-import { totalAmount } from 'utils/utils';
+import Address from 'pages/checkout/form/Address';
 import Store from 'pages/checkout/form/Store';
-import useFetch from 'shared/hooks/useFetch';
-import Preloader from 'shared/components/preloader/Preloader';
+import DeliverySet from 'pages/checkout/form/deliverySet/DeliverySet';
+import Total from './total/Total';
 import Show from 'shared/components/show/Show';
+import useFetch from 'shared/hooks/useFetch';
 import { ERROR_MES, NAME_VALIDATION } from 'constants/index';
 import { IDeliveryAdress, IStoreAdress } from 'pages/checkout/form/utils/form.utils';
 
@@ -37,8 +35,8 @@ const validation = Yup.object({
 
 const Form = memo(({ setCheckoutSuccess }: IFormProps) => {
   const [delivery, setDelivery] = useState(true);
-  const [cart, setCart] = useContext(CartContext);
-  const [showAddressOrStore, setShowAddressOrStore] = useState(false);
+  const [, setCart] = useContext(CartContext);
+  const [shouldCheck, setShouldCheck] = useState(false);
   const [deliveryAddress, setDeliveryAddress] = useState<IDeliveryAdress | null>(null);
   const [storeAddress, setStoreAddress] = useState<IStoreAdress | null>(null);
   const { isLoading, response, doFetch } = useFetch('pizza');
@@ -52,12 +50,7 @@ const Form = memo(({ setCheckoutSuccess }: IFormProps) => {
   };
 
   const onSubmit = (): void => {
-    // TODO: remove this logic
-    if (isLoading) {
-      return;
-    }
-
-    setShowAddressOrStore(true);
+    setShouldCheck(true);
 
     if (!addressError) {
       doFetch();
@@ -83,24 +76,10 @@ const Form = memo(({ setCheckoutSuccess }: IFormProps) => {
   const emailError = (touched.email && errors.email) || errors.email === ERROR_MES.EmailLength;
   const phoneError = touched.phone && errors.phone;
 
-  const deliveryClassName = delivery ? `${s.delivery__item} ${s.active}` : s.delivery__item;
-  const carryOutClassName = delivery ? s.delivery__item : `${s.delivery__item} ${s.active}`;
-  const buttonClassName = addressError || !isValid ? `${s.button} ${s.disabled}` : s.button;
-
-  // TODO: separate this large component to more small components and move them logic
   return (
     <div className={s.wrapper}>
       <h3>Checkout order</h3>
-      <div className={s.delivery}>
-        <div className={deliveryClassName} onClick={() => setDelivery(true)}>
-          <img src={deliveryLogo} alt="" />
-          <span>Delivery</span>
-        </div>
-        <div className={carryOutClassName} onClick={() => setDelivery(false)}>
-          <img src={carryOutLogo} alt="" />
-          <span>Carry out</span>
-        </div>
-      </div>
+      <DeliverySet delivery={delivery} setDelivery={setDelivery} />
       <h3>Contacts</h3>
       <form className={s.contacts}>
         <div className={s.contacts__input}>
@@ -143,33 +122,24 @@ const Form = memo(({ setCheckoutSuccess }: IFormProps) => {
       <Show condition={delivery}>
         <Address
           setDeliveryAddress={setDeliveryAddress}
-          showAddressOrStore={showAddressOrStore}
-          setShowAddressOrStore={setShowAddressOrStore}
+          shouldCheck={shouldCheck}
+          setShouldCheck={setShouldCheck}
         />
       </Show>
       <Show condition={!delivery}>
         <Store
           setStoreAddress={setStoreAddress}
-          showAddressOrStore={showAddressOrStore}
-          setShowAddressOrStore={setShowAddressOrStore}
+          shouldCheck={shouldCheck}
+          setShouldCheck={setShouldCheck}
         />
       </Show>
       <textarea name="comment" rows={2} placeholder="Comment" />
-      <div className={s.total}>
-        <Show condition={isLoading}>
-          <div className={s.preloader}>
-            <Preloader />
-          </div>
-        </Show>
-        <h3>Total</h3>
-        <p>
-          {totalAmount(cart)}.00<span> uah</span>
-        </p>
-        {/*TODO: Replace div to button and add property disabled if isLoading*/}
-        <div className={buttonClassName} onClick={() => handleSubmit()}>
-          Checkout
-        </div>
-      </div>
+      <Total
+        isLoading={isLoading}
+        addressError={addressError}
+        isValid={isValid}
+        handleSubmit={handleSubmit}
+      />
     </div>
   );
 });

@@ -9,12 +9,12 @@ interface IStoreAutocompleteProps {
   city: ICity | null;
   store: string;
   setStore: (value: string) => void;
-  check: boolean;
-  setShowAddressOrStore: (value: boolean) => void;
+  shouldCheck: boolean;
+  setShouldCheck: (value: boolean) => void;
 }
 
 const StoreAutocomplete = memo(
-  ({ city, store, setStore, check, setShowAddressOrStore }: IStoreAutocompleteProps) => {
+  ({ city, store, setStore, shouldCheck, setShouldCheck }: IStoreAutocompleteProps) => {
     const [storeExpand, setStoreExpand] = useState(false);
     const [storeSearch, setStoreSearch] = useState('');
 
@@ -36,7 +36,7 @@ const StoreAutocomplete = memo(
     }, [city, setStore]);
 
     const wrapperClassName = storeExpand ? `${s.wrapper} ${s.active}` : s.wrapper;
-    const inputClassName = check && !store ? s.error : '';
+    const inputClassName = shouldCheck && !store ? s.error : '';
     const expandClassName = storeExpand ? `${s.expand} ${s.active}` : s.expand;
 
     return (
@@ -47,21 +47,21 @@ const StoreAutocomplete = memo(
         }}
         onBlur={() => setStoreExpand(false)}
         onClick={() => {
-          if (!city) setShowAddressOrStore(true);
+          if (!city) setShouldCheck(true);
         }}
         className={wrapperClassName}
       >
-        <Show condition={!store && check}>
+        <Show condition={!store && shouldCheck}>
           <p className={s.error}>Choose store</p>
         </Show>
-        <Show condition={!check || !!store}>
+        <Show condition={!shouldCheck || !!store}>
           <p>Store</p>
         </Show>
         <input
           disabled={!city}
           onClick={() => {
             setStoreSearch('');
-            setShowAddressOrStore(false);
+            setShouldCheck(false);
           }}
           onChange={(e) => setStoreSearch(e.target.value)}
           placeholder="Choose store"

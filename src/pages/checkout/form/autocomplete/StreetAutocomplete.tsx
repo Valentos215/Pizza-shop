@@ -2,20 +2,20 @@ import { useEffect, useState, memo } from 'react';
 
 import Show from 'shared/components/show/Show';
 import { ICity, IStreet } from 'pages/checkout/form/utils/form.utils';
+import { useSearchStreet } from 'pages/checkout/form/hooks/autocomplete.hooks';
 
 import s from 'pages/checkout/form/autocomplete/Autocomplete.module.scss';
-import { useSearchStreet } from 'pages/checkout/form/hooks/autocomplete.hooks';
 
 interface IStreetAutocompleteProps {
   city: ICity | null;
   street: string;
   setStreet: (value: string) => void;
-  showAddressOrStore: boolean;
-  setCheck: (value: boolean) => void;
+  shouldCheck: boolean;
+  setShouldCheck: (value: boolean) => void;
 }
 
 const StreetAutocomplete = memo(
-  ({ city, street, setStreet, showAddressOrStore, setCheck }: IStreetAutocompleteProps) => {
+  ({ city, street, setStreet, shouldCheck, setShouldCheck }: IStreetAutocompleteProps) => {
     const [streetExpand, setStreetExpand] = useState(false);
     const [streetSearch, setStreetSearch] = useState('');
     const [searchResults, setSearchResults] = useState<IStreet[] | null>(null);
@@ -32,7 +32,7 @@ const StreetAutocomplete = memo(
     useSearchStreet({ city, streetSearch, setSearchResults });
 
     const wrapperClassName = streetExpand ? `${s.wrapper} ${s.active}` : s.wrapper;
-    const inputClassName = showAddressOrStore && !street ? s.error : '';
+    const inputClassName = shouldCheck && !street ? s.error : '';
     const expandClassName = streetExpand ? `${s.expand} ${s.active}` : s.expand;
 
     return (
@@ -46,21 +46,21 @@ const StreetAutocomplete = memo(
           setStreetSearch(street);
         }}
         onClick={() => {
-          if (!city) setCheck(true);
+          if (!city) setShouldCheck(true);
         }}
         className={wrapperClassName}
       >
-        <Show condition={!street && showAddressOrStore}>
+        <Show condition={!street && shouldCheck}>
           <p className={s.error}>Choose street</p>
         </Show>
-        <Show condition={!showAddressOrStore || !!street}>
+        <Show condition={!shouldCheck || !!street}>
           <p>Street</p>
         </Show>
         <input
           disabled={!city}
           onClick={() => {
             setStreetSearch('');
-            setCheck(false);
+            setShouldCheck(false);
             setSearchResults(null);
           }}
           onChange={(e) => setStreetSearch(e.target.value)}
