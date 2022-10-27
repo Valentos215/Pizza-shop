@@ -1,9 +1,10 @@
 import { useEffect, memo, useState } from 'react';
 
 import filterLogo from 'assets/Filter.svg';
+import Show from 'shared/components/show/Show';
+import { checkboxClasses, checkboxClick } from 'shared/components/filter/utils/filter.utils';
 
 import s from 'shared/components/filter/Filter.module.scss';
-import Show from 'shared/components/show/Show';
 
 interface IFilterProps {
   title?: string;
@@ -16,41 +17,9 @@ const Filter = memo(({ title, specification, setFilter, invert }: IFilterProps) 
   const [expanded, setExpanded] = useState(false);
   const [checked, setChecked] = useState<string[]>([]);
 
-  // TODO: move to filter.utils
-  const isChecked = (option: string): boolean => {
-    return checked.includes(option);
-  };
-
-  // TODO: move to filter.utils
-  const checkboxClick = (option: string) => {
-    if (expanded && isChecked(option)) {
-      setChecked(checked.filter((opt) => opt !== option));
-    } else {
-      setChecked([...checked, option]);
-    }
-  };
-
-  // TODO: move to filter.utils
-  const checkboxClasses = (option: string) => {
-    if (!!invert) {
-      if (isChecked(option)) {
-        return `${s.checkbox} ${s.checkbox__denial} ${s.checkbox__denial_unchecked}`;
-      } else {
-        return `${s.checkbox} ${s.checkbox__denial}`;
-      }
-    } else {
-      if (isChecked(option)) {
-        return `${s.checkbox} ${s.checkbox__check} ${s.checkbox__check_checked}`;
-      } else {
-        return `${s.checkbox} ${s.checkbox__check}`;
-      }
-    }
-  };
-
   useEffect(() => {
     if (checked[0]) {
       setFilter(checked);
-
       return;
     }
 
@@ -73,8 +42,12 @@ const Filter = memo(({ title, specification, setFilter, invert }: IFilterProps) 
       <div className={expandedClassName}>
         <Show condition={!!specification}>
           {specification?.sort().map((option) => (
-            <div key={option} className={s.option} onClick={() => checkboxClick(option)}>
-              <span className={checkboxClasses(option)} />
+            <div
+              key={option}
+              className={s.option}
+              onClick={() => checkboxClick({ option, checked, expanded, setChecked })}
+            >
+              <span className={checkboxClasses({ invert, option, checked, s })} />
               <p>{option.charAt(0).toUpperCase() + option.slice(1)}</p>
             </div>
           ))}

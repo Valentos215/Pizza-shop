@@ -7,7 +7,7 @@ import * as Yup from 'yup';
 import Address from 'pages/checkout/form/Address';
 import Store from 'pages/checkout/form/Store';
 import DeliverySet from 'pages/checkout/form/deliverySet/DeliverySet';
-import Total from './total/Total';
+import Total from 'pages/checkout/form/total/Total';
 import Show from 'shared/components/show/Show';
 import { CartContext } from 'contexts/cartContext';
 import useFetch from 'shared/hooks/useFetch';

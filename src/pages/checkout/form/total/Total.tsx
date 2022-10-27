@@ -30,7 +30,7 @@ const Total = memo(({ isLoading, addressError, isValid, handleSubmit }: ITotalPr
       <p>
         {totalAmount(cart)}.00<span> uah</span>
       </p>
-      <button disabled={isLoading} className={buttonClassName} onClick={() => handleSubmit}>
+      <button disabled={isLoading} className={buttonClassName} onClick={() => handleSubmit()}>
         Checkout
       </button>
     </div>
