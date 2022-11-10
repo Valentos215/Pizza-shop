@@ -6,10 +6,9 @@ import Header from 'components/header/Header';
 import { CartProvider } from 'contexts/cartContext';
 import { ExpandProvider } from 'contexts/expandContext';
 import CartChecker from 'hok/cartChecker';
+import { ERouterLink } from 'constants/index';
 
 import 'App.scss';
-
-import { ERouterLink } from 'constants/index';
 
 const PizzaLazy = React.lazy(() => import('pages/pizza/Pizza'));
 const ProductsLazy = React.lazy(() => import('pages/products/Products'));

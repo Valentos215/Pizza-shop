@@ -12,7 +12,7 @@ interface IUseSearchStreet {
 export const useSearchStreet = ({ city, streetSearch, setSearchResults }: IUseSearchStreet) => {
   const apiUrl = process.env.REACT_APP_API_URL;
   const apiKey = process.env.REACT_APP_API_KEY;
-  const apiFetchParams = 'limit=5&country=UA&language=en&fuzzyMatch=true';
+  const apiFetchParams = 'types=address&limit=5&language=en';
 
   useEffect(() => {
     if (!streetSearch) {
@@ -22,7 +22,7 @@ export const useSearchStreet = ({ city, streetSearch, setSearchResults }: IUseSe
     const delayDebounceFn = setTimeout(() => {
       axios
         .get(
-          `${apiUrl}${streetSearch}.json?bbox=${city?.bbox}&access_token=${apiKey}&${apiFetchParams}`,
+          `${apiUrl}${streetSearch}.json?bbox=${city?.bbox}&${apiFetchParams}&access_token=${apiKey}`,
         )
         .then((resp) => {
           if (!resp.data.features[0]) {
