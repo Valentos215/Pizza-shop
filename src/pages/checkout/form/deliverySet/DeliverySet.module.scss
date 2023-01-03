@@ -1,3 +1,5 @@
+@import 'styles/global';
+
 .delivery {
   display: flex;
   flex-direction: row;
@@ -7,18 +9,18 @@
     width: 49%;
     height: 50px;
     border-radius: 25px;
-    border: 1px solid rgba(2, 2, 2, 0.2);
+    border: 1px solid $color-8;
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
     cursor: pointer;
     &.active {
-      background: rgba(227, 24, 55, 0.2);
+      background: $color-11;
     }
     &:hover {
       @media (min-width: 769px) {
-        box-shadow: 0 0 5px rgba(227, 24, 55, 0.5);
+        box-shadow: 0 0 5px $color-12;
       }
     }
     & img {

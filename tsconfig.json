@@ -1,15 +1,6 @@
 {
   "compilerOptions": {
     "baseUrl": "src",
-    "paths": {
-      "@assets/*": ["assets/*"],
-      "@components/*": ["components/*"],
-      "@contexts/*": ["contexts/*"],
-      "@hok/*": ["hok/*"],
-      "@pages/*": ["pages/*"],
-      "@shared/*": ["app/_shared/*"],
-      "@utils/*": ["utils/*"]
-    },
     "target": "es5",
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,

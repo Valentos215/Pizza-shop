@@ -1,189 +1,191 @@
+@import 'styles/global';
+
 .item {
-   position: relative;
-   display: flex;
-   flex-direction: column;
-   font-size: 12px;
-   font-weight: 600;
-   padding: 10px;
-   margin-left: 10px;
-   &__head {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 10px;
+  margin-left: 10px;
+  &__head {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    & h3 {
+      margin-top: 10px;
+      letter-spacing: 0.4px;
+      margin-bottom: 15px;
+      font-size: 15px;
+      font-weight: 600;
+      color: $color-1;
+    }
+    & span {
+      flex: 0 0 30px;
+      height: 30px;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 1px solid $color-8;
+      position: relative;
+      transition: all 0.2s;
+      cursor: pointer;
+      &:before,
+      &:after {
+        content: '';
+        position: absolute;
+        height: 16px;
+        width: 2px;
+        background: $color-10;
+        transform: rotate(45deg);
+        top: 6px;
+        right: 13px;
+      }
+      &:after {
+        transform: rotate(-45deg);
+      }
+      &:hover {
+        @media (min-width: 769px) {
+          background: $color-9;
+          &:before,
+          &:after {
+            background: $color-4;
+          }
+        }
+      }
+      &:active {
+        scale: 0.9;
+      }
+    }
+  }
+  &__ingredients {
+    letter-spacing: 0.5px;
+    margin-bottom: 10px;
+    color: $color-3;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    & div {
+      color: $color-1;
+      font-size: 14px;
+      line-height: 20px;
+      border-radius: 10px;
+      overflow: hidden;
+      margin-bottom: 5px;
+      margin-right: 5px;
+      background: $color-9;
       display: flex;
       flex-direction: row;
       justify-content: space-between;
-      & h3 {
-         margin-top: 10px;
-         letter-spacing: 0.4px;
-         margin-bottom: 15px;
-         font-size: 15px;
-         font-weight: 600;
-         color: #222;
+      &.last {
+        color: inherit;
+        padding: 0 7px;
+      }
+      & p {
+        margin: 0 7px;
       }
       & span {
-         flex: 0 0 30px;
-         height: 30px;
-         border-radius: 50%;
-         overflow: hidden;
-         border: 1px solid rgba(2, 2, 2, 0.2);
-         position: relative;
-         transition: all 0.2s;
-         cursor: pointer;
-         &:before,
-         &:after {
-            content: "";
-            position: absolute;
-            height: 16px;
-            width: 2px;
-            background: rgba(2, 2, 2, 0.8);
-            transform: rotate(45deg);
-            top: 6px;
-            right: 13px;
-         }
-         &:after {
-            transform: rotate(-45deg);
-         }
-         &:hover {
-            @media (min-width: 769px) {
-               background: rgba(2, 2, 2, 0.1);
-               &:before,
-               &:after {
-                  background: #e31837;
-               }
-            }
-         }
-         &:active {
-            scale: 0.9;
-         }
+        display: block;
+        position: relative;
+        right: 1px;
+        top: 1px;
+        border-radius: 50%;
+        overflow: hidden;
+        height: 18px;
+        width: 18px;
+        background: $color-4;
+        cursor: pointer;
+        transition: all 0.2s;
+        &:before,
+        &:after {
+          content: '';
+          position: absolute;
+          height: 10px;
+          width: 2px;
+          background: #fff;
+          transform: rotate(45deg);
+          left: 8px;
+          top: 4px;
+        }
+        &:after {
+          transform: rotate(-45deg);
+        }
+        &:hover {
+          @media (min-width: 769px) {
+            background: $color-5;
+          }
+        }
+        &:active {
+          scale: 0.9;
+        }
       }
-   }
-   &__ingredients {
-      letter-spacing: 0.5px;
-      margin-bottom: 10px;
-      color: #7d7d7d;
+    }
+  }
+  &__specification {
+    font-size: 13px;
+    letter-spacing: 0.5px;
+    margin-bottom: 10px;
+    color: $color-1;
+  }
+  &__total {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    &_amount {
+      flex: 1 0 auto;
+      font-size: 16px;
+      font-weight: 600;
+      color: $color-1;
+      & span {
+        font-size: 11px;
+      }
+    }
+    &_counter {
+      width: 90px;
+      height: 30px;
+      background: $color-4;
+      border-radius: 15px;
+      overflow: hidden;
       display: flex;
       flex-direction: row;
-      flex-wrap: wrap;
-      & div {
-         color: #222;
-         font-size: 14px;
-         line-height: 20px;
-         border-radius: 10px;
-         overflow: hidden;
-         margin-bottom: 5px;
-         margin-right: 5px;
-         background: rgba(2, 2, 2, 0.1);
-         display: flex;
-         flex-direction: row;
-         justify-content: space-between;
-         &.last {
-            color: inherit;
-            padding: 0 7px;
-         }
-         & p {
-            margin: 0 7px;
-         }
-         & span {
-            display: block;
-            position: relative;
-            right: 1px;
-            top: 1px;
-            border-radius: 50%;
-            overflow: hidden;
-            height: 18px;
-            width: 18px;
-            background: #e31837;
-            cursor: pointer;
-            transition: all 0.2s;
-            &:before,
-            &:after {
-               content: "";
-               position: absolute;
-               height: 10px;
-               width: 2px;
-               background: #fff;
-               transform: rotate(45deg);
-               left: 8px;
-               top: 4px;
-            }
-            &:after {
-               transform: rotate(-45deg);
-            }
-            &:hover {
-               @media (min-width: 769px) {
-                  background: #cb1631;
-               }
-            }
-            &:active {
-               scale: 0.9;
-            }
-         }
+      & p {
+        flex: 1 0 auto;
+        color: #fff;
+        text-align: center;
+        line-height: 29px;
       }
-   }
-   &__specification {
-      font-size: 13px;
-      letter-spacing: 0.5px;
-      margin-bottom: 10px;
-      color: #222;
-   }
-   &__total {
-      display: flex;
-      flex-direction: row;
-      justify-content: space-between;
-      align-items: center;
-      &_amount {
-         flex: 1 0 auto;
-         font-size: 16px;
-         font-weight: 600;
-         color: #222;
-         & span {
-            font-size: 11px;
-         }
+      & span {
+        width: 30px;
+        border-radius: 50%;
+        overflow: hidden;
+        border: 1px solid $color-8;
+        position: relative;
+        transition: all 0.2s;
+        cursor: pointer;
+        &:hover {
+          @media (min-width: 769px) {
+            background: $color-5;
+          }
+        }
+        &:active {
+          scale: 0.9;
+        }
+        &:before,
+        &:after {
+          content: '';
+          position: absolute;
+          height: 2px;
+          width: 14px;
+          background: #fff;
+          top: 13px;
+          left: 7px;
+        }
+        &.plus {
+          &:after {
+            transform: rotate(90deg);
+          }
+        }
       }
-      &_counter {
-         width: 90px;
-         height: 30px;
-         background: #e31837;
-         border-radius: 15px;
-         overflow: hidden;
-         display: flex;
-         flex-direction: row;
-         & p {
-            flex: 1 0 auto;
-            color: #fff;
-            text-align: center;
-            line-height: 29px;
-         }
-         & span {
-            width: 30px;
-            border-radius: 50%;
-            overflow: hidden;
-            border: 1px solid rgba(2, 2, 2, 0.15);
-            position: relative;
-            transition: all 0.2s;
-            cursor: pointer;
-            &:hover {
-               @media (min-width: 769px) {
-                  background: #cb1631;
-               }
-            }
-            &:active {
-               scale: 0.9;
-            }
-            &:before,
-            &:after {
-               content: "";
-               position: absolute;
-               height: 2px;
-               width: 14px;
-               background: #fff;
-               top: 13px;
-               left: 7px;
-            }
-            &.plus {
-               &:after {
-                  transform: rotate(90deg);
-               }
-            }
-         }
-      }
-   }
+    }
+  }
 }

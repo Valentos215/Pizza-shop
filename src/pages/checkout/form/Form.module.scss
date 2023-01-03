@@ -1,3 +1,5 @@
+@import 'styles/global';
+
 .wrapper {
   flex: 44%;
   display: flex;
@@ -7,7 +9,7 @@
     width: 100%;
     line-height: 20px;
     border-radius: 15px;
-    border: 1px solid rgba(2, 2, 2, 0.2);
+    border: 1px solid $color-8;
     padding: 10px;
     font-size: 15px;
     resize: none;
@@ -39,10 +41,10 @@
       height: 20px;
       line-height: 20px;
       font-weight: 600;
-      color: #333;
+      color: $color-1;
       margin-left: 12px;
       &.error {
-        color: #e31837;
+        color: $color-4;
       }
     }
   }
@@ -50,10 +52,10 @@
     position: relative;
     line-height: 30px;
     border-radius: 15px;
-    border: 1px solid rgba(2, 2, 2, 0.2);
+    border: 1px solid $color-8;
     padding: 0 10px;
     &.error {
-      border-color: #e31837;
+      border-color: $color-4;
     }
   }
   @media (max-width: 1200px) {

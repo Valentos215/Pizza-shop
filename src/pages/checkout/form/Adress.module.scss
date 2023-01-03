@@ -1,42 +1,42 @@
-.adress {
-}
+@import 'styles/global';
+
 .form {
-   display: flex;
-   flex-direction: column;
-   &__row {
-      width: 100%;
-      display: flex;
-      flex-direction: row;
-      justify-content: space-between;
-   }
-   &__input {
-      position: relative;
-      margin-top: -20px;
-      width: 100%;
-      margin-bottom: 25px;
-      &.margin {
-         width: 32.7%;
-      }
-      & p {
-         font-size: 12px;
-         font-weight: 600;
-         color: #333;
-         line-height: 20px;
-         margin-left: 12px;
-         &.error {
-            color: #e31837;
-         }
-      }
-   }
-   & input {
-      width: 100%;
-      line-height: 30px;
-      border-radius: 15px;
-      border: 1px solid rgba(2, 2, 2, 0.2);
-      padding: 0 10px;
-      font-size: 15px;
+  display: flex;
+  flex-direction: column;
+  &__row {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+  &__input {
+    position: relative;
+    margin-top: -20px;
+    width: 100%;
+    margin-bottom: 25px;
+    &.margin {
+      width: 32.7%;
+    }
+    & p {
+      font-size: 12px;
+      font-weight: 600;
+      color: $color-1;
+      line-height: 20px;
+      margin-left: 12px;
       &.error {
-         border-color: #e31837;
+        color: $color-4;
       }
-   }
+    }
+  }
+  & input {
+    width: 100%;
+    line-height: 30px;
+    border-radius: 15px;
+    border: 1px solid rgba(2, 2, 2, 0.2);
+    padding: 0 10px;
+    font-size: 15px;
+    &.error {
+      border-color: $color-4;
+    }
+  }
 }

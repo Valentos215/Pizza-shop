@@ -1,139 +1,141 @@
+@import 'styles/global';
+
 .wrapper {
-   height: 100%;
-   max-width: 550px;
-   display: flex;
-   flex-direction: column;
-   padding: 11px;
-   border-radius: 24px;
-   box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
-   color: #333;
-   transition: all 0.3s;
-   &:hover {
-      @media (min-width: 769px) {
-         box-shadow: 0 0 15px rgba(0, 0, 0, 0.4);
-      }
-   }
+  height: 100%;
+  max-width: 550px;
+  display: flex;
+  flex-direction: column;
+  padding: 11px;
+  border-radius: 24px;
+  box-shadow: 0 0 5px $color-6;
+  color: $color-1;
+  transition: all 0.3s;
+  &:hover {
+    @media (min-width: 769px) {
+      box-shadow: 0 0 15px $color-6;
+    }
+  }
 }
 .image {
-   position: relative;
-   overflow: hidden;
-   margin-bottom: 20px;
-   width: 100%;
-   &__main {
-      height: 176px;
-      width: 100%;
-      border-radius: 15px;
-      object-fit: cover;
-   }
-   &__cartLogo {
-      height: 18px;
-      filter: invert(100%);
-      position: absolute;
-      left: 20px;
-      bottom: 20px;
-      &.dark {
-         filter: invert(30%);
-      }
-   }
-   & span {
-      position: absolute;
-      bottom: 15px;
-      right: 15px;
-      color: #fff;
-      font-size: 12px;
-      letter-spacing: 1px;
-      line-height: 22px;
-      height: 22px;
-      width: 49px;
-      text-align: center;
-      border-radius: 11px;
-      overflow: hidden;
-      background: rgba(0, 0, 0, 0.3);
-   }
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 20px;
+  width: 100%;
+  &__main {
+    height: 176px;
+    width: 100%;
+    border-radius: 15px;
+    object-fit: cover;
+  }
+  &__cartLogo {
+    height: 18px;
+    filter: invert(100%);
+    position: absolute;
+    left: 20px;
+    bottom: 20px;
+    &.dark {
+      filter: invert(30%);
+    }
+  }
+  & span {
+    position: absolute;
+    bottom: 15px;
+    right: 15px;
+    color: #fff;
+    font-size: 12px;
+    letter-spacing: 1px;
+    line-height: 22px;
+    height: 22px;
+    width: 49px;
+    text-align: center;
+    border-radius: 11px;
+    overflow: hidden;
+    background: $color-6;
+  }
 }
 .title {
-   flex: 1 0 auto;
-   font-weight: 600;
-   letter-spacing: 1px;
-   margin-bottom: 20px;
-   margin-left: 10px;
+  flex: 1 0 auto;
+  font-weight: 600;
+  letter-spacing: 1px;
+  margin-bottom: 20px;
+  margin-left: 10px;
 }
 .ingredients {
-   padding-left: 10px;
-   color: #4f4f4f;
-   font-size: 12px;
-   line-height: 15px;
-   margin-bottom: 20px;
-   & p {
-      font-size: 10px;
-      font-weight: 700;
-      text-decoration: underline;
-      margin-top: 15px;
-      letter-spacing: 0.2px;
-   }
+  padding-left: 10px;
+  color: $color-3;
+  font-size: 12px;
+  line-height: 15px;
+  margin-bottom: 20px;
+  & p {
+    font-size: 10px;
+    font-weight: 700;
+    text-decoration: underline;
+    margin-top: 15px;
+    letter-spacing: 0.2px;
+  }
 }
 .size {
-   font-weight: 600;
-   color: #424242;
-   height: 30px;
-   width: 100%;
-   display: flex;
-   align-items: center;
-   border-radius: 15px;
-   overflow: hidden;
-   border: 1px solid rgba(0, 0, 0, 0.1);
-   & span {
-      flex: 1 0 auto;
-      font-size: 12px;
-      line-height: 30px;
-      letter-spacing: 0.7px;
-      text-align: center;
-      border-radius: 15px;
-      overflow: hidden;
-      cursor: pointer;
-      transition: all 0.3s ease;
-   }
-   &__checked {
-      background-color: #4f4f4f;
-      color: #fff;
-      font-weight: 400;
-      &:hover {
-         @media (min-width: 769px) {
-            background-color: #333;
-         }
+  font-weight: 600;
+  color: $color-3;
+  height: 30px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  border-radius: 15px;
+  overflow: hidden;
+  border: 1px solid $color-8;
+  & span {
+    flex: 1 0 auto;
+    font-size: 12px;
+    line-height: 30px;
+    letter-spacing: 0.7px;
+    text-align: center;
+    border-radius: 15px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  &__checked {
+    background-color: $color-3;
+    color: #fff;
+    font-weight: 400;
+    &:hover {
+      @media (min-width: 769px) {
+        background-color: $color-1;
       }
-   }
+    }
+  }
 }
 .crust {
-   display: flex;
-   flex-direction: row;
-   flex-wrap: wrap;
-   cursor: pointer;
-   font-weight: 600;
-   color: #424242;
-   & span {
-      margin-top: 10px;
-      width: 50%;
-      font-size: 12px;
-      line-height: 30px;
-      letter-spacing: 0.7px;
-      text-align: center;
-      border-radius: 15px;
-      overflow: hidden;
-      transition: all 0.3s ease;
-   }
-   &__checked {
-      background-color: #4f4f4f;
-      color: #fff;
-      font-weight: 400;
-      &:hover {
-         @media (min-width: 769px) {
-            background-color: #333;
-         }
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  cursor: pointer;
+  font-weight: 600;
+  color: $color-3;
+  & span {
+    margin-top: 10px;
+    width: 50%;
+    font-size: 12px;
+    line-height: 30px;
+    letter-spacing: 0.7px;
+    text-align: center;
+    border-radius: 15px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+  }
+  &__checked {
+    background-color: $color-3;
+    color: #fff;
+    font-weight: 400;
+    &:hover {
+      @media (min-width: 769px) {
+        background-color: $color-1;
       }
-   }
-   &__disabled {
-      cursor: no-drop;
-      color: rgba(79, 79, 79, 0.5);
-   }
+    }
+  }
+  &__disabled {
+    cursor: no-drop;
+    color: rgba(79, 79, 79, 0.5);
+  }
 }

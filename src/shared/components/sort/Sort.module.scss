@@ -1,67 +1,69 @@
+@import 'styles/global';
+
 .sort {
-   width: 250px;
-   position: relative;
-   margin-left: 4px;
-   justify-self: flex-end;
+  width: 250px;
+  position: relative;
+  margin-left: 4px;
+  justify-self: flex-end;
 }
 .button {
-   height: 30px;
-   padding: 0 5px;
-   display: flex;
-   flex-direction: row;
-   align-items: center;
-   border-radius: 15px;
-   overflow: hidden;
-   border: 1px solid rgb(79, 79, 79);
-   cursor: pointer;
-   & span {
-      font-weight: 600;
-      color: rgb(79, 79, 79);
-      flex: 1 0 auto;
-      text-align: center;
-   }
-   & img {
-      height: 24px;
-      filter: brightness(0);
-   }
+  height: 30px;
+  padding: 0 5px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  border-radius: 15px;
+  overflow: hidden;
+  border: 1px solid $color-3;
+  cursor: pointer;
+  & span {
+    font-weight: 600;
+    color: $color-3;
+    flex: 1 0 auto;
+    text-align: center;
+  }
+  & img {
+    height: 24px;
+    filter: brightness(0);
+  }
 }
 .options {
-   width: 100%;
-   border-radius: 15px;
-   box-shadow: 0 0 5px rgb(79, 79, 79);
-   position: absolute;
-   top: 33px;
-   z-index: 3;
-   background-color: #fff;
-   transition: all 0.3s ease;
-   opacity: 0;
-   max-height: 0px;
-   overflow: hidden;
-   &.active {
-      opacity: 1;
-      max-height: 200px;
-      cursor: pointer;
-   }
+  width: 100%;
+  border-radius: 15px;
+  box-shadow: 0 0 5px $color-3;
+  position: absolute;
+  top: 33px;
+  z-index: 3;
+  background-color: #fff;
+  transition: all 0.3s ease;
+  opacity: 0;
+  max-height: 0px;
+  overflow: hidden;
+  &.active {
+    opacity: 1;
+    max-height: 200px;
+    cursor: pointer;
+  }
 }
 .item {
-   border-radius: 15px;
-   overflow: hidden;
+  border-radius: 15px;
+  overflow: hidden;
 }
 .option {
-   font-size: 16px;
-   line-height: 50px;
-   border-radius: 15px;
-   overflow: hidden;
-   color: rgb(79, 79, 79);
-   display: flex;
-   align-items: center;
-   padding: 0 30px;
-   @media (max-width: 360px) {
-      padding: 0 20px;
-   }
-   &:hover {
-      @media (min-width: 769px) {
-         background-color: rgba(79, 79, 79, 0.3);
-      }
-   }
+  font-size: 16px;
+  line-height: 50px;
+  border-radius: 15px;
+  overflow: hidden;
+  color: $color-3;
+  display: flex;
+  align-items: center;
+  padding: 0 30px;
+  @media (max-width: 360px) {
+    padding: 0 20px;
+  }
+  &:hover {
+    @media (min-width: 769px) {
+      background-color: $color-9;
+    }
+  }
 }

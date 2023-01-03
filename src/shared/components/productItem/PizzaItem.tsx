@@ -6,7 +6,7 @@ import Show from 'shared/components/show/Show';
 import CheckoutSection from 'shared/components/productItem/checkoutSection/CheckoutSection';
 import { ICartItem } from 'shared/components/cartItem/utils/cartItem.utils';
 import { PIZZA_SIZES, PIZZA_CRUSTS, PIZZA_WEIGHT } from 'constants/index';
-import { IPizza } from '@pages/pizza/utils/pizza.utils';
+import { IPizza } from 'pages/pizza/utils/pizza.utils';
 import { getAmount, getCount } from 'shared/components/productItem/utils/pizzaItem.utils';
 
 import s from 'shared/components/productItem/ProductItem.module.scss';

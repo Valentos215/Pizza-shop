@@ -5,7 +5,7 @@ import { CartContext } from 'contexts/cartContext';
 import Show from 'shared/components/show/Show';
 import CheckoutSection from 'shared/components/productItem/checkoutSection/CheckoutSection';
 import { ICartItem } from 'shared/components/cartItem/utils/cartItem.utils';
-import { IProduct } from '@pages/products/utils/products.utils';
+import { IProduct } from 'pages/products/utils/products.utils';
 import { getProductCount } from 'shared/components/productItem/utils/productItem.utils';
 
 import s from 'shared/components/productItem/ProductItem.module.scss';

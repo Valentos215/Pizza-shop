@@ -1,115 +1,117 @@
+@import 'styles/global';
+
 .cart {
-   position: relative;
-   display: flex;
-   flex-direction: row;
-   background-color: #f8f8f8;
-   height: 50px;
-   border-radius: 25px;
-   font-weight: 700;
-   padding: 2px;
-   @media (max-width: 768px) {
-      display: none;
-   }
-   &.small {
-      display: none;
-      @media (max-width: 768px) {
-         display: flex;
-      }
-   }
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  background-color: $color-2;
+  height: 50px;
+  border-radius: 25px;
+  font-weight: 700;
+  padding: 2px;
+  @media (max-width: 768px) {
+    display: none;
+  }
+  &.small {
+    display: none;
+    @media (max-width: 768px) {
+      display: flex;
+    }
+  }
 }
 .viewer {
-   display: flex;
-   cursor: pointer;
-   &:hover {
-      @media (min-width: 769px) {
-         & div {
-            background-color: #222;
-         }
-         & label {
-            color: #222;
-         }
+  display: flex;
+  cursor: pointer;
+  &:hover {
+    @media (min-width: 769px) {
+      & div {
+        background-color: $color-1;
       }
-   }
+      & label {
+        color: $color-1;
+      }
+    }
+  }
 }
 .counter {
-   position: relative;
-   height: 46px;
-   width: 46px;
-   border-radius: 50%;
-   overflow: hidden;
-   display: flex;
-   flex-direction: column;
-   align-items: center;
-   background-color: #4f4f4f;
-   transition: all 0.3s ease;
-   & span {
-      margin-top: 6px;
-      color: #f8f8f8;
-   }
-   & img {
-      margin-top: 4px;
-      height: 16px;
-      width: 16px;
-      filter: invert(100%);
-   }
+  position: relative;
+  height: 46px;
+  width: 46px;
+  border-radius: 50%;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: $color-3;
+  transition: all 0.3s ease;
+  & span {
+    margin-top: 6px;
+    color: $color-2;
+  }
+  & img {
+    margin-top: 4px;
+    height: 16px;
+    width: 16px;
+    filter: invert(100%);
+  }
 }
 .amount {
-   color: #4f4f4f;
-   line-height: 50px;
-   text-align: center;
-   width: 120px;
-   margin-right: -4px;
-   transition: all 0.3s ease;
-   cursor: pointer;
+  color: $color-3;
+  line-height: 50px;
+  text-align: center;
+  width: 120px;
+  margin-right: -4px;
+  transition: all 0.3s ease;
+  cursor: pointer;
 }
 .checkout {
-   text-align: center;
-   width: 145px;
-   height: 46px;
-   border-radius: 23px;
-   overflow: hidden;
-   background-color: #e31837;
-   margin-left: 4px;
-   line-height: 46px;
-   color: #f8f8f8;
-   cursor: pointer;
-   transition: all 0.3s ease;
-   &:hover {
+  text-align: center;
+  width: 145px;
+  height: 46px;
+  border-radius: 23px;
+  overflow: hidden;
+  background-color: $color-4;
+  margin-left: 4px;
+  line-height: 46px;
+  color: $color-2;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  &:hover {
+    @media (min-width: 769px) {
+      background-color: $color-5;
+    }
+  }
+  &:active {
+    transform: scale(0.95);
+  }
+  &.disabled {
+    &:hover {
       @media (min-width: 769px) {
-         background-color: #b8112a;
+        background-color: $color-3;
+        cursor: no-drop;
       }
-   }
-   &:active {
-      transform: scale(0.95);
-   }
-   &.disabled {
-      &:hover {
-         @media (min-width: 769px) {
-            background-color: #4f4f4f;
-            cursor: no-drop;
-         }
-      }
-   }
+    }
+  }
 }
 .expand {
-   position: absolute;
-   background-color: #fff;
-   top: 55px;
-   width: 312px;
-   border-radius: 25px;
-   box-shadow: 0px 0px 5px #222;
-   transition: all 0.5s;
-   overflow: auto;
-   max-height: 0px;
-   opacity: 0;
-   &.active {
-      max-height: 430px;
-      opacity: 1;
-   }
-   &__item {
-      border-bottom: 1px solid rgba(2, 2, 2, 0.3);
-      &:last-child {
-         border-bottom: none;
-      }
-   }
+  position: absolute;
+  background-color: #fff;
+  top: 55px;
+  width: 312px;
+  border-radius: 25px;
+  box-shadow: 0px 0px 5px $color-1;
+  transition: all 0.5s;
+  overflow: auto;
+  max-height: 0px;
+  opacity: 0;
+  &.active {
+    max-height: 430px;
+    opacity: 1;
+  }
+  &__item {
+    border-bottom: 1px solid $color-6;
+    &:last-child {
+      border-bottom: none;
+    }
+  }
 }

@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import axios from 'axios';
 
-import { ICity, IStreet } from '@pages/checkout/form/utils/form.utils';
+import { ICity, IStreet } from 'pages/checkout/form/utils/form.utils';
 
 interface IUseSearchStreet {
   city: ICity | null;
