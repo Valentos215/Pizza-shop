@@ -46,8 +46,8 @@ const Header = memo(() => {
                 <Cart />
               </div>
               <div className={burgerClassName} onClick={() => setExpanded(!expanded)}>
-                <span className={s.span}></span>
-                <span className={s.span2}></span>
+                <span></span>
+                <span></span>
               </div>
             </div>
           </div>
