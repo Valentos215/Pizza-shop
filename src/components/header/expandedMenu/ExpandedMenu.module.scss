@@ -9,14 +9,14 @@
   z-index: 5;
   transition: all 0.5s;
   &__items {
-    margin-top: 25px;
+    margin-top: toRem(25);
   }
   &.expanded {
-    top: 70px;
+    top: toRem(70);
   }
 }
 .item {
-  padding: 25px 0;
+  padding: toRem(25) 0;
   display: block;
   &:active {
     background: $color-6;
@@ -30,14 +30,14 @@
     cursor: pointer;
 
     & img {
-      height: 55px;
+      height: toRem(55);
       filter: opacity(0.8);
     }
     & span {
       color: $color-1;
-      font-size: 18px;
+      font-size: toRem(18);
       font-weight: 600;
-      margin-left: 50px;
+      margin-left: toRem(50);
     }
   }
 }

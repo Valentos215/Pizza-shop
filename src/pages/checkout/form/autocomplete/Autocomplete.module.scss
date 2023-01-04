@@ -2,12 +2,12 @@
 
 .wrapper {
   position: relative;
-  margin-top: -20px;
+  margin-top: toRem(-20);
   & p {
-    font-size: 12px;
+    font-size: toRem(12);
     font-weight: 600;
-    line-height: 20px;
-    padding-left: 12px;
+    line-height: toRem(20);
+    padding-left: toRem(12);
     color: $color-1;
     &.error {
       color: $color-4;
@@ -16,12 +16,12 @@
   & input {
     width: 100%;
     position: relative;
-    line-height: 30px;
-    border-radius: 15px;
+    line-height: toRem(30);
+    border-radius: toRem(15);
     border: 1px solid $color-8;
-    padding: 0 10px;
-    font-size: 15px;
-    margin-bottom: 25px;
+    padding: 0 toRem(10);
+    font-size: toRem(15);
+    margin-bottom: toRem(25);
     &.error {
       border-color: $color-4;
     }
@@ -31,17 +31,17 @@
     &:after {
       content: '';
       position: absolute;
-      right: 20px;
-      top: 31px;
-      height: 10px;
-      width: 2px;
+      right: toRem(20);
+      top: toRem(31);
+      height: toRem(10);
+      width: toRem(2);
       background: $color-6;
       transform: rotate(45deg);
       transition: all 0.2s;
     }
     &:after {
       transform: rotate(-45deg);
-      right: 27px;
+      right: toRem(27);
     }
   }
   &.active {
@@ -58,22 +58,22 @@
 .expand {
   width: 100%;
   position: absolute;
-  top: 55px;
+  top: toRem(55);
   z-index: 3;
   background: #fff;
-  border-radius: 15px;
+  border-radius: toRem(15);
   overflow: auto;
   border: 1px solid $color-8;
   transition: all 0.3s;
-  height: 0px;
+  height: 0rem;
   opacity: 0;
   &__option {
-    font-size: 16px;
+    font-size: toRem(16);
     font-weight: 500;
     color: $color-10;
-    line-height: 29px;
+    line-height: toRem(29);
     border-bottom: 1px solid $color-8;
-    padding: 0 20px;
+    padding: 0 toRem(20);
     cursor: pointer;
     &:hover {
       @media (min-width: 769px) {
@@ -82,7 +82,7 @@
     }
   }
   &.active {
-    height: 152px;
+    height: toRem(152);
     opacity: 1;
   }
 }

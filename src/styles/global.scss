@@ -10,3 +10,8 @@ $color-9: rgba(2, 2, 2, 0.1);
 $color-10: rgba(2, 2, 2, 0.8);
 $color-11: rgba(227, 24, 55, 0.2);
 $color-12: rgba(227, 24, 55, 0.5);
+
+@function toRem($value) {
+  $remValue: ($value / 14) + rem;
+  @return $remValue;
+}

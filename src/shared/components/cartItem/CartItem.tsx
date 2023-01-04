@@ -13,7 +13,7 @@ interface ICartItemProps {
 }
 
 const CartItem = memo(({ item, handle = false }: ICartItemProps) => {
-  const [cart, setCart] = useContext(CartContext);
+  const [, setCart] = useContext(CartContext);
 
   const itemTotalAmount = item.amount * item.number;
 
@@ -21,7 +21,7 @@ const CartItem = memo(({ item, handle = false }: ICartItemProps) => {
     <div className={s.item}>
       <div className={s.item__head}>
         <h3>{item.title}</h3>
-        <span onClick={() => removeItem(cart, setCart, item)} />
+        <span onClick={() => removeItem(setCart, item)} />
       </div>
       {!!item.ingredients && (
         <div className={s.item__ingredients}>
@@ -30,7 +30,7 @@ const CartItem = memo(({ item, handle = false }: ICartItemProps) => {
             {item.ingredients.map((ing) => (
               <div key={ing}>
                 <p>{ing}</p>
-                <span onClick={() => removeIngredient(cart, setCart, item, ing)} />
+                <span onClick={() => removeIngredient(setCart, item, ing)} />
               </div>
             ))}
           </Show>
@@ -48,9 +48,9 @@ const CartItem = memo(({ item, handle = false }: ICartItemProps) => {
           {itemTotalAmount}.00<span> uah</span>
         </div>
         <div className={s.item__total_counter}>
-          <span onClick={() => minusItem(cart, setCart, item)} />
+          <span onClick={() => minusItem(setCart, item)} />
           <p>{item.number}</p>
-          <span onClick={() => plusItem(cart, setCart, item)} className={s.plus} />
+          <span onClick={() => plusItem(setCart, item)} className={s.plus} />
         </div>
       </div>
     </div>

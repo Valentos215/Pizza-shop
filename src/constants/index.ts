@@ -36,15 +36,3 @@ export const PIZZA_WEIGHT = [550, 760, 810];
 export const PIZZA_SIZE_RATE = [1, 1.18, 1.32];
 
 export const PIZZA_CRUST_RATE = [1, 1, 1.18, 1.32];
-
-// export enum PIZZA_SIZES {
-//   Standard = 'Standard size',
-//   Large = 'Large',
-//   NewYorker = 'New Yorker',
-// }
-
-// export enum PIZZA_WEIGHT {
-//   Standard = 500,
-//   Large = 760,
-//   NewYorker = 810,
-// }

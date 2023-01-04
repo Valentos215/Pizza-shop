@@ -23,61 +23,44 @@ export const compareItems = (item1: ICartItem, item2: ICartItem, size?: string, 
   return item1.id === item2.id;
 };
 
-export const minusItem = (
-  cart: ICartItem[],
-  setCart: React.Dispatch<React.SetStateAction<ICartItem[]>>,
-  item: ICartItem,
-) => {
-  setCart(
-    cart
+export const minusItem = (setCart: any, item: ICartItem) => {
+  setCart((prevCart: ICartItem[]) => {
+    return prevCart
       .filter((i) => !(compareItems(i, item) && i.number === 1))
       .map((i) => {
         if (compareItems(i, item)) {
           return { ...i, number: i.number - 1 };
         }
         return i;
-      }),
-  );
+      });
+  });
 };
 
-export const plusItem = (
-  cart: ICartItem[],
-  setCart: (value: ICartItem[]) => void,
-  item: ICartItem,
-) => {
-  setCart(
-    cart.map((i) => {
+export const plusItem = (setCart: any, item: ICartItem) => {
+  setCart((prevCart: ICartItem[]) => {
+    return prevCart.map((i) => {
       if (compareItems(i, item)) {
         return { ...i, number: i.number + 1 };
       }
       return i;
-    }),
-  );
+    });
+  });
 };
 
-export const removeItem = (
-  cart: ICartItem[],
-  setCart: (value: ICartItem[]) => void,
-  item: ICartItem,
-) => {
-  setCart(cart.filter((i) => !compareItems(i, item)));
+export const removeItem = (setCart: any, item: ICartItem) => {
+  setCart((prevCart: ICartItem[]) => prevCart.filter((i) => !compareItems(i, item)));
 };
 
-export const removeIngredient = (
-  cart: ICartItem[],
-  setCart: (value: ICartItem[]) => void,
-  item: ICartItem,
-  ingredient: string,
-) => {
-  setCart(
-    cart.map((product) => {
+export const removeIngredient = (setCart: any, item: ICartItem, ingredient: string) => {
+  setCart((prevCart: ICartItem[]) => {
+    return prevCart.map((product) => {
       if (compareItems(product, item)) {
         let newIngs = item.ingredients?.filter((ing) => ing !== ingredient);
         return { ...product, ingredients: newIngs };
       }
       return product;
-    }),
-  );
+    });
+  });
 };
 
 export const totalAmount = (cart: ICartItem[]) => {
