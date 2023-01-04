@@ -39,7 +39,7 @@ export const minusItem = (setCart: any, item: ICartItem) => {
 export const plusItem = (setCart: any, item: ICartItem) => {
   setCart((prevCart: ICartItem[]) => {
     return prevCart.map((i) => {
-      if (compareItems(i, item)) {
+      if (compareItems(i, item) && i.number < 99) {
         return { ...i, number: i.number + 1 };
       }
       return i;
