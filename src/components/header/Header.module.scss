@@ -6,7 +6,7 @@
   background-color: $color-1;
   margin: 0 auto;
   width: 100%;
-  height: 70px;
+  height: toRem(70);
   display: flex;
   align-items: center;
   &__wrapper {
@@ -21,9 +21,9 @@
     display: flex;
     align-items: center;
     & img {
-      height: 34px;
+      height: toRem(34);
       &:last-child {
-        margin-left: -32px;
+        margin-left: toRem(-32);
       }
       @media (max-width: 1024px) {
         &:last-child {
@@ -55,9 +55,9 @@
   }
   &__link {
     width: 22%;
-    font-size: 18px;
-    letter-spacing: 2px;
-    line-height: 70px;
+    font-size: toRem(18);
+    letter-spacing: toRem(2);
+    line-height: toRem(70);
     text-align: center;
     &:hover {
       @media (min-width: 769px) {
@@ -77,30 +77,30 @@
 }
 .burger {
   display: none;
-  margin-left: 20px;
+  margin-left: toRem(20);
   position: relative;
   z-index: 3;
-  width: 30px;
-  height: 20px;
+  width: toRem(30);
+  height: toRem(20);
   cursor: pointer;
   &:before,
   :after {
     content: '';
     background-color: #fff;
     position: absolute;
-    width: 30px;
-    height: 2px;
+    width: toRem(30);
+    height: toRem(2);
     transition: all 0.3s ease 0s;
   }
   & :after {
-    top: 9px;
+    top: toRem(9);
   }
   & span {
     background-color: #fff;
     position: absolute;
-    width: 30px;
-    height: 2px;
-    top: 9px;
+    width: toRem(30);
+    height: toRem(2);
+    top: toRem(9);
     transform: scale(1);
     transition: all 0.3s ease 0s;
   }
@@ -114,11 +114,11 @@
     }
     &:before {
       transform: rotate(45deg);
-      top: 9px;
+      top: toRem(9);
     }
     & :after {
       transform: rotate(-45deg);
-      top: 0px;
+      top: 0rem;
     }
   }
   @media (max-width: 768px) {

@@ -1,28 +1,28 @@
 @import 'styles/global';
 
 .checkout {
-  margin-top: 20px;
+  margin-top: toRem(20);
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
   &__amount {
-    font-size: 18px;
+    font-size: toRem(18);
     font-weight: 600;
-    margin-left: 10px;
+    margin-left: toRem(10);
     & span {
-      font-size: 11px;
+      font-size: toRem(11);
     }
   }
   &__tocartButton {
-    height: 50px;
-    width: 140px;
-    font-size: 17px;
-    letter-spacing: 2px;
+    height: toRem(50);
+    width: toRem(140);
+    font-size: toRem(17);
+    letter-spacing: toRem(2);
     font-weight: 600;
-    line-height: 50px;
+    line-height: toRem(50);
     text-align: center;
-    border-radius: 15px;
+    border-radius: toRem(15);
     overflow: hidden;
     color: #fff;
     background: $color-4;
@@ -38,19 +38,19 @@
     }
   }
   &__count {
-    width: 140px;
-    height: 50px;
+    width: toRem(140);
+    height: toRem(50);
     overflow: hidden;
-    border-radius: 15px;
+    border-radius: toRem(15);
     border: 1px solid $color-9;
     display: flex;
     flex-direction: row;
     align-items: center;
     &_button {
       position: relative;
-      width: 50px;
-      height: 50px;
-      border-radius: 15px;
+      width: toRem(50);
+      height: toRem(50);
+      border-radius: toRem(15);
       overflow: hidden;
       border: 1px solid $color-9;
       cursor: pointer;
@@ -66,10 +66,10 @@
         &:before {
           content: '';
           position: absolute;
-          top: 23px;
-          left: 16px;
-          height: 3px;
-          width: 15px;
+          top: toRem(23);
+          left: toRem(16);
+          height: toRem(3);
+          width: toRem(15);
           background: $color-3;
         }
       }
@@ -77,26 +77,26 @@
         &:before {
           content: '';
           position: absolute;
-          top: 23px;
-          left: 17px;
-          height: 3px;
-          width: 15px;
+          top: toRem(23);
+          left: toRem(17);
+          height: toRem(3);
+          width: toRem(15);
           background: $color-3;
         }
         &:after {
           content: '';
           position: absolute;
-          top: 16.5px;
-          left: 23px;
-          height: 15px;
-          width: 3px;
+          top: toRem(16.5);
+          left: toRem(23);
+          height: toRem(15);
+          width: toRem(3);
           background: $color-3;
         }
       }
     }
     & span {
       flex: 1 0 auto;
-      font-size: 18px;
+      font-size: toRem(18);
       font-weight: 700;
       color: $color-3;
       text-align: center;

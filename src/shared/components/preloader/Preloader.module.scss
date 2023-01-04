@@ -1,7 +1,7 @@
 @import 'styles/global';
 
 .wrapper {
-  margin-top: 100px;
+  margin-top: toRem(100);
   width: 100%;
   height: 100%;
   display: flex;
@@ -9,10 +9,10 @@
   align-items: center;
 }
 .preloader {
-  width: 60px;
-  height: 60px;
+  width: toRem(60);
+  height: toRem(60);
   border-radius: 50%;
-  border: 7px solid #fff;
+  border: toRem(7) solid #fff;
   border-left-color: $color-4;
   border-top-color: $color-4;
   border-right-color: $color-4;

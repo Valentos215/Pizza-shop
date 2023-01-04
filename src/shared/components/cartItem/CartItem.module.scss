@@ -4,25 +4,25 @@
   position: relative;
   display: flex;
   flex-direction: column;
-  font-size: 12px;
+  font-size: toRem(12);
   font-weight: 600;
-  padding: 10px;
-  margin-left: 10px;
+  padding: toRem(10);
+  margin-left: toRem(10);
   &__head {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     & h3 {
-      margin-top: 10px;
-      letter-spacing: 0.4px;
-      margin-bottom: 15px;
-      font-size: 15px;
+      margin-top: toRem(10);
+      letter-spacing: toRem(0.4);
+      margin-bottom: toRem(15);
+      font-size: toRem(15);
       font-weight: 600;
       color: $color-1;
     }
     & span {
-      flex: 0 0 30px;
-      height: 30px;
+      flex: 0 0 toRem(30);
+      height: toRem(30);
       border-radius: 50%;
       overflow: hidden;
       border: 1px solid $color-8;
@@ -33,12 +33,12 @@
       &:after {
         content: '';
         position: absolute;
-        height: 16px;
-        width: 2px;
+        height: toRem(16);
+        width: toRem(2);
         background: $color-10;
         transform: rotate(45deg);
-        top: 6px;
-        right: 13px;
+        top: toRem(6);
+        right: toRem(13);
       }
       &:after {
         transform: rotate(-45deg);
@@ -58,40 +58,40 @@
     }
   }
   &__ingredients {
-    letter-spacing: 0.5px;
-    margin-bottom: 10px;
+    letter-spacing: toRem(0.5);
+    margin-bottom: toRem(10);
     color: $color-3;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     & div {
       color: $color-1;
-      font-size: 14px;
-      line-height: 20px;
-      border-radius: 10px;
+      font-size: toRem(14);
+      line-height: toRem(20);
+      border-radius: toRem(10);
       overflow: hidden;
-      margin-bottom: 5px;
-      margin-right: 5px;
+      margin-bottom: toRem(5);
+      margin-right: toRem(5);
       background: $color-9;
       display: flex;
       flex-direction: row;
       justify-content: space-between;
       &.last {
         color: inherit;
-        padding: 0 7px;
+        padding: 0 toRem(7);
       }
       & p {
-        margin: 0 7px;
+        margin: 0 toRem(7);
       }
       & span {
         display: block;
         position: relative;
-        right: 1px;
-        top: 1px;
+        right: toRem(1);
+        top: toRem(1);
         border-radius: 50%;
         overflow: hidden;
-        height: 18px;
-        width: 18px;
+        height: toRem(18);
+        width: toRem(18);
         background: $color-4;
         cursor: pointer;
         transition: all 0.2s;
@@ -99,12 +99,12 @@
         &:after {
           content: '';
           position: absolute;
-          height: 10px;
-          width: 2px;
+          height: toRem(10);
+          width: toRem(2);
           background: #fff;
           transform: rotate(45deg);
-          left: 8px;
-          top: 4px;
+          left: toRem(8);
+          top: toRem(4);
         }
         &:after {
           transform: rotate(-45deg);
@@ -121,9 +121,9 @@
     }
   }
   &__specification {
-    font-size: 13px;
-    letter-spacing: 0.5px;
-    margin-bottom: 10px;
+    font-size: toRem(13);
+    letter-spacing: toRem(0.5);
+    margin-bottom: toRem(10);
     color: $color-1;
   }
   &__total {
@@ -133,18 +133,18 @@
     align-items: center;
     &_amount {
       flex: 1 0 auto;
-      font-size: 16px;
+      font-size: toRem(16);
       font-weight: 600;
       color: $color-1;
       & span {
-        font-size: 11px;
+        font-size: toRem(11);
       }
     }
     &_counter {
-      width: 90px;
-      height: 30px;
+      width: toRem(90);
+      height: toRem(30);
       background: $color-4;
-      border-radius: 15px;
+      border-radius: toRem(15);
       overflow: hidden;
       display: flex;
       flex-direction: row;
@@ -152,10 +152,10 @@
         flex: 1 0 auto;
         color: #fff;
         text-align: center;
-        line-height: 29px;
+        line-height: toRem(29);
       }
       & span {
-        width: 30px;
+        width: toRem(30);
         border-radius: 50%;
         overflow: hidden;
         border: 1px solid $color-8;
@@ -174,11 +174,11 @@
         &:after {
           content: '';
           position: absolute;
-          height: 2px;
-          width: 14px;
+          height: toRem(2);
+          width: toRem(14);
           background: #fff;
-          top: 13px;
-          left: 7px;
+          top: toRem(13);
+          left: toRem(7);
         }
         &.plus {
           &:after {

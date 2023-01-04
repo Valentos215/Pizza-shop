@@ -4,35 +4,35 @@
   position: relative;
   align-self: center;
   & h4 {
-    font-size: 20px;
+    font-size: toRem(20);
     font-weight: 600;
     text-align: center;
-    margin-bottom: 20px;
+    margin-bottom: toRem(20);
   }
   & p {
-    font-size: 22px;
+    font-size: toRem(22);
     font-weight: 600;
     text-align: center;
-    margin-bottom: 20px;
+    margin-bottom: toRem(20);
     & span {
-      font-size: 14px;
+      font-size: toRem(14);
     }
   }
 }
 .button {
   text-align: center;
-  font-size: 16px;
+  font-size: toRem(16);
   font-weight: 600;
-  letter-spacing: 0.5px;
-  width: 200px;
-  height: 50px;
-  border-radius: 15px;
+  letter-spacing: toRem(0.5);
+  width: toRem(200);
+  height: toRem(50);
+  border-radius: toRem(15);
   background-color: $color-4;
-  line-height: 48px;
+  line-height: toRem(48);
   color: #fff;
   cursor: pointer;
   transition: all 0.3s ease;
-  margin-bottom: 30px;
+  margin-bottom: toRem(30);
   &:hover {
     @media (min-width: 769px) {
       background-color: $color-5;
@@ -53,5 +53,5 @@
 .preloader {
   position: absolute;
   width: 100%;
-  bottom: 190px;
+  bottom: toRem(190);
 }

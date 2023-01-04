@@ -4,24 +4,24 @@
   width: 100%;
   display: flex;
   flex-direction: column;
-  margin-top: 70px;
+  margin-top: toRem(70);
 }
 .title {
-  margin-top: 20px;
-  font-size: 22px;
-  line-height: 28px;
+  margin-top: toRem(20);
+  font-size: toRem(22);
+  line-height: toRem(28);
   font-weight: 600;
   text-align: center;
-  margin-left: 10px;
+  margin-left: toRem(10);
 }
 .invert {
   background: $color-4;
   color: #fff;
-  border-radius: 15px;
-  font-size: 16px;
-  width: 50px;
-  line-height: 20px;
-  padding: 0 10px;
+  border-radius: toRem(15);
+  font-size: toRem(16);
+  width: toRem(50);
+  line-height: toRem(20);
+  padding: 0 toRem(10);
   cursor: pointer;
   &:hover {
     @media (min-width: 769px) {
@@ -31,26 +31,26 @@
 }
 .filters {
   width: 100%;
-  top: 50px;
+  top: toRem(50);
   display: flex;
   flex-direction: row;
-  margin-top: 40px;
+  margin-top: toRem(40);
   &__space {
     flex: 1 0 auto;
   }
   @media (max-width: 768px) {
-    margin-top: 15px;
+    margin-top: toRem(15);
   }
 }
 .pizzaItems {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(276px, 1fr));
-  column-gap: 20px;
-  row-gap: 20px;
-  margin-bottom: 50px;
-  margin-top: 40px;
+  grid-template-columns: repeat(auto-fit, minmax(toRem(276), 1fr));
+  column-gap: toRem(20);
+  row-gap: toRem(20);
+  margin-bottom: toRem(50);
+  margin-top: toRem(40);
   align-items: flex-start;
   @media (max-width: 768px) {
-    margin-top: 20px;
+    margin-top: toRem(20);
   }
 }

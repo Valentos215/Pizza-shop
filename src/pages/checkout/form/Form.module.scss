@@ -4,24 +4,24 @@
   flex: 44%;
   display: flex;
   flex-direction: column;
-  margin-right: 20px;
+  margin-right: toRem(20);
   & textarea {
     width: 100%;
-    line-height: 20px;
-    border-radius: 15px;
+    line-height: toRem(20);
+    border-radius: toRem(15);
     border: 1px solid $color-8;
-    padding: 10px;
-    font-size: 15px;
+    padding: toRem(10);
+    font-size: toRem(15);
     resize: none;
-    margin-bottom: 30px;
+    margin-bottom: toRem(30);
   }
   & h3 {
-    font-size: 18px;
+    font-size: toRem(18);
     font-weight: 600;
-    margin-bottom: 30px;
-    margin-left: 25px;
+    margin-bottom: toRem(30);
+    margin-left: toRem(25);
   }
-  @media (max-width: 768px) {
+  @media (max-width: toRem(768)) {
     margin-right: 0;
   }
 }
@@ -30,19 +30,19 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  margin-bottom: 30px;
-  margin-top: -20px;
+  margin-bottom: toRem(30);
+  margin-top: toRem(-20);
   &__input {
     width: 32.7%;
     display: flex;
     flex-direction: column;
     & span {
-      font-size: 12px;
-      height: 20px;
-      line-height: 20px;
+      font-size: toRem(12);
+      height: toRem(20);
+      line-height: toRem(20);
       font-weight: 600;
       color: $color-1;
-      margin-left: 12px;
+      margin-left: toRem(12);
       &.error {
         color: $color-4;
       }
@@ -50,10 +50,10 @@
   }
   & input {
     position: relative;
-    line-height: 30px;
-    border-radius: 15px;
+    line-height: toRem(30);
+    border-radius: toRem(15);
     border: 1px solid $color-8;
-    padding: 0 10px;
+    padding: 0 toRem(10);
     &.error {
       border-color: $color-4;
     }
@@ -64,7 +64,7 @@
       width: 100%;
     }
     & input {
-      margin-bottom: 20px;
+      margin-bottom: toRem(20);
       &:last-child {
         margin-bottom: 0;
       }

@@ -1,18 +1,18 @@
 @import 'styles/global';
 
 .sort {
-  width: 250px;
+  width: toRem(250);
   position: relative;
-  margin-left: 4px;
+  margin-left: toRem(4);
   justify-self: flex-end;
 }
 .button {
-  height: 30px;
-  padding: 0 5px;
+  height: toRem(30);
+  padding: 0 toRem(5);
   display: flex;
   flex-direction: row;
   align-items: center;
-  border-radius: 15px;
+  border-radius: toRem(15);
   overflow: hidden;
   border: 1px solid $color-3;
   cursor: pointer;
@@ -23,43 +23,43 @@
     text-align: center;
   }
   & img {
-    height: 24px;
+    height: toRem(24);
     filter: brightness(0);
   }
 }
 .options {
   width: 100%;
-  border-radius: 15px;
-  box-shadow: 0 0 5px $color-3;
+  border-radius: toRem(15);
+  box-shadow: 0 0 toRem(5) $color-3;
   position: absolute;
-  top: 33px;
+  top: toRem(33);
   z-index: 3;
   background-color: #fff;
   transition: all 0.3s ease;
   opacity: 0;
-  max-height: 0px;
+  max-height: 0rem;
   overflow: hidden;
   &.active {
     opacity: 1;
-    max-height: 200px;
+    max-height: toRem(200);
     cursor: pointer;
   }
 }
 .item {
-  border-radius: 15px;
+  border-radius: toRem(15);
   overflow: hidden;
 }
 .option {
-  font-size: 16px;
-  line-height: 50px;
-  border-radius: 15px;
+  font-size: toRem(16);
+  line-height: toRem(50);
+  border-radius: toRem(15);
   overflow: hidden;
   color: $color-3;
   display: flex;
   align-items: center;
-  padding: 0 30px;
+  padding: 0 toRem(30);
   @media (max-width: 360px) {
-    padding: 0 20px;
+    padding: 0 toRem(20);
   }
   &:hover {
     @media (min-width: 769px) {
