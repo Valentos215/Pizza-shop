@@ -70,12 +70,12 @@ export const removeIngredient = (
   ingredient: string,
 ) => {
   setCart(
-    cart.map((i) => {
-      if (compareItems(i, item)) {
+    cart.map((product) => {
+      if (compareItems(product, item)) {
         let newIngs = item.ingredients?.filter((ing) => ing !== ingredient);
-        return { ...i, ingredients: newIngs };
+        return { ...product, ingredients: newIngs };
       }
-      return i;
+      return product;
     }),
   );
 };

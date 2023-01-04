@@ -34,9 +34,9 @@ const CartItem = memo(({ item, handle = false }: ICartItemProps) => {
               </div>
             ))}
           </Show>
-          {/* <Show condition={handle && item.ingredients.length === 1}>
+          <Show condition={handle && item.ingredients.length === 1}>
             <div className={s.last}>{item.ingredients[0]}</div>
-          </Show> */}
+          </Show>
         </div>
       )}
       <div className={s.item__specification}>
