@@ -39,12 +39,12 @@ const CheckoutSection = memo(({ currentItem }: ICheckoutSectionProps) => {
       <Show condition={currentItem.number > 0}>
         <div className={s.checkout__count}>
           <div
-            onClick={() => minusItem(cart, setCart, currentItem)}
+            onClick={() => minusItem(setCart, currentItem)}
             className={`${s.checkout__count_button} ${s.minus}`}
           />
           <span>{('0' + currentItem.number).slice(-2)}</span>
           <div
-            onClick={() => plusItem(cart, setCart, currentItem)}
+            onClick={() => plusItem(setCart, currentItem)}
             className={`${s.checkout__count_button} ${s.plus}`}
           />
         </div>
