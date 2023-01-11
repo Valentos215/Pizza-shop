@@ -16,7 +16,9 @@ import Show from 'shared/components/show/Show';
 
 import s from 'pages/products/Products.module.scss';
 
-const Products = memo(({ match }: any) => {
+type TProductsProps = { match: { path: string } };
+
+const Products = memo(({ match }: TProductsProps) => {
   const [filter, setFilter] = useState<string[] | null>(null);
   const [sort, setSort] = useState<number>(-1);
   const [products, setProducts] = useState<IProduct[] | null>(null);
