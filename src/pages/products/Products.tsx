@@ -11,7 +11,7 @@ import {
   IProduct,
   productsToShow,
 } from 'pages/products/utils/products.utils';
-import { range } from 'utils/utils';
+import { mapProducts, range } from 'utils/utils';
 import Show from 'shared/components/show/Show';
 
 import s from 'pages/products/Products.module.scss';
@@ -21,7 +21,7 @@ const Products = memo(({ match }: any) => {
   const [sort, setSort] = useState<number>(-1);
   const [products, setProducts] = useState<IProduct[] | null>(null);
   const [expanded] = useContext(ExpandContext);
-  const { isLoading, response, error, doFetch } = useFetch(match.path.slice(1));
+  const { isLoading, response, error, doFetch } = useFetch('products/' + match.path.slice(1));
 
   const sortCriteria = ['Price low-high', 'Price high-low'];
 
@@ -38,7 +38,7 @@ const Products = memo(({ match }: any) => {
 
   useEffect(() => {
     if (response) {
-      setProducts(response);
+      setProducts(mapProducts(response));
     }
   }, [response]);
 

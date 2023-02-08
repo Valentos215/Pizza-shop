@@ -12,7 +12,7 @@ import Show from 'shared/components/show/Show';
 import { CartContext } from 'contexts/cartContext';
 import useFetch from 'shared/hooks/useFetch';
 import { ERROR_MES, NAME_VALIDATION } from 'constants/index';
-import { IDeliveryAdress, IStoreAdress } from 'pages/checkout/form/utils/form.utils';
+import { IDeliveryAdress, IStoreAdress, getOrderList } from 'pages/checkout/form/utils/form.utils';
 
 import s from 'pages/checkout/form/Form.module.scss';
 
@@ -35,11 +35,11 @@ const validation = Yup.object({
 
 const Form = memo(({ setCheckoutSuccess }: IFormProps) => {
   const [delivery, setDelivery] = useState(true);
-  const [, setCart] = useContext(CartContext);
+  const [cart, setCart] = useContext(CartContext);
   const [shouldCheck, setShouldCheck] = useState(false);
   const [deliveryAddress, setDeliveryAddress] = useState<IDeliveryAdress | null>(null);
   const [storeAddress, setStoreAddress] = useState<IStoreAdress | null>(null);
-  const { isLoading, response, doFetch } = useFetch('pizza');
+  const { isLoading, response, doFetch } = useFetch('order');
 
   const addressError = (delivery && !deliveryAddress) || (!delivery && !storeAddress);
 
@@ -53,7 +53,18 @@ const Form = memo(({ setCheckoutSuccess }: IFormProps) => {
     setShouldCheck(true);
 
     if (!addressError) {
-      doFetch();
+      doFetch({
+        method: 'post',
+        body: {
+          list: getOrderList(cart),
+          customer: {
+            name: formik.values.name,
+            phone: formik.values.phone,
+            email: formik.values.email,
+            adress: delivery ? deliveryAddress : storeAddress,
+          },
+        },
+      });
     }
   };
 

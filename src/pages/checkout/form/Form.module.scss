@@ -21,7 +21,7 @@
     margin-bottom: toRem(30);
     margin-left: toRem(25);
   }
-  @media (max-width: toRem(768)) {
+  @media (max-width: 768px) {
     margin-right: 0;
   }
 }

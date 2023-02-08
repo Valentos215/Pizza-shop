@@ -1,12 +1,25 @@
-interface ICartItem {
-  id: number;
-  size: string;
-  crust?: string;
+import { ICartItem } from 'shared/components/cartItem/utils/cartItem.utils';
+import { IPizza } from 'pages/pizza/utils/pizza.utils';
+import { IProduct } from 'pages/products/utils/products.utils';
+
+interface IPizzaResp {
+  _id: string;
   title: string;
-  img: string;
-  ingredients?: string[];
-  number: number;
-  amount: number;
+  imgUrl: string;
+  description: string[];
+  ingredients: string[];
+  baseCost: number;
+  popularity: number;
+}
+
+interface IProductResp {
+  _id: string;
+  title: string;
+  imgUrl: string;
+  category: string;
+  size: string[];
+  cost: number[];
+  weight: number[];
 }
 
 export const compareItems = (item1: ICartItem, item2: ICartItem, size?: string, crust?: string) => {
@@ -87,3 +100,17 @@ export const ucFirst = (name: string) => {
 };
 
 export const range = (length: number) => Array.from({ length: length }, (v, k) => k + 1);
+
+export const mapPizzas = (pizzas: IPizzaResp[]): IPizza[] => {
+  return pizzas.map((pizza) => {
+    const { _id, title, imgUrl, description, ingredients, baseCost, popularity } = pizza;
+    return { id: _id, title, imgUrl, description, ingredients, baseCost, popularity };
+  });
+};
+
+export const mapProducts = (products: IProductResp[]): IProduct[] => {
+  return products.map((product) => {
+    const { _id, title, imgUrl, category, size, cost, weight } = product;
+    return { id: _id, title, imgUrl, category, size, cost, weight };
+  });
+};

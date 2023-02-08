@@ -14,7 +14,7 @@ interface IProductItemProps {
 }
 
 const ProductItem = memo(({ product }: IProductItemProps) => {
-  const { id, size, title, img, weight, cost } = product;
+  const { id, size, title, imgUrl, weight, cost } = product;
   const [currentSize, setCurrentSize] = useState(size[0]);
   const [cart] = useContext(CartContext);
 
@@ -39,7 +39,7 @@ const ProductItem = memo(({ product }: IProductItemProps) => {
   return (
     <div className={s.wrapper}>
       <div className={s.image}>
-        <img className={s.image__main} src={img} alt="" />
+        <img className={s.image__main} src={imgUrl} alt="" />
         <Show condition={productInCart}>
           <img className={`${s.image__cartLogo} ${s.dark}`} src={cartLogo} alt="" />
         </Show>

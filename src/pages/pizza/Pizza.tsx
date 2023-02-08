@@ -9,7 +9,7 @@ import PizzaSkeleton from 'shared/components/productItem/PizzaSkeleton';
 import Show from 'shared/components/show/Show';
 import { ExpandContext } from 'contexts/expandContext';
 import { getFilteredIngredients, IPizza, pizzasToShow } from './utils/pizza.utils';
-import { range } from 'utils/utils';
+import { mapPizzas, range } from 'utils/utils';
 
 import s from 'pages/pizza/Pizza.module.scss';
 
@@ -20,7 +20,7 @@ const Pizza = memo(() => {
   const [memSort, setMemSort] = useLocalStorage('sort');
   const [sort, setSort] = useState<number>(Number(memSort) || 0);
   const [pizzas, setPizzas] = useState<IPizza[] | null>(null);
-  const { isLoading, response, error, doFetch } = useFetch('pizza');
+  const { isLoading, response, error, doFetch } = useFetch('pizzas');
   const [expanded] = useContext(ExpandContext);
 
   const sortCriteria = ['Popularity', 'Price low-high', 'Price high-low'];
@@ -35,7 +35,7 @@ const Pizza = memo(() => {
 
   useEffect(() => {
     if (!response) return;
-    setPizzas(response);
+    setPizzas(mapPizzas(response));
   }, [response]);
 
   useEffect(() => {

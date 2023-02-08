@@ -3,9 +3,9 @@ import { useEffect, useState, useCallback } from 'react';
 import axios from 'axios';
 
 type RespType = {
-  id: number;
+  _id: string;
   title: string;
-  img: string;
+  imgUrl: string;
   baseCost: number;
   cost: number[];
   popularity: number;

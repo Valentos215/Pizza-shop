@@ -8,7 +8,7 @@ interface IGetCountParams {
   cart: ICartItem[];
   currentSize: string;
   currentCrust: string;
-  pizzaId: number;
+  pizzaId: string;
 }
 
 export const getCount = ({ cart, currentSize, currentCrust, pizzaId }: IGetCountParams): number => {
