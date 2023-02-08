@@ -12,14 +12,14 @@ interface ICheckoutSectionProps {
 }
 
 const CheckoutSection = memo(({ currentItem }: ICheckoutSectionProps) => {
-  const { id, title, img, size, crust, ingredients, amount, number } = currentItem;
+  const { id, title, imgUrl, size, crust, ingredients, amount, number } = currentItem;
   const [cart, setCart] = useContext(CartContext);
 
   const onCartClick = () => {
     if (crust) {
-      setCart([...cart, { id, title, img, size, crust, ingredients, number: 1, amount }]);
+      setCart([...cart, { id, title, imgUrl, size, crust, ingredients, number: 1, amount }]);
     } else {
-      setCart([...cart, { id, title, img, size, number: 1, amount }]);
+      setCart([...cart, { id, title, imgUrl, size, number: 1, amount }]);
     }
   };
 

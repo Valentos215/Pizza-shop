@@ -3,7 +3,7 @@ import { ICartItem } from 'shared/components/cartItem/utils/cartItem.utils';
 interface IGetProductCountParams {
   cart: ICartItem[];
   currentSize: string;
-  productId: number;
+  productId: string;
 }
 
 export const getProductCount = ({

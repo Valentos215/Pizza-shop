@@ -42,7 +42,7 @@ const Cart = memo(() => {
         <Show condition={!cartIsEmpty}>
           <div className={expandClassName}>
             {cart
-              .sort((a, b) => a.id - b.id)
+              .sort((a, b) => b.amount - a.amount)
               .map((item) => (
                 <div key={item.id + item.size + item.crust} className={s.expand__item}>
                   <CartItem item={item} />

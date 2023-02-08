@@ -16,7 +16,7 @@ interface IPizzaItemProps {
 }
 
 const PizzaItem = memo(({ pizza }: IPizzaItemProps) => {
-  const { img, title, ingredients, description, baseCost } = pizza;
+  const { imgUrl, title, ingredients, description, baseCost } = pizza;
   const [currentSize, setCurrentSize] = useState(PIZZA_SIZES[0]);
   const [currentCrust, setCurrentCrust] = useState(PIZZA_CRUSTS[0]);
   const [cart] = useContext(CartContext);
@@ -63,7 +63,7 @@ const PizzaItem = memo(({ pizza }: IPizzaItemProps) => {
   return (
     <div className={s.wrapper}>
       <div className={s.image}>
-        <img className={s.image__main} src={img} alt="" />
+        <img className={s.image__main} src={imgUrl} alt="" />
         <Show condition={pizzaInCart}>
           <img className={s.image__cartLogo} src={cartLogo} alt="" />
         </Show>
