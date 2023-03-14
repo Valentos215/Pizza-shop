@@ -39,7 +39,7 @@ const Form = memo(({ setCheckoutSuccess }: IFormProps) => {
   const [shouldCheck, setShouldCheck] = useState(false);
   const [deliveryAddress, setDeliveryAddress] = useState<IDeliveryAdress | null>(null);
   const [storeAddress, setStoreAddress] = useState<IStoreAdress | null>(null);
-  const { isLoading, response, doFetch } = useFetch('order');
+  const { isLoading, response, error, doFetch } = useFetch('order');
 
   const addressError = (delivery && !deliveryAddress) || (!delivery && !storeAddress);
 
@@ -55,7 +55,7 @@ const Form = memo(({ setCheckoutSuccess }: IFormProps) => {
     if (!addressError) {
       doFetch({
         method: 'post',
-        body: {
+        data: {
           list: getOrderList(cart),
           customer: {
             name: formik.values.name,
@@ -86,6 +86,10 @@ const Form = memo(({ setCheckoutSuccess }: IFormProps) => {
   const nameError = (touched.name && errors.name) || errors.name === ERROR_MES.NameLong;
   const emailError = (touched.email && errors.email) || errors.email === ERROR_MES.EmailLength;
   const phoneError = touched.phone && errors.phone;
+
+  if (error) {
+    return <h2>Something went wrong</h2>;
+  }
 
   return (
     <div className={s.wrapper}>
