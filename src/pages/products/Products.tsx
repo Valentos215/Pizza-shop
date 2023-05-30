@@ -13,6 +13,7 @@ import {
 } from 'pages/products/utils/products.utils';
 import { mapProducts, range } from 'utils/utils';
 import Show from 'shared/components/show/Show';
+import { PRODUCTS_SORT_CRITERIA } from 'constants/index';
 
 import s from 'pages/products/Products.module.scss';
 
@@ -24,8 +25,6 @@ const Products = memo(({ match }: TProductsProps) => {
   const [products, setProducts] = useState<IProduct[] | null>(null);
   const [expanded] = useContext(ExpandContext);
   const { isLoading, response, error, doFetch } = useFetch('products/' + match.path.slice(1));
-
-  const sortCriteria = ['Price low-high', 'Price high-low'];
 
   const itemsList = productsToShow({ products, filter, sort });
 
@@ -58,7 +57,7 @@ const Products = memo(({ match }: TProductsProps) => {
               />
             </Show>
             <div className={s.filters__space}></div>
-            <Sort sortCriteria={sortCriteria} setSort={setSort} />
+            <Sort sortCriteria={PRODUCTS_SORT_CRITERIA} setSort={setSort} />
           </div>
           <Show condition={!!error}>
             <h2>Something went wrong</h2>

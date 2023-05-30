@@ -28,7 +28,7 @@ const Cart = memo(() => {
         >
           <div className={s.counter}>
             <span>{totalNumber(cart)}</span>
-            <img src={cartLogo} alt=""></img>
+            <img src={cartLogo} alt="Cart logo"></img>
           </div>
           <Show condition={!cartIsEmpty}>
             <label className={s.amount}>{`${totalAmount(cart)}.00 uah`}</label>
@@ -55,7 +55,7 @@ const Cart = memo(() => {
         <Link to={!cartIsEmpty ? 'checkout' : '#'} className={s.viewer}>
           <div className={s.counter}>
             <span>00</span>
-            <img src={cartLogo} alt=""></img>
+            <img src={cartLogo} alt="Cart logo"></img>
           </div>
           <Show condition={!cartIsEmpty}>
             <label className={s.amount}>{`${totalAmount(cart)}.00 uah`}</label>

@@ -32,6 +32,10 @@ export enum ERouterLink {
   Checkout = '/checkout',
 }
 
+export const PIZZA_SORT_CRITERIA = ['Popularity', 'Price low-high', 'Price high-low'];
+
+export const PRODUCTS_SORT_CRITERIA = ['Price low-high', 'Price high-low'];
+
 export const PIZZA_SIZES = ['Standard size', 'Large', 'New Yorker'];
 
 export const PIZZA_CRUSTS = ['Standard crust', 'Thin', 'Philadelphia', 'Hot-Dog Crust'];

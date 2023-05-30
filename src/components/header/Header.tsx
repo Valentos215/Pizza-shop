@@ -26,8 +26,8 @@ const Header = memo(() => {
               className={s.header__logo}
               onClick={() => setExpanded(false)}
             >
-              <img alt="" src={logo} />
-              <img alt="" src={logoText} />
+              <img alt="Dominos logo" src={logo} />
+              <img alt="Dominos logo" src={logoText} />
             </Link>
             <nav className={s.nav}>
               {NAV_MENU.map((item) => (

@@ -37,7 +37,7 @@ const Filter = memo(({ title, specification, setFilter, invert }: IFilterProps) 
         }}
       >
         <span>{title ? title : 'Filter'}</span>
-        <img src={filterLogo} alt="" />
+        <img src={filterLogo} alt="Filter logo" />
       </div>
       <div className={expandedClassName}>
         <Show condition={!!specification}>

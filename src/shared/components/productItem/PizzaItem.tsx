@@ -63,9 +63,9 @@ const PizzaItem = memo(({ pizza }: IPizzaItemProps) => {
   return (
     <div className={s.wrapper}>
       <div className={s.image}>
-        <img className={s.image__main} src={imgUrl} alt="" />
+        <img className={s.image__main} src={imgUrl} alt={title} />
         <Show condition={pizzaInCart}>
-          <img className={s.image__cartLogo} src={cartLogo} alt="" />
+          <img className={s.image__cartLogo} src={cartLogo} alt="Cart logo" />
         </Show>
         <span>{PIZZA_WEIGHT[PIZZA_SIZES.indexOf(currentSize)]}g</span>
       </div>

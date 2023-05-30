@@ -26,7 +26,7 @@ const Sort = memo(({ sortCriteria, setSort }: ISortProps) => {
     <div className={s.sort} tabIndex={3} onBlur={() => setExpanded(false)}>
       <div className={s.button} onClick={() => setExpanded(!expanded)}>
         <span>Sort</span>
-        <img src={sortLogo} alt=""></img>
+        <img src={sortLogo} alt="Sort logo"></img>
       </div>
       <div className={expandClassName}>
         {sortCriteria &&

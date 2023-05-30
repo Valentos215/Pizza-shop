@@ -21,7 +21,7 @@ const Order = memo(() => {
           .map((item) => (
             <div key={item.id + item.id + item.size + item.crust} className={s.item}>
               <div className={s.image}>
-                <img src={item.imgUrl} alt=""></img>
+                <img src={item.imgUrl} alt={item.title}></img>
               </div>
               <div className={s.body}>
                 <CartItem item={item} handle={true} />

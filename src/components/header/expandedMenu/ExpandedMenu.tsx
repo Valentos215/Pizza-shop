@@ -18,7 +18,7 @@ const ExpandedMenu = memo(({ expanded, setExpanded }: IExpandMenuProps) => {
         {NAV_MENU.map((item) => (
           <Link to={item.title} className={s.item} key={item.title}>
             <div className={s.item__wrapper}>
-              <img src={item.logo} alt=""></img>
+              <img src={item.logo} alt={item.title}></img>
               <span>{ucFirst(item.title)}</span>
             </div>
           </Link>

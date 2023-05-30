@@ -39,9 +39,9 @@ const ProductItem = memo(({ product }: IProductItemProps) => {
   return (
     <div className={s.wrapper}>
       <div className={s.image}>
-        <img className={s.image__main} src={imgUrl} alt="" />
+        <img className={s.image__main} src={imgUrl} alt={title} />
         <Show condition={productInCart}>
-          <img className={`${s.image__cartLogo} ${s.dark}`} src={cartLogo} alt="" />
+          <img className={`${s.image__cartLogo} ${s.dark}`} src={cartLogo} alt="Cart logo" />
         </Show>
         {!!currentWeight && <span>{currentWeight}g</span>}
       </div>

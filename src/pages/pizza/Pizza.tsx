@@ -10,6 +10,7 @@ import Show from 'shared/components/show/Show';
 import { ExpandContext } from 'contexts/expandContext';
 import { getFilteredIngredients, IPizza, pizzasToShow } from './utils/pizza.utils';
 import { mapPizzas, range } from 'utils/utils';
+import { PIZZA_SORT_CRITERIA } from 'constants/index';
 
 import s from 'pages/pizza/Pizza.module.scss';
 
@@ -22,8 +23,6 @@ const Pizza = memo(() => {
   const [pizzas, setPizzas] = useState<IPizza[] | null>(null);
   const { isLoading, response, error, doFetch } = useFetch('pizzas');
   const [expanded] = useContext(ExpandContext);
-
-  const sortCriteria = ['Popularity', 'Price low-high', 'Price high-low'];
 
   const itemsList = pizzasToShow({ pizzas, filter, sort, invert });
 
@@ -56,7 +55,7 @@ const Pizza = memo(() => {
               setFilter={setFilter}
               invert={invert}
             />
-            <Sort sortCriteria={sortCriteria} setSort={setSort} />
+            <Sort sortCriteria={PIZZA_SORT_CRITERIA} setSort={setSort} />
           </div>
           <Show condition={!!error}>
             <h2>Something went wrong</h2>

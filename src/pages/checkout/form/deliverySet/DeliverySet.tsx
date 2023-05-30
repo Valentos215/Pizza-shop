@@ -17,11 +17,11 @@ const DeliverySet = memo(({ delivery, setDelivery }: IDeliverySetProps) => {
   return (
     <div className={s.delivery}>
       <div className={deliveryClassName} onClick={() => setDelivery(true)}>
-        <img src={deliveryLogo} alt="" />
+        <img src={deliveryLogo} alt="Delivery logo" />
         <span>Delivery</span>
       </div>
       <div className={carryOutClassName} onClick={() => setDelivery(false)}>
-        <img src={carryOutLogo} alt="" />
+        <img src={carryOutLogo} alt="CarryOut logo" />
         <span>Carry out</span>
       </div>
     </div>
