@@ -1,11 +1,7 @@
 import { memo } from 'react';
-
-import pizzaLogo from 'assets/Pizza.svg';
-import drinksLogo from 'assets/Drinks.svg';
-import sidesLogo from 'assets/Sides.svg';
-import dessertLogo from 'assets/Dessert.svg';
 import { Link } from 'react-router-dom';
 import { ucFirst } from 'utils/utils';
+import { NAV_MENU } from 'constants/index';
 
 import s from './ExpandedMenu.module.scss';
 interface IExpandMenuProps {
@@ -14,27 +10,20 @@ interface IExpandMenuProps {
 }
 
 const ExpandedMenu = memo(({ expanded, setExpanded }: IExpandMenuProps) => {
-  const menu = [
-    { name: 'pizza', logo: pizzaLogo },
-    { name: 'drinks', logo: drinksLogo },
-    { name: 'sides', logo: sidesLogo },
-    { name: 'dessert', logo: dessertLogo },
-  ];
-
   const menuClassName = expanded ? `${s.menu} ${s.expanded}` : s.menu;
 
   return (
     <div className={menuClassName} onClick={() => setExpanded(false)}>
-      <div className={s.menu__items}>
-        {menu.map((item) => (
-          <Link to={item.name} className={s.item} key={item.name}>
+      <nav className={s.menu__items}>
+        {NAV_MENU.map((item) => (
+          <Link to={item.title} className={s.item} key={item.title}>
             <div className={s.item__wrapper}>
               <img src={item.logo} alt=""></img>
-              <span>{ucFirst(item.name)}</span>
+              <span>{ucFirst(item.title)}</span>
             </div>
           </Link>
         ))}
-      </div>
+      </nav>
     </div>
   );
 });

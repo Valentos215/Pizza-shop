@@ -18,7 +18,7 @@ const Header = memo(() => {
   return (
     <>
       <ExpandedMenu expanded={expanded} setExpanded={setExpanded} />
-      <div className={s.header}>
+      <header className={s.header}>
         <div className="container">
           <div className={s.header__wrapper}>
             <Link
@@ -29,7 +29,7 @@ const Header = memo(() => {
               <img alt="" src={logo} />
               <img alt="" src={logoText} />
             </Link>
-            <div className={s.nav}>
+            <nav className={s.nav}>
               {NAV_MENU.map((item) => (
                 <NavLink
                   key={item.title}
@@ -40,7 +40,7 @@ const Header = memo(() => {
                   {item.title}
                 </NavLink>
               ))}
-            </div>
+            </nav>
             <div className={s.right_column}>
               <div onClick={() => setExpanded(false)}>
                 <Cart />
@@ -52,7 +52,7 @@ const Header = memo(() => {
             </div>
           </div>
         </div>
-      </div>
+      </header>
     </>
   );
 });

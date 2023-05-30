@@ -1,8 +1,13 @@
+import pizzaLogo from 'assets/Pizza.svg';
+import drinksLogo from 'assets/Drinks.svg';
+import sidesLogo from 'assets/Sides.svg';
+import dessertLogo from 'assets/Dessert.svg';
+
 export const NAV_MENU = [
-  { title: 'Pizza', link: 'pizza' },
-  { title: 'Drinks', link: 'drinks' },
-  { title: 'Sides', link: 'sides' },
-  { title: 'Dessert', link: 'dessert' },
+  { title: 'Pizza', link: 'pizza', logo: pizzaLogo },
+  { title: 'Drinks', link: 'drinks', logo: drinksLogo },
+  { title: 'Sides', link: 'sides', logo: sidesLogo },
+  { title: 'Dessert', link: 'dessert', logo: dessertLogo },
 ];
 
 export const ERROR_MES = {

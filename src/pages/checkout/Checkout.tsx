@@ -28,10 +28,10 @@ const Checkout = memo(() => {
   return (
     <div className={scrollClassNames}>
       <div className={'container'}>
-        <div className={s.wrapper}>
+        <main className={s.wrapper}>
           <Order />
           <Form setCheckoutSuccess={setCheckoutSuccess} />
-        </div>
+        </main>
       </div>
     </div>
   );

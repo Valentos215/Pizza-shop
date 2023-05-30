@@ -47,7 +47,7 @@ const Products = memo(({ match }: TProductsProps) => {
   return (
     <div className={scrollClassNames}>
       <div className={'container'}>
-        <div className={s.wrapper}>
+        <main className={s.wrapper}>
           <div className={s.filters}>
             <Show condition={!!products && !!products[0].category}>
               <Filter
@@ -79,7 +79,7 @@ const Products = memo(({ match }: TProductsProps) => {
                 ))}
             </Show>
           </div>
-        </div>
+        </main>
       </div>
     </div>
   );

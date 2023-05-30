@@ -1,127 +1,127 @@
-@import 'styles/global';
+@import "styles/global";
 
 .header {
-  position: fixed;
-  z-index: 7;
-  background-color: $color-1;
-  margin: 0 auto;
-  width: 100%;
-  height: toRem(70);
-  display: flex;
-  align-items: center;
-  &__wrapper {
-    flex: 0 1 100%;
-    justify-content: space-between;
-    margin: 0 auto;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-  }
-  &__logo {
-    display: flex;
-    align-items: center;
-    & img {
-      height: toRem(34);
-      &:last-child {
-        margin-left: toRem(-32);
+   position: fixed;
+   z-index: 7;
+   background-color: $color-1;
+   margin: 0 auto;
+   width: 100%;
+   height: toRem(70);
+   display: flex;
+   align-items: center;
+   &__wrapper {
+      flex: 0 1 100%;
+      justify-content: space-between;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+   }
+   &__logo {
+      display: flex;
+      align-items: center;
+      & img {
+         height: toRem(34);
+         &:last-child {
+            margin-left: toRem(-32);
+         }
+         @media (max-width: 1024px) {
+            &:last-child {
+               display: none;
+            }
+         }
+         @media (max-width: 768px) {
+            &:last-child {
+               display: block;
+            }
+         }
+         @media (max-width: 480px) {
+            &:last-child {
+               display: none;
+            }
+         }
       }
-      @media (max-width: 1024px) {
-        &:last-child {
-          display: none;
-        }
-      }
-      @media (max-width: 768px) {
-        &:last-child {
-          display: block;
-        }
-      }
-      @media (max-width: 480px) {
-        &:last-child {
-          display: none;
-        }
-      }
-    }
-  }
+   }
 }
 .nav {
-  justify-content: center;
-  display: flex;
-  width: 100%;
-  @media (max-width: 768px) {
-    display: none;
-  }
-  & a {
-    color: $color-7;
-  }
-  &__link {
-    width: 22%;
-    font-size: toRem(18);
-    letter-spacing: toRem(2);
-    line-height: toRem(70);
-    text-align: center;
-    &:hover {
-      @media (min-width: 769px) {
-        font-weight: 700;
+   justify-content: center;
+   display: flex;
+   width: 100%;
+   @media (max-width: 768px) {
+      display: none;
+   }
+   & a {
+      color: $color-7;
+   }
+   &__link {
+      width: 22%;
+      font-size: toRem(18);
+      letter-spacing: toRem(2);
+      line-height: toRem(70);
+      text-align: center;
+      &:hover {
+         @media (min-width: 769px) {
+            font-weight: 700;
+         }
       }
-    }
-  }
-  & .active {
-    font-weight: 700;
-    color: #fff;
-  }
+   }
+   & .active {
+      font-weight: 700;
+      color: #fff;
+   }
 }
 .right_column {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
+   display: flex;
+   flex-direction: row;
+   align-items: center;
 }
 .burger {
-  display: none;
-  margin-left: toRem(20);
-  position: relative;
-  z-index: 3;
-  width: toRem(30);
-  height: toRem(20);
-  cursor: pointer;
-  &:before,
-  :after {
-    content: '';
-    background-color: #fff;
-    position: absolute;
-    width: toRem(30);
-    height: toRem(2);
-    transition: all 0.3s ease 0s;
-  }
-  & :after {
-    top: toRem(9);
-  }
-  & span {
-    background-color: #fff;
-    position: absolute;
-    width: toRem(30);
-    height: toRem(2);
-    top: toRem(9);
-    transform: scale(1);
-    transition: all 0.3s ease 0s;
-  }
-  & span:first-child {
-    background: $color-9;
-  }
-
-  &.active {
-    & span:last-child {
-      transform: scale(0);
-    }
-    &:before {
-      transform: rotate(45deg);
+   display: none;
+   margin-left: toRem(20);
+   position: relative;
+   z-index: 3;
+   width: toRem(30);
+   height: toRem(20);
+   cursor: pointer;
+   &:before,
+   :after {
+      content: "";
+      background-color: #fff;
+      position: absolute;
+      width: toRem(30);
+      height: toRem(2);
+      transition: all 0.3s ease 0s;
+   }
+   & :after {
       top: toRem(9);
-    }
-    & :after {
-      transform: rotate(-45deg);
-      top: 0rem;
-    }
-  }
-  @media (max-width: 768px) {
-    display: block;
-  }
+   }
+   & span {
+      background-color: #fff;
+      position: absolute;
+      width: toRem(30);
+      height: toRem(2);
+      top: toRem(9);
+      transform: scale(1);
+      transition: all 0.3s ease 0s;
+   }
+   & span:first-child {
+      background: $color-9;
+   }
+
+   &.active {
+      & span:last-child {
+         transform: scale(0);
+      }
+      &:before {
+         transform: rotate(45deg);
+         top: toRem(9);
+      }
+      & :after {
+         transform: rotate(-45deg);
+         top: 0rem;
+      }
+   }
+   @media (max-width: 768px) {
+      display: block;
+   }
 }

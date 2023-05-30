@@ -49,7 +49,7 @@ const Pizza = memo(() => {
   return (
     <div className={scrollClassNames}>
       <div className="container">
-        <div className={s.wrapper}>
+        <main className={s.wrapper}>
           <div className={s.filters}>
             <Filter
               specification={getFilteredIngredients(pizzas)}
@@ -80,7 +80,7 @@ const Pizza = memo(() => {
                 itemsList.map((pizza: IPizza) => <PizzaItem key={pizza.id} pizza={pizza} />)}
             </Show>
           </div>
-        </div>
+        </main>
       </div>
     </div>
   );
